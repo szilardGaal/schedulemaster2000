@@ -12,7 +12,6 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 import javax.sql.DataSource;
 import java.sql.Connection;
-import java.sql.SQLException;
 
 @WebListener
 public final class WebappContextListener implements ServletContextListener {
@@ -63,9 +62,9 @@ public final class WebappContextListener implements ServletContextListener {
         */
         try (Connection connection = dataSource.getConnection()) {
             ScriptUtils.executeSqlScript(connection, new ClassPathResource(resource));
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            throw new IllegalStateException(ex);
+        } catch (Throwable t) {
+            t.printStackTrace();
+            throw new IllegalStateException(t);
         }
         /*
             Doing this is basically it's equivalent to this
@@ -74,9 +73,9 @@ public final class WebappContextListener implements ServletContextListener {
             try {
                 connection = dataSource.getConnection();
                 ScriptUtils.executeSqlScript(connection, new ClassPathResource(resource));
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-                throw new IllegalStateException(ex);
+            } catch (Throwable t) {
+                t.printStackTrace();
+                throw new IllegalStateException(t);
             } finally {
                 if (connection != null) {
                     try {
