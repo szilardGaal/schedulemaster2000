@@ -1,3 +1,10 @@
+#ScheduleMaster2000
+
+descr:
+https://learn.code.cool/msc-web-java/#/pages/15-java-oop-web-db-3rd-si-tw/31-schedule-master-2000
+
+
+#=======================================OLD README===================================================
 # About
 
 Quickstart repo for a Maven managed AJAX web-application using Servlets and JDBC.
