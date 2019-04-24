@@ -1,71 +1,114 @@
 /*
     Database initialization script that runs on every web-application redeployment.
 */
-DROP TABLE IF EXISTS coupons_shops;
-DROP TABLE IF EXISTS coupons;
-DROP TABLE IF EXISTS shops;
+DO $$ BEGIN
+
+DROP TABLE IF EXISTS slots;
+DROP TABLE IF EXISTS tasks;
+DROP TABLE IF EXISTS schedule_columns;
+DROP TABLE IF EXISTS schedules;
 DROP TABLE IF EXISTS users;
 
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
-    email TEXT UNIQUE NOT NULL,
-    password TEXT NOT NULL,
-	CONSTRAINT email_not_empty CHECK (email <> ''),
-	CONSTRAINT password_not_empty CHECK (password <> '')
-);
-
-CREATE TABLE shops (
-    id SERIAL PRIMARY KEY,
     name TEXT NOT NULL,
-	CONSTRAINT name_not_empty CHECK (name <> '')
-);
-
-CREATE TABLE coupons (
-    id SERIAL PRIMARY KEY,
-    name TEXT NOT NULL,
-    percentage INTEGER NOT NULL,
+    password varchar(20) NOT NULL,
     CONSTRAINT name_not_empty CHECK (name <> ''),
-	CONSTRAINT percentage_between_bounds CHECK (percentage >= 0 AND percentage <= 100)
+    CONSTRAINT password_not_empty CHECK (password <> '')
 );
 
-CREATE TABLE coupons_shops (
-    coupon_id INTEGER,
-    shop_id INTEGER,
-    PRIMARY KEY (coupon_id, shop_id),
-    FOREIGN KEY (coupon_id) REFERENCES coupons(id),
-    FOREIGN KEY (shop_id) REFERENCES shops(id)
+CREATE TABLE schedules(
+    id SERIAL PRIMARY KEY,
+    user_id int,
+    title text NOT NULL,
+    numOfCol int NOT NULL,
+    isPublic boolean DEFAULT false,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    CONSTRAINT limited_num_of_col CHECK ( numOfCol > 0 AND numOfCol <= 7 ),
+    CONSTRAINT title_not_empty CHECK ( title <> '' )
 );
 
-INSERT INTO users (email, password) VALUES
-	('user1@user1', 'user1'), -- 1
-	('user2@user2', 'user2'), -- 2
-	('user2@user3', 'user3'); -- 3
+CREATE TABLE schedule_columns(
+    id SERIAL PRIMARY KEY,
+    schedule_id int,
+    title varchar(150) NOT NULL,
+    FOREIGN KEY (schedule_id) REFERENCES schedules(id),
+    CONSTRAINT title_not_empty CHECK ( title <> '' )
+);
 
-INSERT INTO shops (name) VALUES
-	('SPAR'),   -- 1
-	('Tesco'),  -- 2
-	('Auchan'), -- 3
-	('LIDL'),   -- 4
-	('ALDI');   -- 5
+CREATE TABLE tasks(
+    id SERIAL PRIMARY KEY,
+    user_id int,
+    title varchar(150) NOT NULL,
+    content text,
+    begins int,
+    ends int,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    CONSTRAINT title_not_empty CHECK ( title <> '' ),
+    CONSTRAINT limit_begins CHECK ( begins >= 1 AND begins <= 24 ),
+    CONSTRAINT limit_ends CHECK ( ends >= 1 AND ends <= 24 AND ends > begins )
+);
 
-INSERT INTO coupons (name, percentage) VALUES
-	('Sausage discount', 10),           -- 1
-	('Bread super-sale', 50),           -- 2
-	('Bread super-sale', 40),           -- 3
-	('20% off from EVERYTHING!', 20),   -- 4
-	('1 product for FREE!', 100);       -- 5
+CREATE TABLE slots(
+    column_id int,
+    task_id int DEFAULT null,
+    time varchar(5),
+    FOREIGN KEY (column_id) REFERENCES schedule_columns(id),
+    FOREIGN KEY (task_id) REFERENCES tasks(id)
+);
 
-INSERT INTO coupons_shops (coupon_id, shop_id) VALUES
-    (1, 1), -- 1
-    (1, 2),
-    (1, 3),
-    (2, 1), -- 2
-    (2, 2),
-    (2, 3),
-    (2, 5),
-    (3, 1), -- 3
-    (3, 2),
-    (3, 5),
-    (4, 3), -- 4
-    (5, 2), -- 5
-    (5, 5);
+CREATE OR REPLACE FUNCTION create_columns_on_schedule() RETURNS TRIGGER AS $A$
+    DECLARE
+        count int := 1;
+    BEGIN
+        LOOP
+            INSERT INTO schedule_columns (schedule_id, title) VALUES (NEW.id, 'Day '||count);
+            count := count + 1;
+            EXIT WHEN count = NEW.numOfCol;
+        end loop;
+        RETURN NEW;
+    END; $A$
+    LANGUAGE plpgsql;
+
+
+CREATE TRIGGER columns_on_schedule
+    AFTER INSERT
+    ON schedules
+    FOR EACH ROW
+EXECUTE PROCEDURE create_columns_on_schedule();
+
+
+
+CREATE OR REPLACE FUNCTION create_slots_on_columns() RETURNS TRIGGER AS $A$
+DECLARE
+    count int := 1;
+BEGIN
+    LOOP
+        INSERT INTO slots (column_id, time) VALUES (NEW.id, count||':00');
+        count := count + 1;
+        EXIT WHEN count = 25;
+    end loop;
+    RETURN NEW;
+END; $A$
+    LANGUAGE plpgsql;
+
+
+CREATE TRIGGER slots_on_columns
+    AFTER INSERT
+    ON schedule_columns
+    FOR EACH ROW
+EXECUTE PROCEDURE create_slots_on_columns();
+
+
+INSERT INTO users(name, password) VALUES ('test', 'test');
+
+INSERT INTO schedules(user_id, title, numOfCol) VALUES (1, 'title', '2');
+INSERT INTO schedules(user_id, title, numOfCol) VALUES (1, 'title', '3');
+
+INSERT INTO tasks(user_id, title, content) VALUES (1, 'task title', 'task content');
+
+
+END $$
+
+
+
