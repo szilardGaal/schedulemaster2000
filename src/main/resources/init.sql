@@ -57,6 +57,9 @@ CREATE TABLE slots(
     FOREIGN KEY (task_id) REFERENCES tasks(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+
+/*Creates the given number of columns previously defined for the specific schedule by user*/
+
 CREATE OR REPLACE FUNCTION create_columns_on_schedule() RETURNS TRIGGER AS $A$
     DECLARE
         count int := 0;
@@ -77,7 +80,7 @@ CREATE TRIGGER columns_on_schedule
     FOR EACH ROW
 EXECUTE PROCEDURE create_columns_on_schedule();
 
-
+/*Automatically creates 24 hour slots for each column (day) in the schedule)*/
 
 CREATE OR REPLACE FUNCTION create_slots_on_columns() RETURNS TRIGGER AS $A$
 DECLARE
@@ -99,6 +102,8 @@ CREATE TRIGGER slots_on_columns
     FOR EACH ROW
 EXECUTE PROCEDURE create_slots_on_columns();
 
+/*Update on slots only necessary once, called on the beginning date of the task added to the schedule, the following
+  slots will be added automatically according to the previously defined duration*/
 
 CREATE OR REPLACE FUNCTION add_tasks_to_slots() RETURNS TRIGGER AS $A$
 BEGIN
