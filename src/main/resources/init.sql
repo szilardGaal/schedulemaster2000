@@ -107,6 +107,8 @@ INSERT INTO schedules(user_id, title, numOfCol) VALUES (1, 'title', '3');
 
 INSERT INTO tasks(user_id, title, content) VALUES (1, 'task title', 'task content');
 
+UPDATE slots SET task_id = 1 WHERE column_id = 1 AND time = '1:00';
+
 
 END $$
 
