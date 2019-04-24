@@ -43,7 +43,7 @@ public final class WebappContextListener implements ServletContextListener {
             */
             Context initCtx = new InitialContext();
             Context envCtx = (Context) initCtx.lookup("java:comp/env");
-            DataSource dataSource = (DataSource) envCtx.lookup("jdbc/couponStore");
+            DataSource dataSource = (DataSource) envCtx.lookup("jdbc/scheduleMaster");
             ServletContext servletCtx = sce.getServletContext();
             servletCtx.setAttribute("dataSource", dataSource);
             return dataSource;
