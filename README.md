@@ -14,12 +14,12 @@ Quickstart repo for a Maven managed AJAX web-application using Servlets and JDBC
 Before deploying to a webserver create a `Resource` like in your webserver's config (e.g. for Apache Tomcat in `conf/context.xml`).
 
 ```
-<Resource name="jdbc/couponStore"
+<Resource name="jdbc/scheduleMaster"
           type="javax.sql.DataSource"
           username="postgres"
           password="admin"
           driverClassName="org.postgresql.Driver"
-          url="jdbc:postgresql://localhost:5432/coupon_store"
+          url="jdbc:postgresql://localhost:5432/schedule_master"
           closeMethod="close"/>
 ```
 
