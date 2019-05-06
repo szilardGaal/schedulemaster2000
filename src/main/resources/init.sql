@@ -80,35 +80,16 @@ CREATE TRIGGER columns_on_schedule
     FOR EACH ROW
 EXECUTE PROCEDURE create_columns_on_schedule();
 
-/*Automatically creates 24 hour slots for each column (day) in the schedule)*/
 
-CREATE OR REPLACE FUNCTION create_slots_on_columns() RETURNS TRIGGER AS $A$
-DECLARE
-    count int := 1;
-BEGIN
-    LOOP
-        INSERT INTO slots (column_id, time) VALUES (NEW.id, count||':00');
-        count := count + 1;
-        EXIT WHEN count = 25;
-    end loop;
-    RETURN NEW;
-END; $A$
-    LANGUAGE plpgsql;
-
-
-CREATE TRIGGER slots_on_columns
-    AFTER INSERT
-    ON schedule_columns
-    FOR EACH ROW
-EXECUTE PROCEDURE create_slots_on_columns();
 
 /*Update on slots only necessary once, called on the beginning date of the task added to the schedule, the following
   slots will be added automatically according to the previously defined duration*/
 
+
 CREATE OR REPLACE FUNCTION add_tasks_to_slots() RETURNS TRIGGER AS $A$
 BEGIN
-    IF NEW.time != ((SELECT begins FROM tasks WHERE id=NEW.task_id)+(SELECT duration FROM tasks WHERE id=NEW.task_id)-1)||':00' THEN
-        UPDATE slots SET task_id=NEW.task_id WHERE column_id = NEW.column_id AND time = ((split_part(NEW.time, ':', 1))::int)+1||':00';
+    IF NEW.time != ((SELECT begins FROM tasks WHERE id=NEW.task_id)+(SELECT duration FROM tasks WHERE id=NEW.task_id)-2)||':00' THEN
+        INSERT INTO slots (task_id, column_id, time) VALUES (NEW.task_id, NEW.column_id, ((split_part(NEW.time, ':', 1))::int)+1||':00');
     end if;
     RETURN NEW;
 END; $A$
@@ -120,7 +101,11 @@ CREATE TRIGGER task_on_slots
     FOR EACH ROW
 EXECUTE PROCEDURE  add_tasks_to_slots();
 
-
+CREATE TRIGGER task_on_slots_insert
+    AFTER INSERT
+    ON slots
+    FOR EACH ROW
+EXECUTE PROCEDURE add_tasks_to_slots();
 
 
 
@@ -134,9 +119,8 @@ INSERT INTO tasks(user_id, title, content, begins, duration) VALUES (1, 'task ti
 INSERT INTO tasks(user_id, title, content, begins, duration) VALUES (1, 'task title', 'task content', 7, 3);
 INSERT INTO tasks(user_id, title, content, begins, duration) VALUES (1, 'task title', 'task content', 13, 4);
 
-UPDATE slots SET task_id = 1 WHERE column_id = 1 AND time = (SELECT begins FROM tasks WHERE id = 1)||':00';
-UPDATE slots SET task_id = 2 WHERE column_id = 1 AND time = (SELECT begins FROM tasks WHERE id = 2)||':00';
-UPDATE slots SET task_id = 3 WHERE column_id = 1 AND time = (SELECT begins FROM tasks WHERE id = 3)||':00';
+INSERT INTO slots(column_id, task_id, time) VALUES (2, 3, (SELECT begins FROM tasks WHERE id = 3)||':00');
+
 
 
 
