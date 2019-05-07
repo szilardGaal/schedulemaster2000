@@ -5,6 +5,6 @@ function onProfileLoad(user) {
     const userEmailSpanEl = document.getElementById('user-email');
     const userPasswordSpanEl = document.getElementById('user-password');
 
-    userEmailSpanEl.textContent = user.email;
+    userEmailSpanEl.textContent = user.userName;
     userPasswordSpanEl.textContent = user.password;
 }
