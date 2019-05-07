@@ -12,6 +12,7 @@ let shopContentDivEl;
 let shopsContentDivEl;
 let backToProfileContentDivEl;
 let logoutContentDivEl;
+let registerContentDivEl;
 
 function newInfo(targetEl, message) {
     newMessage(targetEl, 'info', message);
@@ -99,6 +100,7 @@ function setUnauthorized() {
 
 function onLoad() {
     loginContentDivEl = document.getElementById('login-content');
+    registerContentDivEl = document.getElementById('register-content');
     profileContentDivEl = document.getElementById('profile-content');
     couponContentDivEl = document.getElementById('coupon-content');
     couponsContentDivEl = document.getElementById('coupons-content');
@@ -106,6 +108,9 @@ function onLoad() {
     shopsContentDivEl = document.getElementById('shops-content');
     backToProfileContentDivEl = document.getElementById('back-to-profile-content');
     logoutContentDivEl = document.getElementById('logout-content');
+
+    const registerButtonEl = document.getElementById('register-content-button');
+    registerButtonEl.addEventListener('click', loadRegisterPage);
 
     const loginButtonEl = document.getElementById('login-button');
     loginButtonEl.addEventListener('click', onLoginButtonClicked);
