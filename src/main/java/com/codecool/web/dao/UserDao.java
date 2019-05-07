@@ -6,5 +6,7 @@ import java.sql.SQLException;
 
 public interface UserDao {
 
-    User findByEmail(String email) throws SQLException;
+    User findByUserName(String userName) throws SQLException;
+
+    void addUser(String userName, String email, boolean isAdmin) throws SQLException;
 }

@@ -6,6 +6,7 @@ import com.codecool.web.model.User;
 import com.codecool.web.service.LoginService;
 import com.codecool.web.service.exception.ServiceException;
 import com.codecool.web.service.simple.SimpleLoginService;
+import com.codecool.web.service.simple.UserService;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,24 +15,28 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-@WebServlet("/login")
-public final class LoginServlet extends AbstractServlet {
+@WebServlet("/register")
+public final class RegisterServlet extends AbstractServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         try (Connection connection = getConnection(req.getServletContext())) {
             UserDao userDao = new DatabaseUserDao(connection);
-            LoginService loginService = new SimpleLoginService(userDao);
+            UserService us = new UserService(userDao);
 
             String userName = req.getParameter("username");
             String password = req.getParameter("password");
+            String role = req.getParameter("role");
+            boolean isAdmin = false;
 
-            User user = loginService.loginUser(userName, password);
-            req.getSession().setAttribute("user", user);
+            if (role.equalsIgnoreCase("Admin")) {
+                isAdmin = true;
+            }
 
+            us.registerUser(userName, password, isAdmin);
+            User user = userDao.findByUserName(userName);
             sendMessage(resp, HttpServletResponse.SC_OK, user);
-        } catch (ServiceException ex) {
-            sendMessage(resp, HttpServletResponse.SC_UNAUTHORIZED, ex.getMessage());
+
         } catch (SQLException ex) {
             handleSqlError(resp, ex);
         }

@@ -26,7 +26,7 @@
 <div id="login-content" class="content">
     <h1>Login</h1>
     <form id="login-form" onsubmit="return false;">
-        <input type="text" name="email">
+        <input type="text" name="username">
         <input type="password" name="password">
         <button id="login-button">Login</button>
         <button id="register-content-button">Register</button>
@@ -35,8 +35,6 @@
 <div id="register-content" class="hidden content">
     <h1>Register</h1>
     <form id="register-form" onsubmit="return false;">
-        <p>E-mail:</p>
-        <input type="text" name="email" placeholder="e-mail" required>
         <p>Username:</p>
         <input type="text" name="username" placeholder="username" required>
         <p>Password:</p>

@@ -14,6 +14,7 @@ CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     name TEXT NOT NULL,
     password varchar(20) NOT NULL,
+    isAdmin boolean DEFAULT false,
     CONSTRAINT name_not_empty CHECK (name <> ''),
     CONSTRAINT password_not_empty CHECK (password <> '')
 );
