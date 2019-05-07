@@ -1,7 +1,6 @@
 /*
     Database initialization script that runs on every web-application redeployment.
 */
-DO $$ BEGIN
 
 DROP TABLE IF EXISTS slots CASCADE;
 DROP TABLE IF EXISTS tasks CASCADE;
@@ -71,17 +70,17 @@ CREATE TABLE slots(
 
 /*Creates the given number of columns previously defined for the specific schedule by user*/
 
-CREATE OR REPLACE FUNCTION create_columns_on_schedule() RETURNS TRIGGER AS $A$
+CREATE OR REPLACE FUNCTION create_columns_on_schedule() RETURNS TRIGGER AS '
     DECLARE
         count int := 0;
     BEGIN
         LOOP
-            INSERT INTO schedule_columns (schedule_id, title) VALUES (NEW.id, 'Day '||count+1);
+            INSERT INTO schedule_columns (schedule_id, title) VALUES (NEW.id, ''Day ''||count+1);
             count := count + 1;
             EXIT WHEN count = NEW.numOfCol;
         end loop;
         RETURN NEW;
-    END; $A$
+    END; '
     LANGUAGE plpgsql;
 
 
@@ -97,13 +96,13 @@ EXECUTE PROCEDURE create_columns_on_schedule();
   slots will be added automatically according to the previously defined duration*/
 
 
-CREATE OR REPLACE FUNCTION add_tasks_to_slots() RETURNS TRIGGER AS $A$
+CREATE OR REPLACE FUNCTION add_tasks_to_slots() RETURNS TRIGGER AS '
 BEGIN
-    IF NEW.time != ((SELECT begins FROM tasks_schedules WHERE task_id=NEW.task_id)+(SELECT duration FROM tasks_schedules WHERE task_id=NEW.task_id)-1)||':00' THEN
-        INSERT INTO slots (task_id, column_id, time) VALUES (NEW.task_id, NEW.column_id, ((split_part(NEW.time, ':', 1))::int)+1||':00');
+    IF NEW.time != ((SELECT begins FROM tasks_schedules WHERE task_id=NEW.task_id)+(SELECT duration FROM tasks_schedules WHERE task_id=NEW.task_id)-1)||'':00'' THEN
+        INSERT INTO slots (task_id, column_id, time) VALUES (NEW.task_id, NEW.column_id, ((split_part(NEW.time, '':'', 1))::int)+1||'':00'');
     end if;
     RETURN NEW;
-END; $A$
+END; '
     LANGUAGE plpgsql;
 
 CREATE TRIGGER task_on_slots
@@ -121,11 +120,11 @@ EXECUTE PROCEDURE add_tasks_to_slots();
 
 /*When task added to a schedule, execute insert on tasks_schedules, this trigger automatically insert it to slots*/
 
-CREATE OR REPLACE FUNCTION create_slots_when_task_added() RETURNS TRIGGER AS $B$
+CREATE OR REPLACE FUNCTION create_slots_when_task_added() RETURNS TRIGGER AS '
 BEGIN
-    INSERT INTO slots (column_id, task_id, time) VALUES (NEW.column_id, NEW.task_id, NEW.begins||':00');
+    INSERT INTO slots (column_id, task_id, time) VALUES (NEW.column_id, NEW.task_id, NEW.begins||'':00'');
     RETURN NEW;
-END; $B$
+END; '
     LANGUAGE plpgsql;
 
 CREATE TRIGGER create_first_slot
@@ -153,7 +152,7 @@ INSERT INTO tasks_schedules(task_id, schedule_id, column_id, begins, duration) V
 
 
 
-END $$
+
 
 
 
