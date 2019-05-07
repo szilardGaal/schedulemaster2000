@@ -12,7 +12,7 @@ public final class DatabaseScheduleDao extends AbstractDao implements SchedulesD
     public DatabaseScheduleDao(Connection connection) {
         super(connection);
     }
-    
+
     @Override
     public List<Schedule> findByUserId(int user_id) throws SQLException {
         if (user_id == 0) {
