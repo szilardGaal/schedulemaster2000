@@ -54,65 +54,7 @@
     <p>Password: <span id="user-password"></span></p>
     <h2>Links</h2>
     <ul>
-        <li><a href="javascript:void(0);" onclick="onShopsClicked();">Shops</a></li>
-        <li><a href="javascript:void(0);" onclick="onCouponsClicked();">Coupons</a></li>
     </ul>
-</div>
-<div id="shops-content" class="hidden content">
-    <h1>Shops</h1>
-    <table id="shops">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
-    <h2>Add new shop</h2>
-    <form id="shop-form" onsubmit="return false;">
-        <input type="text" name="name">
-        <button onclick="onShopAddClicked();">Add</button>
-    </form>
-</div>
-<div id="shop-content" class="hidden content">
-    <h1>Shop</h1>
-    <p>ID: <span id="shop-id"></span></p>
-    <p>Name: <span id="shop-name"></span></p>
-</div>
-<div id="coupons-content" class="hidden content">
-    <h1>Coupons</h1>
-    <table id="coupons">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Percentage (%)</th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
-    <h2>Add new coupon</h2>
-    <form id="coupon-form" onsubmit="return false;">
-        <input type="text" name="name">
-        <input type="range" min="0" max="100" name="percentage">
-        <button onclick="onCouponAddClicked();">Add</button>
-    </form>
-</div>
-<div id="coupon-content" class="hidden content">
-    <h1>Coupon</h1>
-    <p>ID: <span id="coupon-id"></span></p>
-    <p>Name: <span id="coupon-name"></span></p>
-    <p>Percentage: <span id="coupon-percentage"></span>%</p>
-    <p>Shops: <span id="coupon-shops"></span></p>
-    <h2>Add to shops</h2>
-    <form id="coupon-shops-form" onsubmit="return false">
-        <select name="shopIds" multiple>
-        </select>
-        <button onclick="onCouponShopsAddClicked();">Add</button>
-    </form>
 </div>
 <div id="back-to-profile-content" class="hidden content">
     <button onclick="onBackToProfileClicked();">Back to profile</button>
