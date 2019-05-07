@@ -150,9 +150,6 @@ INSERT INTO tasks_schedules(task_id, schedule_id, column_id, begins, duration) V
 
 /*ADD before trigger to check if tasks already exists in column!*/
 
-
-
-
 END $$
 
 
