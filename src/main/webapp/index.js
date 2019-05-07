@@ -101,8 +101,11 @@ function onLoad() {
     backToProfileContentDivEl = document.getElementById('back-to-profile-content');
     logoutContentDivEl = document.getElementById('logout-content');
 
-    const registerButtonEl = document.getElementById('register-content-button');
-    registerButtonEl.addEventListener('click', loadRegisterPage);
+    const registerPageButtonEl = document.getElementById('register-content-button');
+    registerPageButtonEl.addEventListener('click', loadRegisterPage);
+
+    const registerButtonEl = document.getElementById('register-button');
+    registerButtonEl.addEventListener('click', onRegisterButtonClicked);
 
     const loginButtonEl = document.getElementById('login-button');
     loginButtonEl.addEventListener('click', onLoginButtonClicked);

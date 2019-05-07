@@ -35,15 +35,21 @@
 <div id="register-content" class="hidden content">
     <h1>Register</h1>
     <form id="register-form" onsubmit="return false;">
+        <p>E-mail:</p>
         <input type="text" name="email" placeholder="e-mail" required>
+        <p>Username:</p>
         <input type="text" name="username" placeholder="username" required>
-        <input type="password" name="password" placeholder="password" required>
-        <input type="password" name="confirm_password" placeholder="password again" required>
-        <br>
+        <p>Password:</p>
+        <input type="password" name="password" placeholder="password" onkeyup="validatePassword()" required><br>
+        <input type="password" name="confirm_password" placeholder="password again" onkeyup="validatePassword()" required><br>
+        <p id="validate_status"><br></p>
+        <p>register as:
         <select name="role">
             <option value="user">User</option>
             <option value="admin">Admin</option>
         </select>
+        </p>
+        <br>
         <button id="register-button">Register</button>
         <button id="register-back">Back</button>
     </form>
