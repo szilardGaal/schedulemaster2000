@@ -6,10 +6,6 @@ const INTERNAL_SERVER_ERROR = 500;
 
 let loginContentDivEl;
 let profileContentDivEl;
-let couponContentDivEl;
-let couponsContentDivEl;
-let shopContentDivEl;
-let shopsContentDivEl;
 let backToProfileContentDivEl;
 let logoutContentDivEl;
 let registerContentDivEl;
@@ -102,10 +98,6 @@ function onLoad() {
     loginContentDivEl = document.getElementById('login-content');
     registerContentDivEl = document.getElementById('register-content');
     profileContentDivEl = document.getElementById('profile-content');
-    couponContentDivEl = document.getElementById('coupon-content');
-    couponsContentDivEl = document.getElementById('coupons-content');
-    shopContentDivEl = document.getElementById('shop-content');
-    shopsContentDivEl = document.getElementById('shops-content');
     backToProfileContentDivEl = document.getElementById('back-to-profile-content');
     logoutContentDivEl = document.getElementById('logout-content');
 

@@ -10,10 +10,6 @@
         <c:url value="/register.js" var="registerScriptUrl"/>
         <c:url value="/login.js" var="loginScriptUrl"/>
         <c:url value="/profile.js" var="profileScriptUrl"/>
-        <c:url value="/shop.js" var="shopScriptUrl"/>
-        <c:url value="/shops.js" var="shopsScriptUrl"/>
-        <c:url value="/coupon.js" var="couponScriptUrl"/>
-        <c:url value="/coupons.js" var="couponsScriptUrl"/>
         <c:url value="/back-to-profile.js" var="backToProfileScriptUrl"/>
         <c:url value="/logout.js" var="logoutScriptUrl"/>
         <link rel="stylesheet" type="text/css" href="${styleUrl}">
@@ -22,10 +18,6 @@
         <script src="${registerScriptUrl}"></script>
         <script src="${loginScriptUrl}"></script>
         <script src="${profileScriptUrl}"></script>
-        <script src="${shopScriptUrl}"></script>
-        <script src="${shopsScriptUrl}"></script>
-        <script src="${couponScriptUrl}"></script>
-        <script src="${couponsScriptUrl}"></script>
         <script src="${backToProfileScriptUrl}"></script> 
         <script src="${logoutScriptUrl}"></script>
         <title>ScheduleMaster2000</title>
