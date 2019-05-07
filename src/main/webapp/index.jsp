@@ -7,6 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <c:url value="/style.css" var="styleUrl"/>
         <c:url value="/index.js" var="indexScriptUrl"/>
+        <c:url value="/register.js" var="registerScriptUrl"/>
         <c:url value="/login.js" var="loginScriptUrl"/>
         <c:url value="/profile.js" var="profileScriptUrl"/>
         <c:url value="/shop.js" var="shopScriptUrl"/>
@@ -16,16 +17,18 @@
         <c:url value="/back-to-profile.js" var="backToProfileScriptUrl"/>
         <c:url value="/logout.js" var="logoutScriptUrl"/>
         <link rel="stylesheet" type="text/css" href="${styleUrl}">
+
         <script src="${indexScriptUrl}"></script>
+        <script src="${registerScriptUrl}"></script>
         <script src="${loginScriptUrl}"></script>
         <script src="${profileScriptUrl}"></script>
         <script src="${shopScriptUrl}"></script>
         <script src="${shopsScriptUrl}"></script>
         <script src="${couponScriptUrl}"></script>
         <script src="${couponsScriptUrl}"></script>
-        <script src="${backToProfileScriptUrl}"></script>
+        <script src="${backToProfileScriptUrl}"></script> 
         <script src="${logoutScriptUrl}"></script>
-        <title>App</title>
+        <title>ScheduleMaster2000</title>
     </head>
 <body>
 <div id="login-content" class="content">
@@ -34,6 +37,23 @@
         <input type="text" name="email">
         <input type="password" name="password">
         <button id="login-button">Login</button>
+        <button id="register-content-button">Register</button>
+    </form>
+</div>
+<div id="register-content" class="hidden content">
+    <h1>Register</h1>
+    <form id="register-form" onsubmit="return false;">
+        <input type="text" name="email" placeholder="e-mail" required>
+        <input type="text" name="username" placeholder="username" required>
+        <input type="password" name="password" placeholder="password" required>
+        <input type="password" name="confirm_password" placeholder="password again" required>
+        <br>
+        <select name="role">
+            <option value="user">User</option>
+            <option value="admin">Admin</option>
+        </select>
+        <button id="register-button">Register</button>
+        <button id="register-back">Back</button>
     </form>
 </div>
 <div id="profile-content" class="hidden content">
