@@ -8,4 +8,6 @@ import java.util.List;
 public interface SchedulesDao {
 
     List<Schedule> findByUserId(int user_id) throws SQLException;
+
+    void addSchedule(int user_id, String name, int cols) throws SQLException;
 }
