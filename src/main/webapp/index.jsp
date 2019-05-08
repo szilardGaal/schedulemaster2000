@@ -126,7 +126,7 @@
                             <option value="24">24:00</option>
                         </select>
                     </p>
-                    <!--displays the possible duration in hrs-->
+                    <!--displays the possible duration in hrs, consider creating it in js to avoid -->
                     <p>Select duration:
                         <select id="duration-select" name="duration">
                             <option value="1">1</option>

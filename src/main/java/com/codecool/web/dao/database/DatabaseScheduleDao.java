@@ -42,6 +42,41 @@ public final class DatabaseScheduleDao extends AbstractDao implements SchedulesD
         }
     }
 
+    @Override
+    public void deleteSchedule(int schedule_id) throws SQLException{
+        String sql = "DELETE FROM schedules WHERE id=?";
+        try (PreparedStatement  statement = connection.prepareStatement(sql)){
+            statement.setInt(1, schedule_id);
+            statement.execute();
+        }
+    }
+
+    @Override
+    public void updateSchedule(Schedule newSchedule) throws SQLException{
+        String sql = "UPDATE schedules SET title=?, numOfCol=?, isPublic=? WHERE id=?";
+        try(PreparedStatement statement = connection.prepareStatement(sql)){
+            statement.setString(1, newSchedule.getName());
+            statement.setInt(2, newSchedule.getCols());
+            statement.setBoolean(3, newSchedule.isPublic());
+            statement.setInt(4, newSchedule.getId());
+            statement.execute();
+        }
+    }
+
+    @Override
+    public List<Schedule> getAllPublic(int user_id) throws SQLException {
+        List<Schedule> getAllPublic = new ArrayList<>();
+        String sql = "SELECT * FROM schedules WHERE isPublic='true' AND user_id!=?";
+        try(PreparedStatement statement = connection.prepareStatement(sql)){
+            statement.setInt(1, user_id);
+            try(ResultSet resultSet = statement.executeQuery()){
+                while(resultSet.next()){
+                    getAllPublic.add(new Schedule(resultSet.getInt("id"), resultSet.getInt("user_id"), resultSet.getString("title"), resultSet.getInt("numofcols"), resultSet.getBoolean("ispublic")));
+                }
+            }
+        } return getAllPublic;
+    }
+
     private Schedule fetchSchedule(ResultSet resultSet) throws SQLException {
         int id = resultSet.getInt("id");
         int user_id = resultSet.getInt("user_id");
@@ -50,4 +85,6 @@ public final class DatabaseScheduleDao extends AbstractDao implements SchedulesD
         boolean isPublic = resultSet.getBoolean("isPublic");
         return new Schedule(id, user_id, name, cols, isPublic);
     }
+
+
 }

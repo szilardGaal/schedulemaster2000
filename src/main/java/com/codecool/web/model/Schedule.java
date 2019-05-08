@@ -17,11 +17,14 @@ public final class Schedule extends AbstractModel {
     }
 
     public String getName() {
-        return this.name;
+        return name;
     }
 
-    public String isPublic() {
-        return this.isPublic();
+    public boolean isPublic() {
+        return isPublic;
     }
 
+    public int getCols() {
+        return cols;
+    }
 }
