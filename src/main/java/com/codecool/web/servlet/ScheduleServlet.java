@@ -26,9 +26,8 @@ public class ScheduleServlet extends AbstractServlet {
             DatabaseScheduleDao databaseScheduleDao = new DatabaseScheduleDao(connection);
             ScheduleService scheduleService = new ScheduleService(databaseScheduleDao);
 
-
-
-            int userId = 1;
+            User user = (User) req.getSession().getAttribute("user");
+            int userId = user.getId();
 
             List<Schedule> mySchedules = scheduleService.getAllByUserId(userId);
             List<Schedule> publicSchedules = scheduleService.getAllPublicNotOwned(userId);
