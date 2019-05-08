@@ -63,7 +63,7 @@
             <button id="create-schedule-button" onclick="onCreateNewSchedule()">New schedule</button>
         </div>
         <h2 class="right-navbar">My schedules</h2>
-        <ul class="right-navbar">
+        <ul class="right-navbar"><br>
         </ul>
         <h2 class="right-navbar">Public schedules</h2>
         <ul class="right-navbar">
@@ -73,13 +73,9 @@
         <form id="create-schedule" onsubmit="return false;">
             <input type="text" name="schedule-name" placeholder="Schedule name">
             <select>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
+                <c:forEach var="i" begin="1" end="7" step="1" varStatus ="status">
+                    <option value="${i}">"${i}"</option>
+                </c:forEach>
             </select>
         </form>
     </div>
@@ -102,59 +98,17 @@
                     <!-- javascript below displays the new task creator form-->
                     <p>Select starting time:
                         <select name="begins">
-                            <option value="1">1:00</option>
-                            <option value="2">2:00</option>
-                            <option value="3">3:00</option>
-                            <option value="4">4:00</option>
-                            <option value="5">5:00</option>
-                            <option value="6">6:00</option>
-                            <option value="7">7:00</option>
-                            <option value="8">8:00</option>
-                            <option value="9">9:00</option>
-                            <option value="10">10:00</option>
-                            <option value="11">11:00</option>
-                            <option value="12">12:00</option>
-                            <option value="13">13:00</option>
-                            <option value="14">14:00</option>
-                            <option value="15">15:00</option>
-                            <option value="16">16:00</option>
-                            <option value="17">17:00</option>
-                            <option value="18">18:00</option>
-                            <option value="19">19:00</option>
-                            <option value="20">20:00</option>
-                            <option value="21">21:00</option>
-                            <option value="22">22:00</option>
-                            <option value="23">23:00</option>
-                            <option value="24">24:00</option>
+                            <c:forEach var="i" begin="1" end="24" step="1" varStatus ="status">
+                                <option value="${i}">"${i}":00</option>
+                            </c:forEach>
                         </select>
                     </p>
                     <!--displays the possible duration in hrs-->
                     <p>Select duration:
                         <select id="duration-select" name="duration">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
-                            <option value="11">11</option>
-                            <option value="12">12</option>
-                            <option value="13">13</option>
-                            <option value="14">14</option>
-                            <option value="15">15</option>
-                            <option value="16">16</option>
-                            <option value="17">17</option>
-                            <option value="18">18</option>
-                            <option value="19">19</option>
-                            <option value="20">20</option>
-                            <option value="21">21</option>
-                            <option value="22">22</option>
-                            <option value="23">23</option>
-                            <option value="24">24</option>
+                            <c:forEach var="i" begin="1" end="24" step="1" varStatus ="status">
+                                <option value="${i}">"${i}"</option>
+                            </c:forEach>
                         </select>
                     </p>
 
