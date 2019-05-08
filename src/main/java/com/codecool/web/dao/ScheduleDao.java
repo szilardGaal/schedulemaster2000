@@ -5,7 +5,7 @@ import com.codecool.web.model.Schedule;
 import java.sql.SQLException;
 import java.util.List;
 
-public interface SchedulesDao {
+public interface ScheduleDao {
 
     List<Schedule> findByUserId(int user_id) throws SQLException;
 

@@ -6,15 +6,17 @@ import com.codecool.web.model.Task;
 import com.codecool.web.model.User;
 import com.codecool.web.service.simple.TaskService;
 
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
-@WebServlet("/tasks")
+@WebServlet("/protected/tasks")
 public final class TaskServlet extends AbstractServlet {
 
     @Override
@@ -45,6 +47,37 @@ public final class TaskServlet extends AbstractServlet {
             taskService.addTask(title, content);
 
             doGet(req, resp);
+        } catch (SQLException ex) {
+            handleSqlError(resp, ex);
+        }
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        try (Connection connection = getConnection(req.getServletContext())) {
+            TaskDao taskDao = new DatabaseTaskDao(connection);
+            TaskService taskService = new TaskService(taskDao);
+
+            int id = Integer.parseInt(req.getParameter("taskId"));
+            taskService.removeTask(id);
+
+        } catch (SQLException ex) {
+            handleSqlError(resp, ex);
+        }
+    }
+
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        try (Connection connection = getConnection(req.getServletContext())) {
+            TaskDao taskDao = new DatabaseTaskDao(connection);
+            TaskService taskService = new TaskService(taskDao);
+
+            String title = req.getParameter("title");
+            String content = req.getParameter("content");
+
+            int id = Integer.parseInt(req.getParameter("taskId"));
+            taskService.updateTask(id, title, content);
+
         } catch (SQLException ex) {
             handleSqlError(resp, ex);
         }

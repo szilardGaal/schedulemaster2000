@@ -1,6 +1,6 @@
 package com.codecool.web.service.simple;
 
-import com.codecool.web.dao.SchedulesDao;
+import com.codecool.web.dao.ScheduleDao;
 import com.codecool.web.model.Schedule;
 
 import java.sql.SQLException;
@@ -8,9 +8,9 @@ import java.util.List;
 
 public class ScheduleService {
 
-    private SchedulesDao schedulesDao;
+    private ScheduleDao schedulesDao;
 
-    public ScheduleService(SchedulesDao schedulesDao){
+    public ScheduleService(ScheduleDao schedulesDao){
         this.schedulesDao = schedulesDao;
     }
 

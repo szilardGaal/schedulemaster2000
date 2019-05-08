@@ -17,7 +17,7 @@ import java.util.List;
 
 import static java.lang.Integer.parseInt;
 
-@WebServlet("/schedule")
+@WebServlet("/protected/schedule")
 public class ScheduleServlet extends AbstractServlet {
 
     @Override
@@ -26,12 +26,14 @@ public class ScheduleServlet extends AbstractServlet {
             DatabaseScheduleDao databaseScheduleDao = new DatabaseScheduleDao(connection);
             ScheduleService scheduleService = new ScheduleService(databaseScheduleDao);
 
-            int userId = parseInt(req.getParameter("id"));
+
+
+            int userId = 1;
 
             List<Schedule> mySchedules = scheduleService.getAllByUserId(userId);
             List<Schedule> publicSchedules = scheduleService.getAllPublicNotOwned(userId);
             ScheduleDto scheduleDto = new ScheduleDto(mySchedules, publicSchedules);
-            
+
             sendMessage(resp, HttpServletResponse.SC_OK, scheduleDto);
         }catch (SQLException ex){
             handleSqlError(resp, ex);

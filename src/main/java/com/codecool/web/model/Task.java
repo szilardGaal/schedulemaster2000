@@ -10,4 +10,8 @@ public final class Task extends AbstractModel {
         this.title = title;
         this.content = content;
     }
+
+    public String getTitle() {
+        return this.title;
+    }
 }

@@ -13,4 +13,12 @@ public class ScheduleDto {
         this.myList = myList;
         this.publicList = publicList;
     }
+
+    public List<Schedule> getMyList() {
+        return myList;
+    }
+
+    public List<Schedule> getPublicList() {
+        return publicList;
+    }
 }

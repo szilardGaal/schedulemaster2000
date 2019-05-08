@@ -1,50 +1,80 @@
 function onScheduleGetResponse() {
-    clearMessages();
-    if (this.status === OK) {
-        console.log(JSON.parse(JSON.stringify(this.responseText)));
-        onScheduleGet(JSON.parse(this.responseText));
-    } else {
-        onOtherResponse(mySchedukeListContentUlEl, this);
-    }
+    const text = this.responseText;
+    console.log(text);
+    const scheduleDto = JSON.parse(text);
+    onScheduleGet(scheduleDto);
 }
 
 function onScheduleGet(scheduleDto) {
-    console.log(scheduleDto);
     addMySchedules(scheduleDto.myList);
     addPublicSchedules(scheduleDto.publicList);
 }
 
 function addMySchedules(schedules) {
-    const myScheduleUlEl = document.getElementById('list-my-schedules');
+    const myScheduleDivEl = document.getElementById('list-my-schedules');
 
-    removeAllChildren(myScheduleUlEl);
+    removeAllChildren(myScheduleDivEl);
 
+    const myScheduleUlEl = document.createElement("ul");
     if (schedules.length === 0){
         const noSchedulesLiEl = document.createElement('li');
-        noSchedulesLiEl.textContent = "You did not create any schedules yet."
+        noSchedulesLiEl.textContent = "You did not create any schedules yet.";
+        myScheduleUlEl.appendChild(noSchedulesLiEl);
+        myScheduleDivEl.appendChild(myScheduleUlEl);
     } else {
         for (let i = 0; i < schedules.length; i++){
             const scheduleLiEl = document.createElement("li");
-            scheduleLiEl.textContent = schedules[i];
+
+            const scheduleIdAttr = document.createAttribute('data-schedule-id');
+            scheduleIdAttr.value = schedules[i].id;
+
+            const scheduleLinkEl = document.createElement('a');
+            scheduleLinkEl.setAttributeNode(scheduleIdAttr);
+            scheduleLinkEl.textContent = schedules[i].name;
+
+            scheduleLinkEl.addEventListener('click', onScheduleClicked);
+
+            scheduleLiEl.appendChild(scheduleLinkEl);
             myScheduleUlEl.appendChild(scheduleLiEl);
+
         }
-    }
+    } myScheduleDivEl.appendChild(myScheduleUlEl);
+    return myScheduleDivEl;
 }
 
 function addPublicSchedules(schedules) {
-    const publicScheduleUlEl = document.getElementById('list-public-schedules');
+    const publicScheduleDivEl = document.getElementById('list-public-schedules');
 
-    removeAllChildren(publicScheduleUlEl);
+    removeAllChildren(publicScheduleDivEl);
 
+    const publicScheduleUlEl = document.createElement("ul");
     if (schedules.length === 0){
         const noSchedulesLiEl = document.createElement('li');
-        noSchedulesLiEl.textContent = "You did not create any schedules yet."
+        noSchedulesLiEl.textContent = "No public schedules available yet.";
+        publicScheduleUlEl.appendChild(noSchedulesLiEl);
+        publicScheduleDivEl.appendChild(publicScheduleUlEl);
     } else {
         for (let i = 0; i < schedules.length; i++){
-            const scheduleLiEl = document.createElement("li");
-            scheduleLiEl.textContent = schedules[i];
-            publicScheduleUlEl.appendChild(scheduleLiEl);
+            const publicScheduleLiEl = document.createElement("li");
+
+            const scheduleIdAttr = document.createAttribute('data-schedule-id');
+            scheduleIdAttr.value = schedules[i].id;
+
+            const publicScheduleLinkEl = document.createElement('a');
+            publicScheduleLinkEl.setAttributeNode(scheduleIdAttr);
+            publicScheduleLinkEl.textContent = schedules[i].name;
+
+            publicScheduleLinkEl.addEventListener('click', onScheduleClicked);
+
+            publicScheduleLiEl.appendChild(publicScheduleLinkEl);
+            publicScheduleUlEl.appendChild(publicScheduleLiEl);
+
         }
-    }
+    } publicScheduleDivEl.appendChild(publicScheduleUlEl);
+    return publicScheduleDivEl;
+}
+
+function onScheduleClicked() {
+
 }
 

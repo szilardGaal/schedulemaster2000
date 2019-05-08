@@ -1,13 +1,13 @@
 package com.codecool.web.dao.database;
 
-import com.codecool.web.dao.SchedulesDao;
+import com.codecool.web.dao.ScheduleDao;
 import com.codecool.web.model.Schedule;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class DatabaseScheduleDao extends AbstractDao implements SchedulesDao {
+public final class DatabaseScheduleDao extends AbstractDao implements ScheduleDao {
 
     public DatabaseScheduleDao(Connection connection) {
         super(connection);
@@ -71,7 +71,7 @@ public final class DatabaseScheduleDao extends AbstractDao implements SchedulesD
             statement.setInt(1, user_id);
             try(ResultSet resultSet = statement.executeQuery()){
                 while(resultSet.next()){
-                    getAllPublic.add(new Schedule(resultSet.getInt("id"), resultSet.getInt("user_id"), resultSet.getString("title"), resultSet.getInt("numofcols"), resultSet.getBoolean("ispublic")));
+                    getAllPublic.add(new Schedule(resultSet.getInt("id"), resultSet.getInt("user_id"), resultSet.getString("title"), resultSet.getInt("numofcol"), resultSet.getBoolean("ispublic")));
                 }
             }
         } return getAllPublic;

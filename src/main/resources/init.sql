@@ -137,6 +137,7 @@ EXECUTE PROCEDURE create_slots_when_task_added();
 
 
 INSERT INTO users(name, password) VALUES ('test', 'test');
+INSERT INTO users(name, password) VALUES ('test2', 'test2');
 
 INSERT INTO schedules(user_id, title, numOfCol) VALUES (1, 'title', '2');
 INSERT INTO schedules(user_id, title, numOfCol) VALUES (1, 'title', '3');
