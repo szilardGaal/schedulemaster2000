@@ -21,7 +21,7 @@
         <script src="${profileScriptUrl}"></script>
         <script src="${backToProfileScriptUrl}"></script> 
         <script src="${logoutScriptUrl}"></script>
-        <script scr="${scheduleScriptUrl}"></script>
+        <script src="${scheduleScriptUrl}"></script>
         <title>ScheduleMaster2000</title>
     </head>
 <body>

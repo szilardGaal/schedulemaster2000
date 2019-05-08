@@ -1,3 +1,8 @@
+function createScheduleMenu() {
+    
+}
+
 function onCreateNewSchedule() {
-    showContents(['profile-content', 'create-new-schedule']);
+    showContents(['back-to-profile-content', 'create-new-schedule']);
+    createScheduleMenu();
 }
