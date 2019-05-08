@@ -35,6 +35,7 @@ public final class RegisterServlet extends AbstractServlet {
 
             us.registerUser(userName, password, isAdmin);
             User user = userDao.findByUserName(userName);
+            req.getSession().setAttribute("user", user);
             sendMessage(resp, HttpServletResponse.SC_OK, user);
 
         } catch (SQLException ex) {
