@@ -72,11 +72,12 @@
     <div id="create-new-schedule" class="hidden content">
         <form id="create-schedule" onsubmit="return false;">
             <input type="text" name="schedule-name" placeholder="Schedule name">
-            <select>
+            <select name="schedule-duration">
                 <c:forEach var="i" begin="1" end="7" step="1" varStatus ="status">
                     <option value="${i}">"${i}"</option>
                 </c:forEach>
             </select>
+            <button onclick="onCreateScheduleButton()">create</button>
         </form>
     </div>
     <div id="back-to-profile-content" class="hidden content">
