@@ -58,10 +58,28 @@
         <div id="profile-data">
             <p>User name: <span id="user-email"></span></p>
             <p>Password: <span id="user-password"></span></p>
+            <button id="create-schedule-button" onclick="onCreateNewSchedule()">New schedule</button>
         </div>
         <h2 class="right-navbar">My schedules</h2>
         <ul class="right-navbar">
         </ul>
+        <h2 class="right-navbar">Public schedules</h2>
+        <ul class="right-navbar">
+        </ul>
+    </div>
+    <div id="create-new-schedule" class="hidden content">
+        <form id="create-schedule" onsubmit="return false;">
+            <input type="text" name="schedule-name" placeholder="Schedule name">
+            <select>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+            </select>
+        </form>
     </div>
     <div id="back-to-profile-content" class="hidden content">
         <button onclick="onBackToProfileClicked();">Back to profile</button>
@@ -144,6 +162,8 @@
                     </div>
                     <button onclick="onTaskAddClick();">Add task to schedule</button>
                 </form>
+                <!-- js to create publish/unpublish button according to current schedule state-->
+                <button id="change-schedule-state" class="hidden content" onclick="onPublushScheduleClick()"></button>
             </div>
             <div id="display-create-task" class="hidden content">
                 <p>Cannot find the task you are looking for?</p>
