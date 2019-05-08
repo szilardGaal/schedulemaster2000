@@ -19,4 +19,8 @@ public class TaskService {
     public void removeTask(int id) throws SQLException {
         taskDao.removeTask(id);
     }
+
+    public void updateTask(int id, String title, String content) throws SQLException {
+        taskDao.updateTask(id, title, content);
+    }
 }
