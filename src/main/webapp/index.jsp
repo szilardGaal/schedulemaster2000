@@ -66,6 +66,8 @@
         <div  id="list-my-schedules" class="right-navbar">
         </div>
         <br><br>
+        <ul class="right-navbar"><br>
+        </ul>
         <h2 class="right-navbar">Public schedules</h2>
         <div id="list-public-schedules" class="right-navbar">
         </div>
@@ -73,15 +75,12 @@
     <div id="create-new-schedule" class="hidden content">
         <form id="create-schedule" onsubmit="return false;">
             <input type="text" name="schedule-name" placeholder="Schedule name">
-            <select name="schedule-cols">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
+            <select name="schedule-duration">
+                <c:forEach var="i" begin="1" end="7" step="1" varStatus ="status">
+                    <option value="${i}">"${i}"</option>
+                </c:forEach>
             </select>
+            <button onclick="onCreateScheduleButton()">create</button>
         </form>
     </div>
     <div id="back-to-profile-content" class="hidden content">

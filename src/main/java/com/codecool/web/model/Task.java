@@ -14,4 +14,9 @@ public final class Task extends AbstractModel {
     public String getTitle() {
         return this.title;
     }
+
+    public String getContent() {
+        return content;
+    }
+
 }
