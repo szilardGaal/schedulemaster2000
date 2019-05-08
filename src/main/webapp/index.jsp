@@ -50,7 +50,7 @@
             </p>
             <br>
             <button id="register-button">Register</button>
-            <button id="register-back">Back</button>
+            <button id="register-back-button">Back</button>
         </form>
     </div>
     <div id="profile-content" class="hidden content">

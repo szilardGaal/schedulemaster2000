@@ -10,4 +10,6 @@ public interface TaskDao {
     List<Task> findAllByUserId(int user_id) throws SQLException;
 
     void addTask(String title, String content) throws SQLException;
+
+    void removeTask(int id) throws SQLException;
 }
