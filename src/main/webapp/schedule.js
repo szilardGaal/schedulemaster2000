@@ -93,13 +93,13 @@ function onCreateScheduleButton() {
     var duration = durationInputEl.value;
 
     const params = new URLSearchParams();
-    params.append('title', title);
-    params.append('duration', duration);
+    params.append('schedule-name', title);
+    params.append('schedule-cols', duration);
 
     const xhr = new XMLHttpRequest();
     xhr.addEventListener('load', onCreateScheduleResponse);
     xhr.addEventListener('error', onNetworkError);
-    xhr.open('POST', 'protected/schedules');
+    xhr.open('POST', 'protected/schedule');
     xhr.send(params);
 }
 

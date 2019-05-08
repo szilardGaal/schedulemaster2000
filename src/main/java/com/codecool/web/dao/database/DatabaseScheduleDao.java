@@ -33,11 +33,11 @@ public final class DatabaseScheduleDao extends AbstractDao implements ScheduleDa
 
     @Override
     public void addSchedule(int user_id, String name, int cols) throws SQLException {
-        String sql = "INSERT INTO schedules(user_id, name, cols) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO schedules(user_id, title, numofcol) VALUES (?, ?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, user_id);
-            statement.setString(1, name);
-            statement.setInt(2, cols);
+            statement.setString(2, name);
+            statement.setInt(3, cols);
             executeInsert(statement);
         }
     }
