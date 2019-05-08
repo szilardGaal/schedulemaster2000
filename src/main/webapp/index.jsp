@@ -12,6 +12,7 @@
         <c:url value="/profile.js" var="profileScriptUrl"/>
         <c:url value="/back-to-profile.js" var="backToProfileScriptUrl"/>
         <c:url value="/logout.js" var="logoutScriptUrl"/>
+        <c:url value="/schedule.js" var="scheduleScriptUrl"/>
         <link rel="stylesheet" type="text/css" href="${styleUrl}">
 
         <script src="${indexScriptUrl}"></script>
@@ -20,6 +21,7 @@
         <script src="${profileScriptUrl}"></script>
         <script src="${backToProfileScriptUrl}"></script> 
         <script src="${logoutScriptUrl}"></script>
+        <script scr="${scheduleScriptUrl}"></script>
         <title>ScheduleMaster2000</title>
     </head>
 <body>
