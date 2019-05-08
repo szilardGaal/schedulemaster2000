@@ -67,7 +67,7 @@
         <ul class="right-navbar">
         </ul>
     </div>
-    <div id="create-new-schedule">
+    <div id="create-new-schedule" class="hidden content">
         <form id="create-schedule" onsubmit="return false;">
             <input type="text" name="schedule-name" placeholder="Schedule name">
             <select>
