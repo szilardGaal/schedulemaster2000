@@ -12,4 +12,6 @@ public interface TaskDao {
     void addTask(String title, String content) throws SQLException;
 
     void removeTask(int id) throws SQLException;
+
+    void updateTask(int id, String title, String content) throws SQLException;
 }
