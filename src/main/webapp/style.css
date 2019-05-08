@@ -184,7 +184,7 @@ li{
     padding: 5px 0 5px 10px;
 }
 
-li:hover{
+li a:hover{
     cursor: pointer;
     color: #5d8cdd;
 }
