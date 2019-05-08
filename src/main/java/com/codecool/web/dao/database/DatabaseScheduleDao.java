@@ -1,13 +1,13 @@
 package com.codecool.web.dao.database;
 
-import com.codecool.web.dao.SchedulesDao;
+import com.codecool.web.dao.ScheduleDao;
 import com.codecool.web.model.Schedule;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class DatabaseScheduleDao extends AbstractDao implements SchedulesDao {
+public final class DatabaseScheduleDao extends AbstractDao implements ScheduleDao {
 
     public DatabaseScheduleDao(Connection connection) {
         super(connection);
