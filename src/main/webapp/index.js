@@ -78,6 +78,10 @@ function onOtherResponse(targetEl, xhr) {
     }
 }
 
+function backToLogin() {
+    window.location='http://localhost:8080/schedulemaster2000/';
+}
+
 function hasAuthorization() {
     return localStorage.getItem('user') !== null;
 }
@@ -106,6 +110,9 @@ function onLoad() {
 
     const registerButtonEl = document.getElementById('register-button');
     registerButtonEl.addEventListener('click', onRegisterButtonClicked);
+
+    const backButtonEl = document.getElementById('register-back-button');
+    backButtonEl.addEventListener('click', backToLogin);
 
     const loginButtonEl = document.getElementById('login-button');
     loginButtonEl.addEventListener('click', onLoginButtonClicked);
