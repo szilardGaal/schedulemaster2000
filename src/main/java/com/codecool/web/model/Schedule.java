@@ -27,4 +27,13 @@ public final class Schedule extends AbstractModel {
     public int getCols() {
         return cols;
     }
+
+    public void setCols(int cols) {
+        this.cols = cols;
+    }
+
+    public void setPublic(boolean isPublic) {
+        isPublic = isPublic;
+    }
+
 }

@@ -80,9 +80,9 @@ public final class DatabaseScheduleDao extends AbstractDao implements SchedulesD
     private Schedule fetchSchedule(ResultSet resultSet) throws SQLException {
         int id = resultSet.getInt("id");
         int user_id = resultSet.getInt("user_id");
-        String name = resultSet.getString("name");
+        String name = resultSet.getString("title");
         int cols = resultSet.getInt("numofcol");
-        boolean isPublic = resultSet.getBoolean("isPublic");
+        boolean isPublic = resultSet.getBoolean("ispublic");
         return new Schedule(id, user_id, name, cols, isPublic);
     }
 

@@ -12,6 +12,7 @@
         <c:url value="/profile.js" var="profileScriptUrl"/>
         <c:url value="/back-to-profile.js" var="backToProfileScriptUrl"/>
         <c:url value="/logout.js" var="logoutScriptUrl"/>
+        <c:url value="/schedule.js" var="scheduleScriptUrl"/>
         <link rel="stylesheet" type="text/css" href="${styleUrl}">
 
         <script src="${indexScriptUrl}"></script>
@@ -20,6 +21,7 @@
         <script src="${profileScriptUrl}"></script>
         <script src="${backToProfileScriptUrl}"></script> 
         <script src="${logoutScriptUrl}"></script>
+        <script src="${scheduleScriptUrl}"></script>
         <title>ScheduleMaster2000</title>
     </head>
 <body>
@@ -61,16 +63,16 @@
             <button id="create-schedule-button" onclick="onCreateNewSchedule()">New schedule</button>
         </div>
         <h2 class="right-navbar">My schedules</h2>
-        <ul class="right-navbar">
+        <ul class="right-navbar" id="list-my-schedules">
         </ul>
         <h2 class="right-navbar">Public schedules</h2>
-        <ul class="right-navbar">
+        <ul class="right-navbar" id="list-public-schedules">
         </ul>
     </div>
     <div id="create-new-schedule" class="hidden content">
         <form id="create-schedule" onsubmit="return false;">
             <input type="text" name="schedule-name" placeholder="Schedule name">
-            <select>
+            <select name="schedule-cols">
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
