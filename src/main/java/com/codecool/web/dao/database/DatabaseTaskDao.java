@@ -31,6 +31,16 @@ public final class DatabaseTaskDao extends AbstractDao implements TaskDao {
         }
     }
 
+    @Override
+    public void addTask(String title, String content) throws SQLException {
+        String sql = "INSERT INTO tasks(title, content) VALUES (?, ?, ?)";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, title);
+            statement.setString(2, content);
+            executeInsert(statement);
+        }
+    }
+
     private Task fetchTask(ResultSet resultSet) throws SQLException {
         int id = resultSet.getInt("id");
         String title = resultSet.getString("title");
