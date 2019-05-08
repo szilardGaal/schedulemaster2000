@@ -5,21 +5,13 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <c:url value="/style.css" var="styleUrl"/>
-        <c:url value="/index.js" var="indexScriptUrl"/>
-        <c:url value="/register.js" var="registerScriptUrl"/>
-        <c:url value="/login.js" var="loginScriptUrl"/>
-        <c:url value="/profile.js" var="profileScriptUrl"/>
-        <c:url value="/back-to-profile.js" var="backToProfileScriptUrl"/>
-        <c:url value="/logout.js" var="logoutScriptUrl"/>
-        <link rel="stylesheet" type="text/css" href="${styleUrl}">
-
-        <script src="${indexScriptUrl}"></script>
-        <script src="${registerScriptUrl}"></script>
-        <script src="${loginScriptUrl}"></script>
-        <script src="${profileScriptUrl}"></script>
-        <script src="${backToProfileScriptUrl}"></script> 
-        <script src="${logoutScriptUrl}"></script>
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <script src="index.js"></script>
+        <script src="register.js"></script>
+        <script src="login.js"></script>
+        <script src="profile.js"></script>
+        <script src="back-to-profile.js"></script>
+        <script src="logout.js"></script>
         <title>ScheduleMaster2000</title>
     </head>
 <body>
@@ -61,7 +53,7 @@
             <button id="create-schedule-button" onclick="onCreateNewSchedule()">New schedule</button>
         </div>
         <h2 class="right-navbar">My schedules</h2>
-        <ul class="right-navbar">
+        <ul class="right-navbar"><br>
         </ul>
         <h2 class="right-navbar">Public schedules</h2>
         <ul class="right-navbar">
@@ -71,13 +63,9 @@
         <form id="create-schedule" onsubmit="return false;">
             <input type="text" name="schedule-name" placeholder="Schedule name">
             <select>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
+                <c:forEach var="i" begin="1" end="7" step="1" varStatus ="status">
+                    <option value="${i}">"${i}"</option>
+                </c:forEach>
             </select>
         </form>
     </div>
