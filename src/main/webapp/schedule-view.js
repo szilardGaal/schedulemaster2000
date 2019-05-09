@@ -48,11 +48,14 @@ function onScheduleDisplayGet(scheduleDisplayDto) {
         timeColTdEl.textContent = time + ':00';
         scheduleTrEl.appendChild(timeColTdEl);
         for (let j = 1; j <= cols; j++){
-            const task = scheduleDisplayDto.allTaskForSchedule[i];
             const slotTdEl = document.createElement('td');
             scheduleTrEl.appendChild(slotTdEl);
-            if(task.columns.includes(j.toString()) && task.begins === time){
-                slotTdEl.textContent = task.title;
+            for (let k = 0; k < scheduleDisplayDto.allTaskForSchedule.length; k++){
+                const task = scheduleDisplayDto.allTaskForSchedule[k];
+                console.log(task.columns);
+                if (task.columns.includes(j)){
+                    slotTdEl.textContent = "test";
+                }
             }
         } time++;
         scheduleTableEl.appendChild(scheduleTrEl);
