@@ -118,6 +118,9 @@ function onCreateScheduleButton() {
     const durationInputEl = createScheduleFormEl.querySelector('select[name="schedule-duration"]');
 
     var title = titleInputEl.value;
+    if (title == '') {
+        return;
+    }
     var duration = durationInputEl.value;
 
     const params = new URLSearchParams();

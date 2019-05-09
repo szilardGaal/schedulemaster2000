@@ -39,7 +39,7 @@ function createTasksTable(tasks) {
     const tasksDivEl = document.createElement('div');
     const idAttribute = document.createAttribute('id');
     idAttribute.value = 'myTasks'
-    tasksDivEl.setAttributeNode(id);
+    tasksDivEl.setAttributeNode(idAttribute);
 
     const ulEl = document.createElement('ul');
 

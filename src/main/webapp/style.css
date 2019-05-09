@@ -83,13 +83,16 @@ body{
 }
 
 #myTasks{
+    position: relative;
     float: left;
-    background: rgba(95,158,160, 0,3);
+    background: rgba(95,158,160, 0.3);
+    width: 70%;
+    margin-top: 2%;
 }
 
 #myTasks h2{
     background: black;
-    font-size: 22em;
+    font-size: 1em;
 }
 
 .right-navbar{
@@ -106,6 +109,7 @@ body{
     text-align: left;
     float: left;
     background:rgba(95,158,160, 0.3);
+    width: 70%;
 }
 
 #schedule{
