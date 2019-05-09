@@ -1,7 +1,6 @@
 
 function onScheduleGetResponse() {
     const text = this.responseText;
-    console.log(text);
     const scheduleDto = JSON.parse(text);
     onScheduleGet(scheduleDto);
 }
@@ -76,6 +75,27 @@ function addPublicSchedules(schedules) {
 }
 
 function onScheduleClicked() {
+    const id = this.getAttribute("data-schedule-id");
+
+    const params = new URLSearchParams();
+    params.append('id', id);
+
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener('load', onScheduleDisplayResponse);
+    xhr.addEventListener('error', onNetworkError);
+    xhr.open('GET', 'protected/schedule-display');
+    xhr.send(params);
+}
+
+function onScheduleDisplayResponse(){
+    const text = this.responseText;
+    console.log(text);
+    const scheduleDisplayDto = JSON.parse(text);
+    console.log(scheduleDisplayDto);
+    onScheduleDisplayGet(scheduleDisplayDto);
+}
+
+function onScheduleDisplayGet(scheduleDisplayDto) {
 
 }
 

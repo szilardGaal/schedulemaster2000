@@ -1,11 +1,15 @@
 package com.codecool.web.dao.database;
 
+import com.codecool.web.dao.ScheduleDao;
 import com.codecool.web.dao.TaskDao;
+import com.codecool.web.dto.ScheduleDisplayDto;
+import com.codecool.web.model.Schedule;
 import com.codecool.web.model.Task;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 public final class DatabaseTaskDao extends AbstractDao implements TaskDao {
 
@@ -68,4 +72,19 @@ public final class DatabaseTaskDao extends AbstractDao implements TaskDao {
             statement.executeUpdate();
         }
     }
+
+    public List<Task> getAllTaskForSchedule(int schedule_id) throws SQLException {
+        List<Task> allTask = new ArrayList<>();
+        String sql = "SELECT * FROM tasks RIGHT JOIN (SELECT * FROM tasks_schedules RIGHT JOIN schedules ON schedules.id=tasks_schedules.schedule_id) schedule ON tasks.id = schedule.task_id WHERE schedule_id = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, schedule_id);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    allTask.add(fetchTask(resultSet));
+                }
+            }
+            return allTask;
+        }
+    }
+
 }

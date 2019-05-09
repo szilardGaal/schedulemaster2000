@@ -33,4 +33,5 @@ public class ScheduleService {
     public List<Schedule> getAllPublicNotOwned(int user_id) throws SQLException{
         return schedulesDao.getAllPublic(user_id);
     }
+
 }

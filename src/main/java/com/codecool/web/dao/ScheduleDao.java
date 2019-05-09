@@ -16,4 +16,6 @@ public interface ScheduleDao {
     void updateSchedule(Schedule newSchedule) throws SQLException;
 
     List<Schedule> getAllPublic(int user_id) throws SQLException;
+
+    Schedule findByScheduleId(int schedule_id) throws SQLException;
 }

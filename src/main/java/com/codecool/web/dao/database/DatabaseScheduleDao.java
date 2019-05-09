@@ -1,7 +1,9 @@
 package com.codecool.web.dao.database;
 
 import com.codecool.web.dao.ScheduleDao;
+import com.codecool.web.dto.ScheduleDisplayDto;
 import com.codecool.web.model.Schedule;
+import com.codecool.web.model.Task;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -71,7 +73,7 @@ public final class DatabaseScheduleDao extends AbstractDao implements ScheduleDa
             statement.setInt(1, user_id);
             try(ResultSet resultSet = statement.executeQuery()){
                 while(resultSet.next()){
-                    getAllPublic.add(new Schedule(resultSet.getInt("id"), resultSet.getInt("user_id"), resultSet.getString("title"), resultSet.getInt("numofcol"), resultSet.getBoolean("ispublic")));
+                    getAllPublic.add(fetchSchedule(resultSet));
                 }
             }
         } return getAllPublic;
@@ -85,6 +87,19 @@ public final class DatabaseScheduleDao extends AbstractDao implements ScheduleDa
         boolean isPublic = resultSet.getBoolean("ispublic");
         return new Schedule(id, user_id, name, cols, isPublic);
     }
+
+    public Schedule findByScheduleId(int schedule_id) throws SQLException {
+        String sql = "SELECT * FROM schedules WHERE id = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, schedule_id);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    return fetchSchedule(resultSet);
+                }
+            }
+        } return null;
+    }
+
 
 
 }
