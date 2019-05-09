@@ -31,10 +31,13 @@ function showTasks() {
 function onTasksReceived() {
     const text = this.responseText;
     const tasks = JSON.parse(text);
-    document.getElementById('profile-data').appendChild(createTasksTable(tasks));
+    profileEl = document.getElementById('profile-data');
+    profileEl.removeChild(profileEl.lastChild);
+    profileEl.appendChild(createTasksTable(tasks));
 }
 
 function createTasksTable(tasks) {
+
 
     const tasksDivEl = document.createElement('div');
     const idAttribute = document.createAttribute('id');
