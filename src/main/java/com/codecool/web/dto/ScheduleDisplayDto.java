@@ -9,10 +9,12 @@ public class ScheduleDisplayDto {
 
     private Schedule schedule;
     private List<Task> allTaskForSchedule;
+    private List<Task> allTaskForUser;
 
-    public ScheduleDisplayDto(Schedule schedule, List<Task> allTaskForSchedule){
+    public ScheduleDisplayDto(Schedule schedule, List<Task> allTaskForSchedule, List<Task> allTaskForUser){
         this.schedule = schedule;
         this.allTaskForSchedule = allTaskForSchedule;
+        this.allTaskForUser = allTaskForUser;
     }
 
     public List<Task> getAllTaskForSchedule() {
@@ -21,5 +23,9 @@ public class ScheduleDisplayDto {
 
     public Schedule getSchedule() {
         return schedule;
+    }
+
+    public List<Task> getAllTaskForUser() {
+        return allTaskForUser;
     }
 }
