@@ -1,6 +1,7 @@
 package com.codecool.web.service.simple;
 
 import com.codecool.web.dao.TaskDao;
+import com.codecool.web.dto.ScheduleDisplayDto;
 
 import java.sql.SQLException;
 
@@ -23,4 +24,5 @@ public class TaskService {
     public void updateTask(int id, String title, String content) throws SQLException {
         taskDao.updateTask(id, title, content);
     }
+
 }
