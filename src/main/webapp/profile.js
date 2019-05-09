@@ -32,8 +32,6 @@ function onTasksReceived() {
     const text = this.responseText;
     const tasks = JSON.parse(text);
     profileEl = document.getElementById('profile-data');
-    //profileEl.removeChild(profileEl.lastChild);
-    //profileEl.appendChild(createTasksTable(tasks));
     createTasksTable(tasks);
 }
 
@@ -72,8 +70,6 @@ function createTasksTable(tasks) {
 
         ulEl.appendChild(liEl);
     }
-
-    //return tasksDivEl;
 }
 
 function onTaskClicked() {

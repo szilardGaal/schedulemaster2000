@@ -43,6 +43,7 @@ function addMySchedules(schedules) {
 
         }
     } myScheduleDivEl.appendChild(myScheduleUlEl);
+    showFirstSchedule();
     return myScheduleDivEl;
 }
 

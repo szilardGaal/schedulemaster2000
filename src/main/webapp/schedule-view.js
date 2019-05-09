@@ -1,3 +1,19 @@
+function showFirstSchedule() {
+    var scheduleList = document.getElementById('list-my-schedules').getElementsByTagName('li');
+    if (scheduleList.length < 1) {
+        return;
+    }
+    const firstId = scheduleList[0].firstChild.getAttribute('data-schedule-id');
+    const params = new URLSearchParams();
+    params.append('id', firstId);
+
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener('load', onScheduleDisplayResponse);
+    xhr.addEventListener('error', onNetworkError);
+    xhr.open('GET', 'protected/schedule-display?' + params.toString());
+    xhr.send();
+}
+
 function onScheduleClicked() {
     const id = this.getAttribute('data-schedule-id');
     console.log(id);
@@ -22,7 +38,7 @@ function onScheduleDisplayResponse(){
 
 function onScheduleDisplayGet(scheduleDisplayDto) {
     console.log(scheduleDisplayDto);
-    showContents(['schedule_content']);
+    showContents(['schedule', 'profile-content', 'logout-content']);
 
     createTasksToSelect(scheduleDisplayDto.allTaskForUser);
     
@@ -60,7 +76,7 @@ function onScheduleDisplayGet(scheduleDisplayDto) {
         } time++;
         scheduleTableEl.appendChild(scheduleTrEl);
     }
-
+    removeAllChildren(scheduleDivEl);
     scheduleDivEl.appendChild(scheduleTableEl);
 }
 

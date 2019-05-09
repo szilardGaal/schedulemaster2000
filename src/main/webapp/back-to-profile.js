@@ -1,3 +1,3 @@
 function onBackToProfileClicked() {
-    showContents(['profile-content', 'logout-content']);
+    showContents(['profile-content', 'logout-content', 'schedule']);
 }

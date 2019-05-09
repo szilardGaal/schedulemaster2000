@@ -1,5 +1,4 @@
 function onLogoutResponse() {
-    debugger;
     if (this.status === OK) {
         setUnauthorized();
         clearMessages();
