@@ -80,7 +80,15 @@ function onScheduleClicked() {
 }
 
 function onCreateScheduleResponse() {
-    alert('cucc!');
+
+    const createScheduleFormEl = document.forms['create-schedule'];
+    const titleInputEl = createScheduleFormEl.querySelector('input[name="schedule-name"]');
+    const durationInputEl = createScheduleFormEl.querySelector('select[name="schedule-duration"]');
+    var title = titleInputEl.value;
+    var duration = durationInputEl.value;
+
+    alert(title + ' created with ' + duration + ' colums!');
+    location.reload();
 }
 
 function onCreateScheduleButton() {
@@ -104,5 +112,5 @@ function onCreateScheduleButton() {
 }
 
 function onCreateNewSchedule() {
-    showContents(['back-to-profile-content', 'create-new-schedule']);
+    showContents(['profile-content', 'create-new-schedule']);
 }

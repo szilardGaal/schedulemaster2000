@@ -58,8 +58,7 @@
     <div id="profile-content" class="hidden content">
         <h1>Profile</h1>
         <div id="profile-data">
-            <p>User name: <span id="user-email"></span></p>
-            <p>Password: <span id="user-password"></span></p>
+            <p>Welcome <span id="user-email"></span>!</p>
             <button id="create-schedule-button" onclick="onCreateNewSchedule()">New schedule</button>
         </div>
         <h2 class="right-navbar">My schedules</h2>
@@ -74,12 +73,15 @@
     </div>
     <div id="create-new-schedule" class="hidden content">
         <form id="create-schedule" onsubmit="return false;">
-            <input type="text" name="schedule-name" placeholder="Schedule name">
+            <p>schedule name:</p>
+            <input type="text" name="schedule-name" placeholder="Schedule name" required>
+            <p>select duration:</p>
             <select name="schedule-duration">
                 <c:forEach var="i" begin="1" end="7" step="1" varStatus ="status">
                     <option value="${i}">"${i}"</option>
                 </c:forEach>
-            </select>
+            </select> days
+            <br>
             <button onclick="onCreateScheduleButton()">create</button>
         </form>
     </div>
