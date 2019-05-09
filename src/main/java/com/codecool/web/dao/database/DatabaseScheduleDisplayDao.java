@@ -28,6 +28,7 @@ public class DatabaseScheduleDisplayDao  extends AbstractDao implements Schedule
                     Task task = new Task(resultSet.getInt("id"), resultSet.getString("title"), resultSet.getString("content"));
                     task.setBegins(resultSet.getInt("begins"));
                     task.setDuration(resultSet.getInt("duration"));
+                    task.setColumns(getAllColumnsToTask(schedule_id, resultSet.getInt("id")));
                     allTask.add(task);
 
                 }
@@ -50,7 +51,19 @@ public class DatabaseScheduleDisplayDao  extends AbstractDao implements Schedule
     }
 
 
-
+    private List<Integer> getAllColumnsToTask(int schedule_id, int task_id) throws SQLException{
+        List<Integer> getAllColumnsToTask = new ArrayList<>();
+        String sql = "SELECT column_id FROM tasks RIGHT JOIN (SELECT * FROM tasks_schedules RIGHT JOIN schedules ON schedules.id=tasks_schedules.schedule_id) schedule ON tasks.id = schedule.task_id WHERE schedule_id =? AND task_id=?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)){
+            statement.setInt(1, schedule_id);
+            statement.setInt(2, task_id);
+            try(ResultSet resultSet = statement.executeQuery()){
+                while (resultSet.next()){
+                    getAllColumnsToTask.add(resultSet.getInt("column_id"));
+                }
+            }
+        } return getAllColumnsToTask;
+    }
 
 
 

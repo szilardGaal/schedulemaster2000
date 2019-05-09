@@ -82,33 +82,6 @@ function addPublicSchedules(schedules) {
     return publicScheduleDivEl;
 }
 
-function onScheduleClicked() {
-    const id = this.getAttribute('data-schedule-id');
-    console.log(id);
-
-    const params = new URLSearchParams();
-    params.append('id', id);
-    console.log(params.get('id'));
-
-    const xhr = new XMLHttpRequest();
-    xhr.addEventListener('load', onScheduleDisplayResponse);
-    xhr.addEventListener('error', onNetworkError);
-    xhr.open('GET', 'protected/schedule-display?' + params.toString());
-    xhr.send();
-}
-
-function onScheduleDisplayResponse(){
-    const text = this.responseText;
-    console.log(text);
-    const scheduleDisplayDto = JSON.parse(text);
-    console.log(scheduleDisplayDto);
-    onScheduleDisplayGet(scheduleDisplayDto);
-}
-
-function onScheduleDisplayGet(scheduleDisplayDto) {
-
-}
-
 function onCreateScheduleResponse() {
 
     const createScheduleFormEl = document.forms['create-schedule'];
