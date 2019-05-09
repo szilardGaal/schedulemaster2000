@@ -32,14 +32,18 @@ function onTasksReceived() {
     const text = this.responseText;
     const tasks = JSON.parse(text);
     profileEl = document.getElementById('profile-data');
-    profileEl.removeChild(profileEl.lastChild);
-    profileEl.appendChild(createTasksTable(tasks));
+    //profileEl.removeChild(profileEl.lastChild);
+    //profileEl.appendChild(createTasksTable(tasks));
+    createTasksTable(tasks);
 }
 
 function createTasksTable(tasks) {
 
 
-    const tasksDivEl = document.createElement('div');
+    const tasksDivEl = document.getElementById('list-my-tasks');
+
+    removeAllChildren(tasksDivEl);
+
     const idAttribute = document.createAttribute('id');
     idAttribute.value = 'myTasks'
     tasksDivEl.setAttributeNode(idAttribute);
@@ -69,7 +73,7 @@ function createTasksTable(tasks) {
         ulEl.appendChild(liEl);
     }
 
-    return tasksDivEl;
+    //return tasksDivEl;
 }
 
 function onTaskClicked() {

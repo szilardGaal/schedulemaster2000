@@ -82,7 +82,7 @@ body{
     float: left;
 }
 
-#myTasks{
+#myTasks, #list-my-schedules, #list-public-schedules{
     position: relative;
     float: left;
     background: rgba(95,158,160, 0.3);
@@ -90,9 +90,13 @@ body{
     margin-top: 2%;
 }
 
-#myTasks h2{
+#myTasks h2, #list-my-schedules h2, #list-public-schedules h2{
     background: black;
     font-size: 1em;
+}
+
+#create-task-button, #create-schedule-button, #logout-button{
+    width: 35%;
 }
 
 .right-navbar{
@@ -105,7 +109,7 @@ body{
     text-align: center;
 }
 
-#create-new-schedule{
+#create-new-schedule, #create-new-task{
     text-align: left;
     float: left;
     background:rgba(95,158,160, 0.3);

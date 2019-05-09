@@ -58,6 +58,8 @@
     <div id="profile-content" class="hidden content">
         <div id="profile-data">
             <h3>Welcome <span id="user-email"></span>!</h3>
+            <div id="list-my-schedules">
+            </div>
             <p><button id="create-schedule-button" onclick="onCreateNewSchedule()">New schedule</button></p>
             <div id="create-new-schedule" class="hidden content">
                 <form id="create-schedule" onsubmit="return false;">
@@ -74,23 +76,38 @@
                     <button onclick="onCancelButtonClicked()">cancel</button>
                 </form>
             </div>
-        </div>
-        
-        <h2 class="right-navbar">My schedules</h2>
-        <div  id="list-my-schedules" class="right-navbar">
-        </div>
-        <br><br>
-        <ul class="right-navbar"><br>
-        </ul>
-        <h2 class="right-navbar">Public schedules</h2>
-        <div id="list-public-schedules" class="right-navbar">
+            <div id="list-my-tasks">
+            </div>
+            <br>
+            <p><button id="create-task-button" onclick="onCreateNewTask()">New task</button></p>
+            <div id="create-new-task" class="hidden content">
+                <form id="create-task" onsubmit="return false;">
+                    <p>task name:</p>
+                    <input type="text" name="task-name" placeholder="task name" required>
+                    <p>task description:</p>
+                    <input type="text" name="task-description" placeholder="task description" required>
+                    <p>task duration:</p>
+                    <select name="task-duration">
+                        <c:forEach var="i" begin="1" end="24" step="1" varStatus ="status">
+                            <option value="${i}">"${i}"</option>
+                        </c:forEach>
+                    </select> hours
+                    <br>
+                    <button onclick="onCreateTaskButton()" type="submit">create</button>
+                    <button onclick="onCancelButtonClicked()">cancel</button>
+                </form>
+            </div>
+            <br>
+            <div id="list-public-schedules">
+            </div>
+            <br>
+            <div id="logout-content" class="hidden content">
+                    <button id="logout-button">Logout</button>
+            </div>
         </div>
     </div>
     <div id="back-to-profile-content" class="hidden content">
         <button onclick="onBackToProfileClicked();">Back to profile</button>
-    </div>
-    <div id="logout-content" class="hidden content">
-        <button id="logout-button">Logout</button>
     </div>
     <div id="schedule_content" class="hidden content">
         <h1 id="schedule-name"></h1>
