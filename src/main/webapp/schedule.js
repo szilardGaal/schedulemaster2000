@@ -14,6 +14,10 @@ function addMySchedules(schedules) {
     const myScheduleDivEl = document.getElementById('list-my-schedules');
 
     removeAllChildren(myScheduleDivEl);
+    const titleEl = document.createElement('h2');
+    titleEl.innerHTML = 'My Schedules:'
+
+    myScheduleDivEl.appendChild(titleEl);
 
     const myScheduleUlEl = document.createElement("ul");
     if (schedules.length === 0){
@@ -46,6 +50,10 @@ function addPublicSchedules(schedules) {
     const publicScheduleDivEl = document.getElementById('list-public-schedules');
 
     removeAllChildren(publicScheduleDivEl);
+
+    const titleEl = document.createElement('h2');
+    titleEl.innerHTML = 'Public Schedules:'
+    publicScheduleDivEl.appendChild(titleEl);
 
     const publicScheduleUlEl = document.createElement("ul");
     if (schedules.length === 0){
