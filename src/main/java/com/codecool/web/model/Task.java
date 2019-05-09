@@ -1,5 +1,7 @@
 package com.codecool.web.model;
 
+import java.util.List;
+
 public final class Task extends AbstractModel {
 
     private final String title;
@@ -7,6 +9,7 @@ public final class Task extends AbstractModel {
 
     private int begins;
     private int duration;
+    private List<Integer> columns;
 
     public Task(int id, String title, String content) {
         super(id);
@@ -36,5 +39,13 @@ public final class Task extends AbstractModel {
 
     public int getDuration() {
         return duration;
+    }
+
+    public void setColumns(List<Integer> columns) {
+        this.columns = columns;
+    }
+
+    public List<Integer> getColumns() {
+        return columns;
     }
 }
