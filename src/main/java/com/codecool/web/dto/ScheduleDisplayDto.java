@@ -8,15 +8,15 @@ import java.util.List;
 public class ScheduleDisplayDto {
 
     private Schedule schedule;
-    private List<Task> allTaskCForSchedule;
+    private List<Task> allTaskForSchedule;
 
     public ScheduleDisplayDto(Schedule schedule, List<Task> allTaskForSchedule){
         this.schedule = schedule;
-        this.allTaskCForSchedule = allTaskForSchedule;
+        this.allTaskForSchedule = allTaskForSchedule;
     }
 
-    public List<Task> getAllTaskCForSchedule() {
-        return allTaskCForSchedule;
+    public List<Task> getAllTaskForSchedule() {
+        return allTaskForSchedule;
     }
 
     public Schedule getSchedule() {

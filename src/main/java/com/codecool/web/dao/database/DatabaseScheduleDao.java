@@ -88,17 +88,7 @@ public final class DatabaseScheduleDao extends AbstractDao implements ScheduleDa
         return new Schedule(id, user_id, name, cols, isPublic);
     }
 
-    public Schedule findByScheduleId(int schedule_id) throws SQLException {
-        String sql = "SELECT * FROM schedules WHERE id = ?";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, schedule_id);
-            try (ResultSet resultSet = statement.executeQuery()) {
-                while (resultSet.next()) {
-                    return fetchSchedule(resultSet);
-                }
-            }
-        } return null;
-    }
+
 
 
 

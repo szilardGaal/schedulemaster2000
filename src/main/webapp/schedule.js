@@ -75,16 +75,18 @@ function addPublicSchedules(schedules) {
 }
 
 function onScheduleClicked() {
-    const id = this.getAttribute("data-schedule-id");
+    const id = this.getAttribute('data-schedule-id');
+    console.log(id);
 
     const params = new URLSearchParams();
     params.append('id', id);
+    console.log(params.get('id'));
 
     const xhr = new XMLHttpRequest();
     xhr.addEventListener('load', onScheduleDisplayResponse);
     xhr.addEventListener('error', onNetworkError);
-    xhr.open('GET', 'protected/schedule-display');
-    xhr.send(params);
+    xhr.open('GET', 'protected/schedule-display?' + params.toString());
+    xhr.send();
 }
 
 function onScheduleDisplayResponse(){
