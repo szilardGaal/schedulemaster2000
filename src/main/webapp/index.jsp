@@ -5,25 +5,17 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <c:url value="/style.css" var="styleUrl"/>
-        <c:url value="/index.js" var="indexScriptUrl"/>
-        <c:url value="/register.js" var="registerScriptUrl"/>
-        <c:url value="/login.js" var="loginScriptUrl"/>
-        <c:url value="/profile.js" var="profileScriptUrl"/>
-        <c:url value="/back-to-profile.js" var="backToProfileScriptUrl"/>
-        <c:url value="/logout.js" var="logoutScriptUrl"/>
-        <c:url value="/schedule.js" var="scheduleScriptUrl"/>
-        <c:url value="/schedule-view.js" var="scheduleViewScriptUrl"/>
-        <link rel="stylesheet" type="text/css" href="${styleUrl}">
+        <link rel="stylesheet" type="text/css" href="style.css">
 
-        <script src="${indexScriptUrl}"></script>
-        <script src="${registerScriptUrl}"></script>
-        <script src="${loginScriptUrl}"></script>
-        <script src="${profileScriptUrl}"></script>
-        <script src="${backToProfileScriptUrl}"></script> 
-        <script src="${logoutScriptUrl}"></script>
-        <script src="${scheduleScriptUrl}"></script>
-        <script src="${scheduleViewScriptUrl}"></script>
+        <script src="index.js"></script>
+        <script src="register.js"></script>
+        <script src="login.js"></script>
+        <script src="profile.js"></script>
+        <script src="back-to-profile.js"></script>
+        <script src="logout.js"></script>
+        <script src="schedule.js"></script>
+        <script src="schedule-view.js"></script>
+        <script src="tasks.js" var="tasksScriptUrl"></script>
         <title>ScheduleMaster2000</title>
     </head>
 <body>
@@ -88,12 +80,6 @@
                     <input type="text" name="task-name" placeholder="task name" required>
                     <p>task description:</p>
                     <input type="text" name="task-description" placeholder="task description" required>
-                    <p>task duration:</p>
-                    <select name="task-duration">
-                        <c:forEach var="i" begin="1" end="24" step="1" varStatus ="status">
-                            <option value="${i}">"${i}"</option>
-                        </c:forEach>
-                    </select> hours
                     <br>
                     <button onclick="onCreateTaskButton()" type="submit">create</button>
                     <button onclick="onCancelButtonClicked()">cancel</button>

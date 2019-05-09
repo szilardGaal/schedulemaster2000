@@ -13,8 +13,8 @@ public class TaskService {
         this.taskDao = taskDao;
     }
 
-    public void addTask(String title, String content) throws SQLException {
-        taskDao.addTask(title, content);
+    public void addTask(int userId, String title, String content) throws SQLException {
+        taskDao.addTask(userId, title, content);
     }
 
     public void removeTask(int id) throws SQLException {

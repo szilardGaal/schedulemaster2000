@@ -6,11 +6,9 @@ import com.codecool.web.model.Task;
 import com.codecool.web.model.User;
 import com.codecool.web.service.simple.TaskService;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -41,10 +39,13 @@ public final class TaskServlet extends AbstractServlet {
             TaskDao taskDao = new DatabaseTaskDao(connection);
             TaskService taskService = new TaskService(taskDao);
 
-            String title = req.getParameter("title");
-            String content = req.getParameter("content");
+            User user = (User) req.getSession().getAttribute("user");
+            int userId = user.getId();
 
-            taskService.addTask(title, content);
+            String title = req.getParameter("task-name");
+            String content = req.getParameter("task-description");
+
+            taskService.addTask(userId, title, content);
 
             doGet(req, resp);
         } catch (SQLException ex) {

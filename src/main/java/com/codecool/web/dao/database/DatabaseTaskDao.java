@@ -1,15 +1,11 @@
 package com.codecool.web.dao.database;
 
-import com.codecool.web.dao.ScheduleDao;
 import com.codecool.web.dao.TaskDao;
-import com.codecool.web.dto.ScheduleDisplayDto;
-import com.codecool.web.model.Schedule;
 import com.codecool.web.model.Task;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Predicate;
 
 public final class DatabaseTaskDao extends AbstractDao implements TaskDao {
 
@@ -36,11 +32,12 @@ public final class DatabaseTaskDao extends AbstractDao implements TaskDao {
     }
 
     @Override
-    public void addTask(String title, String content) throws SQLException {
-        String sql = "INSERT INTO tasks(title, content) VALUES (?, ?, ?)";
+    public void addTask(int userId, String title, String content) throws SQLException {
+        String sql = "INSERT INTO tasks(user_id, title, content) VALUES (?, ?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(1, title);
-            statement.setString(2, content);
+            statement.setInt(1, userId);
+            statement.setString(2, title);
+            statement.setString(3, content);
             executeInsert(statement);
         }
     }
