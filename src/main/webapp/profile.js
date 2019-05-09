@@ -4,13 +4,12 @@ function onProfileLoad(user) {
     showContents(['profile-content', 'logout-content']);
 
     const userEmailSpanEl = document.getElementById('user-email');
-    const userPasswordSpanEl = document.getElementById('user-password');
 
     userEmailSpanEl.textContent = user.userName;
-    userPasswordSpanEl.textContent = user.password;
 
-    showSchedules();
     showTasks();
+    showSchedules();
+
 }
 
 function showSchedules() {
@@ -36,26 +35,38 @@ function onTasksReceived() {
 }
 
 function createTasksTable(tasks) {
+
+    const tasksDivEl = document.createElement('div');
+    const idAttribute = document.createAttribute('id');
+    idAttribute.value = 'myTasks'
+    tasksDivEl.setAttributeNode(idAttribute);
+
     const ulEl = document.createElement('ul');
 
+    const tasksDivElTitle = document.createElement('h2');
+    tasksDivElTitle.innerHTML = 'My tasks:<br>';
+
+    tasksDivEl.appendChild(tasksDivElTitle);
+    tasksDivEl.appendChild(ulEl);
+
     for (let i = 0; i < tasks.length; i++) {
-            const task = tasks[i];
+        const task = tasks[i];
 
-            const dataTaskIdAttr = document.createAttribute('data-task-id');
-            dataTaskIdAttr.value = task.id;
+        const dataTaskIdAttr = document.createAttribute('data-task-id');
+        dataTaskIdAttr.value = task.id;
 
-            const taskButtonEl = document.createElement('button');
-            taskButtonEl.textContent = task.title;
-            taskButtonEl.setAttributeNode(dataTaskIdAttr);
-            taskButtonEl.addEventListener('click', onTaskClicked);
+        const taskButtonEl = document.createElement('a');
+        taskButtonEl.textContent = task.title;
+        taskButtonEl.setAttributeNode(dataTaskIdAttr);
+        taskButtonEl.addEventListener('click', onTaskClicked);
 
-            const liEl = document.createElement('li');
-            liEl.appendChild(taskButtonEl);
+        const liEl = document.createElement('li');
+        liEl.appendChild(taskButtonEl);
 
-            ulEl.appendChild(liEl);
-        }
+        ulEl.appendChild(liEl);
+    }
 
-        return ulEl;
+    return tasksDivEl;
 }
 
 function onTaskClicked() {

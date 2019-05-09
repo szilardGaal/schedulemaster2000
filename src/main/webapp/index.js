@@ -99,6 +99,10 @@ function setUnauthorized() {
     return localStorage.removeItem('user');
 }
 
+function onCancelButtonClicked() {
+    showContents(['profile-content', 'logout-content']);
+}
+
 function onLoad() {
     loginContentDivEl = document.getElementById('login-content');
     registerContentDivEl = document.getElementById('register-content');

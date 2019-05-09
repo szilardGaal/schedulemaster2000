@@ -82,14 +82,34 @@ body{
     float: left;
 }
 
+#myTasks{
+    position: relative;
+    float: left;
+    background: rgba(95,158,160, 0.3);
+    width: 70%;
+    margin-top: 2%;
+}
+
+#myTasks h2{
+    background: black;
+    font-size: 1em;
+}
+
 .right-navbar{
     width: 60%;
     position: relative;
     float: right;
 }
 
-#register-content, #create-new-schedule{
+#register-content{
     text-align: center;
+}
+
+#create-new-schedule{
+    text-align: left;
+    float: left;
+    background:rgba(95,158,160, 0.3);
+    width: 70%;
 }
 
 #schedule{

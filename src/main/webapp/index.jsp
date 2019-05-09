@@ -56,12 +56,26 @@
         </form>
     </div>
     <div id="profile-content" class="hidden content">
-        <h1>Profile</h1>
         <div id="profile-data">
-            <p>User name: <span id="user-email"></span></p>
-            <p>Password: <span id="user-password"></span></p>
-            <button id="create-schedule-button" onclick="onCreateNewSchedule()">New schedule</button>
+            <h3>Welcome <span id="user-email"></span>!</h3>
+            <p><button id="create-schedule-button" onclick="onCreateNewSchedule()">New schedule</button></p>
+            <div id="create-new-schedule" class="hidden content">
+                <form id="create-schedule" onsubmit="return false;">
+                    <p>schedule name:</p>
+                    <input type="text" name="schedule-name" placeholder="Schedule name" required>
+                    <p>select duration:</p>
+                    <select name="schedule-duration">
+                        <c:forEach var="i" begin="1" end="7" step="1" varStatus ="status">
+                            <option value="${i}">"${i}"</option>
+                        </c:forEach>
+                    </select> days
+                    <br>
+                    <button onclick="onCreateScheduleButton()" type="submit">create</button>
+                    <button onclick="onCancelButtonClicked()">cancel</button>
+                </form>
+            </div>
         </div>
+        
         <h2 class="right-navbar">My schedules</h2>
         <div  id="list-my-schedules" class="right-navbar">
         </div>
@@ -71,17 +85,6 @@
         <h2 class="right-navbar">Public schedules</h2>
         <div id="list-public-schedules" class="right-navbar">
         </div>
-    </div>
-    <div id="create-new-schedule" class="hidden content">
-        <form id="create-schedule" onsubmit="return false;">
-            <input type="text" name="schedule-name" placeholder="Schedule name">
-            <select name="schedule-duration">
-                <c:forEach var="i" begin="1" end="7" step="1" varStatus ="status">
-                    <option value="${i}">"${i}"</option>
-                </c:forEach>
-            </select>
-            <button onclick="onCreateScheduleButton()">create</button>
-        </form>
     </div>
     <div id="back-to-profile-content" class="hidden content">
         <button onclick="onBackToProfileClicked();">Back to profile</button>
