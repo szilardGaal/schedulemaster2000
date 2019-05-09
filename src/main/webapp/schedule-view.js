@@ -53,7 +53,7 @@ function onScheduleDisplayGet(scheduleDisplayDto) {
             for (let k = 0; k < scheduleDisplayDto.allTaskForSchedule.length; k++){
                 const task = scheduleDisplayDto.allTaskForSchedule[k];
                 console.log(task.columns);
-                if (task.columns.includes(j)){
+                if (task.columns.includes(j) && task.begins === time){
                     slotTdEl.textContent = "test";
                 }
             }
