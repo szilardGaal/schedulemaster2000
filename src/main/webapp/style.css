@@ -179,6 +179,28 @@ button{
     font-family: inherit;
 }
 
+.button-wrapper {
+    display: inline;
+}
+
+.button-wrapper button {
+    font-size: 10px;
+    margin: 0;
+    margin-left: 2%;
+    background-color: transparent;
+    background-size: 15px 15px;
+    border: none;
+    background-repeat: no-repeat;
+    height: 26px;
+    width: 26px;
+    vertical-align: text-bottom;
+    float: right;
+}
+
+.button-wrapper button:hover {
+    filter: invert(100%);
+}
+
 #display-create-task{
     padding-bottom: 30px;
 }

@@ -10,6 +10,33 @@ function onScheduleGet(scheduleDto) {
     addPublicSchedules(scheduleDto.publicList);
 }
 
+function onDeleteButtonClicked() {
+
+}
+
+function onModifyButtonClicked() {
+
+}
+
+function createModifyAndDeleteButtons() {
+
+    const buttonWrapper = document.createElement('div');
+    buttonWrapper.setAttribute('class', 'button-wrapper');
+
+    const deleteButton = document.createElement('button');
+    deleteButton.style.backgroundImage = 'url(img/delete.png)';
+    deleteButton.addEventListener = ('click', onDeleteButtonClicked);
+
+    const modifyButton = document.createElement('button');
+    modifyButton.style.backgroundImage = 'url(img/modify.png)';
+    modifyButton.addEventListener('click', onModifyButtonClicked);
+
+    buttonWrapper.appendChild(deleteButton);
+    buttonWrapper.appendChild(modifyButton);
+
+    return buttonWrapper;
+}
+
 function addMySchedules(schedules) {
     const myScheduleDivEl = document.getElementById('list-my-schedules');
 
@@ -39,6 +66,7 @@ function addMySchedules(schedules) {
             scheduleLinkEl.addEventListener('click', onScheduleClicked);
 
             scheduleLiEl.appendChild(scheduleLinkEl);
+            scheduleLiEl.appendChild(createModifyAndDeleteButtons());
             myScheduleUlEl.appendChild(scheduleLiEl);
 
         }
@@ -76,6 +104,7 @@ function addPublicSchedules(schedules) {
             publicScheduleLinkEl.addEventListener('click', onScheduleClicked);
 
             publicScheduleLiEl.appendChild(publicScheduleLinkEl);
+            publicScheduleLiEla.ppendChild(createModifyAndDeleteButtons());
             publicScheduleUlEl.appendChild(publicScheduleLiEl);
 
         }

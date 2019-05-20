@@ -35,6 +35,7 @@ function createTasksTable(tasks) {
 
         const liEl = document.createElement('li');
         liEl.appendChild(taskButtonEl);
+        liEl.appendChild(createModifyAndDeleteButtons());
 
         ulEl.appendChild(liEl);
     }
