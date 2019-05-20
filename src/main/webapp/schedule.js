@@ -11,24 +11,37 @@ function onScheduleGet(scheduleDto) {
 }
 
 function onDeleteButtonClicked() {
-
+    debugger;
+    const parentEl = this.parentElement.parentElement;
+    let id;
+    if (this.getAttribute('data-type') === 'schedule') {
+        id = parentEl.firstChild.getAttribute('data-schedule-id');
+    } else {
+        id = parentEl.firstChild.getAttribute('data-task-id');
+    }
+    
+    alert(id);
 }
 
 function onModifyButtonClicked() {
 
 }
 
-function createModifyAndDeleteButtons() {
+function createModifyAndDeleteButtons(thisElement) {
 
     const buttonWrapper = document.createElement('div');
     buttonWrapper.setAttribute('class', 'button-wrapper');
 
     const deleteButton = document.createElement('button');
+    deleteButton.innerHTML = '   ';
     deleteButton.style.backgroundImage = 'url(img/delete.png)';
-    deleteButton.addEventListener = ('click', onDeleteButtonClicked);
+    deleteButton.setAttribute('data-type', thisElement.parentElement.getAttribute('data-type'));
+    deleteButton.addEventListener('click', onDeleteButtonClicked);
 
     const modifyButton = document.createElement('button');
+    modifyButton.innerHTML = '   ';
     modifyButton.style.backgroundImage = 'url(img/modify.png)';
+    modifyButton.setAttribute('data-type', thisElement.parentElement.getAttribute('data-type'));
     modifyButton.addEventListener('click', onModifyButtonClicked);
 
     buttonWrapper.appendChild(deleteButton);
@@ -47,6 +60,7 @@ function addMySchedules(schedules) {
     myScheduleDivEl.appendChild(titleEl);
 
     const myScheduleUlEl = document.createElement("ul");
+    myScheduleUlEl.setAttribute('data-type', 'schedule');
     if (schedules.length === 0){
         const noSchedulesLiEl = document.createElement('li');
         noSchedulesLiEl.textContent = "You did not create any schedules yet.";
@@ -66,8 +80,8 @@ function addMySchedules(schedules) {
             scheduleLinkEl.addEventListener('click', onScheduleClicked);
 
             scheduleLiEl.appendChild(scheduleLinkEl);
-            scheduleLiEl.appendChild(createModifyAndDeleteButtons());
             myScheduleUlEl.appendChild(scheduleLiEl);
+            scheduleLiEl.appendChild(createModifyAndDeleteButtons(scheduleLiEl));
 
         }
     } myScheduleDivEl.appendChild(myScheduleUlEl);
@@ -104,8 +118,8 @@ function addPublicSchedules(schedules) {
             publicScheduleLinkEl.addEventListener('click', onScheduleClicked);
 
             publicScheduleLiEl.appendChild(publicScheduleLinkEl);
-            publicScheduleLiEla.ppendChild(createModifyAndDeleteButtons());
             publicScheduleUlEl.appendChild(publicScheduleLiEl);
+            publicScheduleLiEl.ppendChild(createModifyAndDeleteButtons(publicScheduleLiEl));
 
         }
     } publicScheduleDivEl.appendChild(publicScheduleUlEl);

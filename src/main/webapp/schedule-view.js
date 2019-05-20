@@ -1,4 +1,5 @@
 function showFirstSchedule() {
+
     var scheduleList = document.getElementById('list-my-schedules').getElementsByTagName('li');
     if (scheduleList.length < 1) {
         return;
@@ -16,11 +17,11 @@ function showFirstSchedule() {
 
 function onScheduleClicked() {
     const id = this.getAttribute('data-schedule-id');
-    console.log(id);
+    //console.log(id);
 
     const params = new URLSearchParams();
     params.append('id', id);
-    console.log(params.get('id'));
+    //console.log(params.get('id'));
 
     const xhr = new XMLHttpRequest();
     xhr.addEventListener('load', onScheduleDisplayResponse);
@@ -32,13 +33,13 @@ function onScheduleClicked() {
 function onScheduleDisplayResponse(){
     const text = this.responseText;
     const scheduleDisplayDto = JSON.parse(text);
-    console.log(scheduleDisplayDto);
+    //console.log(scheduleDisplayDto);
     onScheduleDisplayGet(scheduleDisplayDto);
 }
 
 function onScheduleDisplayGet(scheduleDisplayDto) {
-    console.log(scheduleDisplayDto);
-    showContents(['schedule', 'profile-content', 'logout-content']);
+    //console.log(scheduleDisplayDto);
+    showContents(['schedule_content', 'profile-content', 'logout-content', 'schedule']);
 
     createTasksToSelect(scheduleDisplayDto.allTaskForUser);
     
@@ -68,7 +69,7 @@ function onScheduleDisplayGet(scheduleDisplayDto) {
             scheduleTrEl.appendChild(slotTdEl);
             for (let k = 0; k < scheduleDisplayDto.allTaskForSchedule.length; k++){
                 const task = scheduleDisplayDto.allTaskForSchedule[k];
-                console.log(task.columns);
+                //console.log(task.columns);
                 if (task.columns.includes(j) && task.begins === time){
                     slotTdEl.textContent = "test";
                 }
