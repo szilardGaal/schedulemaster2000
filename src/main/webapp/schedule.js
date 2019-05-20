@@ -119,5 +119,5 @@ function onCreateScheduleButton() {
 }
 
 function onCreateNewSchedule() {
-    showContents(['profile-content', 'create-new-schedule']);
+    showContents(['profile-content', 'create-new-schedule', 'schedule']);
 }
