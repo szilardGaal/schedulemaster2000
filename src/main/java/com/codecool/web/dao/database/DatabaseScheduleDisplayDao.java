@@ -26,8 +26,6 @@ public class DatabaseScheduleDisplayDao  extends AbstractDao implements Schedule
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     Task task = new Task(resultSet.getInt("id"), resultSet.getString("title"), resultSet.getString("content"));
-                    task.setBegins(resultSet.getInt("begins"));
-                    task.setDuration(resultSet.getInt("duration"));
                     task.setColumns(getAllColumnsToTask(schedule_id, resultSet.getInt("id")));
                     allTask.add(task);
 
