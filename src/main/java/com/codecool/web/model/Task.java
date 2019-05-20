@@ -7,8 +7,6 @@ public final class Task extends AbstractModel {
     private final String title;
     private String content;
 
-    private int begins;
-    private int duration;
     private List<Integer> columns;
 
     public Task(int id, String title, String content) {
@@ -23,22 +21,6 @@ public final class Task extends AbstractModel {
 
     public String getContent() {
         return content;
-    }
-
-    public void setBegins(int begins) {
-        this.begins = begins;
-    }
-
-    public void setDuration(int duration) {
-        this.duration = duration;
-    }
-
-    public int getBegins() {
-        return begins;
-    }
-
-    public int getDuration() {
-        return duration;
     }
 
     public void setColumns(List<Integer> columns) {
