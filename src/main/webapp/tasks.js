@@ -41,7 +41,7 @@ function createTasksTable(tasks) {
 }
 
 function onCreateNewTask() {
-    showContents(['profile-content', 'create-new-task']);
+    showContents(['profile-content', 'create-new-task', 'schedule']);
 }
 
 function onTaskClicked() {
