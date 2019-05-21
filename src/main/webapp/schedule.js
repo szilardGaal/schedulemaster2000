@@ -1,3 +1,18 @@
+function deleteSchedule(id) {
+    const params = new URLSearchParams();
+    params.append('schedule-id', id);
+
+    debugger;
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener('load', function () { window.reload;});
+    xhr.addEventListener('error', onNetworkError);
+    xhr.open('DELETE', 'protected/schedule');
+    xhr.send(params);
+}
+
+function modifySchedule(id) {
+
+}
 
 function onScheduleGetResponse() {
     const text = this.responseText;
@@ -8,6 +23,55 @@ function onScheduleGetResponse() {
 function onScheduleGet(scheduleDto) {
     addMySchedules(scheduleDto.myList);
     addPublicSchedules(scheduleDto.publicList);
+}
+
+function onDeleteButtonClicked() {
+    const parentEl = this.parentElement.parentElement;
+    let id;
+    if (this.getAttribute('data-type') === 'schedule') {
+        id = parentEl.firstChild.getAttribute('data-schedule-id');
+        deleteSchedule(id);
+    } else {
+        id = parentEl.firstChild.getAttribute('data-task-id');
+        deleteTask(id);
+    }
+    alert(id);
+}
+
+function onModifyButtonClicked() {
+    const parentEl = this.parentElement.parentElement;
+    let id;
+    if (this.getAttribute('data-type') === 'schedule') {
+        id = parentEl.firstChild.getAttribute('data-schedule-id');
+        modifySchedule(id);
+    } else {
+        id = parentEl.firstChild.getAttribute('data-task-id');
+        modifyTask(id);
+    }
+    alert(id);
+}
+
+function createModifyAndDeleteButtons(thisElement) {
+
+    const buttonWrapper = document.createElement('div');
+    buttonWrapper.setAttribute('class', 'button-wrapper');
+
+    const deleteButton = document.createElement('button');
+    deleteButton.innerHTML = '   ';
+    deleteButton.style.backgroundImage = 'url(img/delete.png)';
+    deleteButton.setAttribute('data-type', thisElement.parentElement.getAttribute('data-type'));
+    deleteButton.addEventListener('click', onDeleteButtonClicked);
+
+    const modifyButton = document.createElement('button');
+    modifyButton.innerHTML = '   ';
+    modifyButton.style.backgroundImage = 'url(img/modify.png)';
+    modifyButton.setAttribute('data-type', thisElement.parentElement.getAttribute('data-type'));
+    modifyButton.addEventListener('click', onModifyButtonClicked);
+
+    buttonWrapper.appendChild(deleteButton);
+    buttonWrapper.appendChild(modifyButton);
+
+    return buttonWrapper;
 }
 
 function addMySchedules(schedules) {
