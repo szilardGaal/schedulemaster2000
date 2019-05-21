@@ -1,9 +1,10 @@
 function deleteSchedule(id) {
     const params = new URLSearchParams();
-    params.append('schedule-id', title);
+    params.append('schedule-id', id);
 
+    debugger;
     const xhr = new XMLHttpRequest();
-    xhr.addEventListener('load', onDeleteScheduleResponse);
+    xhr.addEventListener('load', function () { window.reload;});
     xhr.addEventListener('error', onNetworkError);
     xhr.open('DELETE', 'protected/schedule');
     xhr.send(params);
