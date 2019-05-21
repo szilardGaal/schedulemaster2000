@@ -62,6 +62,7 @@ function onScheduleDisplayGet(scheduleDisplayDto) {
         const scheduleTrEl = document.createElement('tr');
         const timeColTdEl = document.createElement('td');
         timeColTdEl.textContent = time + ':00';
+        timeColTdEl.classList.add('line-highlight');
         scheduleTrEl.appendChild(timeColTdEl);
         for (let j = 1; j <= cols; j++){
             const slotTdEl = document.createElement('td');

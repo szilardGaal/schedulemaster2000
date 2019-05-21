@@ -6,7 +6,6 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="style.css">
-
         <script src="index.js"></script>
         <script src="register.js"></script>
         <script src="login.js"></script>
@@ -15,18 +14,21 @@
         <script src="logout.js"></script>
         <script src="schedule.js"></script>
         <script src="schedule-view.js"></script>
+        <script src="guest.js"></script>
         <script src="tasks.js" var="tasksScriptUrl"></script>
         <title>ScheduleMaster2000</title>
     </head>
 <body>
 <div class="container">
     <div id="login-content" class="content">
-        <h1>Login</h1>
+        <h1>Login</h1><br>
         <form id="login-form" onsubmit="return false;">
             <input type="text" name="username">
             <input type="password" name="password"><br>
             <button id="login-button">Login</button>
-            <button id="register-content-button">Register</button>
+            <button id="register-content-button">Register</button><br>
+            <p>Try ScheduleMaster2000 without registration!</p>
+            <button onclick="showSchedules()">Try now</button>
         </form>
     </div>
     <div id="register-content" class="hidden content">
@@ -94,7 +96,7 @@
             </div>
         </div>
     </div>
-    <div id="schedule" class="hidden content">
+    <div id="sample-schedule" class="hidden content">
             <!--here table has to be created in js based on the datas stored in db, first td in each row contains time e.g.: 1:00 and has a class "line-highlight" for css-->
             <!--td max width and height has to be restricted accordingly in js, along with overflow-->
     </div>
@@ -155,6 +157,7 @@
             <!--td max width and height has to be restricted accordingly in js, along with overflow-->
         </div>
     </div>
+</div>
 </div>
 </body>
 </html>
