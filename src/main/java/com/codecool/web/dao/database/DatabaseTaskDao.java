@@ -71,6 +71,19 @@ public final class DatabaseTaskDao extends AbstractDao implements TaskDao {
         }
     }
 
+    @Override
+    public Task findTaskById(int task_id) throws SQLException{
+        String sql = "SELECT * FROM tasks WHERE task_id = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, task_id);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return fetchTask(resultSet);
+                }
+                return null;
+            }
+        }
+    }
 
 
 }
