@@ -2,6 +2,7 @@ function deleteSchedule(id) {
     const params = new URLSearchParams();
     params.append('scheduleId', id);
 
+        debugger;
     const xhr = new XMLHttpRequest();
     xhr.addEventListener('load', function () { window.reload;});
     xhr.addEventListener('error', onNetworkError);
@@ -82,6 +83,7 @@ function addMySchedules(schedules) {
     myScheduleDivEl.appendChild(titleEl);
 
     const myScheduleUlEl = document.createElement("ul");
+    myScheduleUlEl.setAttribute('data-type', 'schedule');
     if (schedules.length === 0){
         const noSchedulesLiEl = document.createElement('li');
         noSchedulesLiEl.textContent = "You did not create any schedules yet.";
@@ -102,6 +104,7 @@ function addMySchedules(schedules) {
 
             scheduleLiEl.appendChild(scheduleLinkEl);
             myScheduleUlEl.appendChild(scheduleLiEl);
+            scheduleLiEl.appendChild(createModifyAndDeleteButtons(scheduleLiEl));
 
         }
     } myScheduleDivEl.appendChild(myScheduleUlEl);
@@ -119,6 +122,7 @@ function addPublicSchedules(schedules) {
     publicScheduleDivEl.appendChild(titleEl);
 
     const publicScheduleUlEl = document.createElement("ul");
+    publicScheduleUlEl.setAttribute('data-type', 'schedule');
     if (schedules.length === 0){
         const noSchedulesLiEl = document.createElement('li');
         noSchedulesLiEl.textContent = "No public schedules available yet.";
@@ -139,6 +143,7 @@ function addPublicSchedules(schedules) {
 
             publicScheduleLiEl.appendChild(publicScheduleLinkEl);
             publicScheduleUlEl.appendChild(publicScheduleLiEl);
+            publicScheduleLiEl.appendChild(createModifyAndDeleteButtons(publicScheduleLiEl));
 
         }
     } publicScheduleDivEl.appendChild(publicScheduleUlEl);
