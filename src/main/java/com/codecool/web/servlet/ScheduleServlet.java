@@ -50,8 +50,10 @@ public class ScheduleServlet extends AbstractServlet {
 
             String title = req.getParameter("schedule-name");
             int cols = parseInt(req.getParameter("schedule-cols"));
+            String isPublicString = req.getParameter("is-public");
+            boolean isPublic = Boolean.valueOf(isPublicString);
 
-            scheduleService.addNewSchedule(userId, title, cols);
+            scheduleService.addNewSchedule(userId, title, cols, isPublic);
 
             doGet(req, resp);
 

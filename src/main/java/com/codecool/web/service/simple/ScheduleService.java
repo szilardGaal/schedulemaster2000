@@ -18,8 +18,8 @@ public class ScheduleService {
         return schedulesDao.findByUserId(user_id);
     }
 
-    public void addNewSchedule(int user_id, String name, int cols) throws SQLException{
-        schedulesDao.addSchedule(user_id, name, cols);
+    public void addNewSchedule(int user_id, String name, int cols, boolean isPublic) throws SQLException{
+        schedulesDao.addSchedule(user_id, name, cols, isPublic);
     }
 
     public void deleteSchedule(int schedule_id) throws SQLException{

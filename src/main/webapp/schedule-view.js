@@ -44,6 +44,10 @@ function onScheduleDisplayGet(scheduleDisplayDto) {
     createTasksToSelect(scheduleDisplayDto.allTaskForUser);
     
     const scheduleDivEl = document.getElementById('schedule');
+    const titleEl = document.createElement('h2');
+    titleEl.innerHTML = scheduleDisplayDto.schedule.name;
+    
+
     const scheduleTableEl = document.createElement('table');
     const cols = scheduleDisplayDto.schedule.cols;
 
@@ -55,6 +59,7 @@ function onScheduleDisplayGet(scheduleDisplayDto) {
         columnHeaderTdEl.textContent = 'Day ' + (i+1);
         headerRowTrEl.appendChild(columnHeaderTdEl);
     }
+    
     scheduleTableEl.appendChild(headerRowTrEl);
 
     let time = 1;
@@ -79,6 +84,7 @@ function onScheduleDisplayGet(scheduleDisplayDto) {
         scheduleTableEl.appendChild(scheduleTrEl);
     }
     removeAllChildren(scheduleDivEl);
+    scheduleDivEl.appendChild(titleEl);
     scheduleDivEl.appendChild(scheduleTableEl);
 }
 

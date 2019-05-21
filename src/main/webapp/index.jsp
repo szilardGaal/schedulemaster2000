@@ -68,7 +68,33 @@
                         </c:forEach>
                     </select> days
                     <br>
+                    <p>visibility:</p>
+                    <select name="is-public">
+                        <option value="true">public</option>
+                        <option value="false">private</option>
+                    </select>
+                    <br>
                     <button onclick="onCreateScheduleButton()" type="submit">create</button>
+                    <button onclick="onCancelButtonClicked()">cancel</button>
+                </form>
+            </div>
+            <div id="modify-schedule" class="hidden content">
+                <form id="modify-schedule" onsubmit="return false;">
+                    <p>schedule name:</p>
+                    <input type="text" name="schedule-name-update" required>
+                    <p>select duration:</p>
+                    <select name="schedule-duration-update">
+                        <c:forEach var="i" begin="1" end="7" step="1" varStatus ="status">
+                            <option value="${i}">"${i}"</option>
+                        </c:forEach>
+                    </select> days
+                    <br>
+                    <select name="is-public-update">
+                        <option value="ture">public</option>
+                        <option value="false">private</option>
+                    </select>
+                    <br>
+                    <button onclick="onSubmitModifyScheduleButton()" type="submit">update</button>
                     <button onclick="onCancelButtonClicked()">cancel</button>
                 </form>
             </div>
@@ -76,7 +102,7 @@
             </div>
             <br>
             <p><button id="create-task-button" onclick="onCreateNewTask()">New task</button></p>
-            <div id="x" class="hidden content">
+            <div id="create-new-task" class="hidden content">
                 <form id="create-task" onsubmit="return false;">
                     <p>task name:</p>
                     <input type="text" name="task-name" placeholder="task name" required>
@@ -152,11 +178,12 @@
                 </form>
             </div>
         </div>
-        <div id="schedule" class="schedule">
-            <!--here table has to be created in js based on the datas stored in db, first td in each row contains time e.g.: 1:00 and has a class "line-highlight" for css-->
-            <!--td max width and height has to be restricted accordingly in js, along with overflow-->
-        </div>
     </div>
+    <div id="schedule" class="schedule">
+        <!--here table has to be created in js based on the datas stored in db, first td in each row contains time e.g.: 1:00 and has a class "line-highlight" for css-->
+        <!--td max width and height has to be restricted accordingly in js, along with overflow-->
+    </div>
+    
 </div>
 </div>
 </body>

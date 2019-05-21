@@ -9,25 +9,55 @@ function deleteSchedule(id) {
     xhr.send();
 }
 
-function createModifyScheduleForm(scheduleDto) {
+function onSubmitModifyScheduleButton() {
 
 }
 
-function ondModifyScheduleResponse() {
+function createModifyScheduleForm(scheduleDto) {
+    const modifyScheduleFormEl = document.forms['modify-schedule'];
+
+    const titleInputEl = modifyScheduleFormEl.querySelector('input[name="schedule-name-update"]');
+    const durationInputEl = modifyScheduleFormEl.querySelector('select[name="schedule-duration-update"]');
+    const isPublicInputEl = modifyScheduleFormEl.querySelector('select[name="is-public-update"]');
+
+    titleInputEl.value = scheduleDto.schedule.name;
+    durationInputEl.value = scheduleDto.schedule.cols;
+    isPublicInputEl.value = scheduleDto.schedule.public.toString();
+/*
+    var title = titleInputEl.value;
+    if (title == '') {
+        return;
+    }
+    var duration = durationInputEl.value;
+
+    const params = new URLSearchParams();
+    params.append('schedule-name', title);
+    params.append('schedule-cols', duration);
+
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener('load', onCreateScheduleResponse);
+    xhr.addEventListener('error', onNetworkError);
+    xhr.open('POST', 'protected/schedule');
+    xhr.send(params);*/
+}
+
+function onModifyScheduleResponse() {
     const text = this.responseText;
     const scheduleDto = JSON.parse(text);
     createModifyScheduleForm(scheduleDto);
 }
 
 function modifySchedule(id) {
+    showContents(['profile-content', 'modify-schedule', 'schedule']);
+
     const params = new URLSearchParams();
     params.append('id', id);
 
     const xhr = new XMLHttpRequest();
-    xhr.addEventListener('load', ondModifyScheduleResponse);
+    xhr.addEventListener('load', onModifyScheduleResponse);
     xhr.addEventListener('error', onNetworkError);
-    xhr.open('GET', 'protected/schedule-display');
-    xhr.send(params);
+    xhr.open('GET', 'protected/schedule-display?' + params.toString());
+    xhr.send();
 }
 
 function onScheduleGetResponse() {
@@ -63,7 +93,6 @@ function onModifyButtonClicked() {
         id = parentEl.firstChild.getAttribute('data-task-id');
         modifyTask(id);
     }
-    alert(id);
 }
 
 function createModifyAndDeleteButtons(thisElement) {
@@ -115,6 +144,15 @@ function addMySchedules(schedules) {
             const scheduleLinkEl = document.createElement('a');
             scheduleLinkEl.setAttributeNode(scheduleIdAttr);
             scheduleLinkEl.textContent = schedules[i].name;
+        
+            if (schedules[i].public) {
+                const publicEl = document.createElement('i');
+                publicEl.style.marginLeft = '8px';
+                publicEl.style.color = 'red';
+                publicEl.style.fontStyle = 'italic';
+                publicEl.textContent = 'public';
+                scheduleLinkEl.appendChild(publicEl);
+            }
 
             scheduleLinkEl.addEventListener('click', onScheduleClicked);
 
@@ -175,7 +213,7 @@ function onCreateScheduleResponse() {
     var duration = durationInputEl.value;
 
     alert(title + ' created with ' + duration + ' colums!');
-    location.reload();alert('loading...')
+    location.reload();
 }
 
 function onCreateScheduleButton() {
@@ -183,16 +221,19 @@ function onCreateScheduleButton() {
 
     const titleInputEl = createScheduleFormEl.querySelector('input[name="schedule-name"]');
     const durationInputEl = createScheduleFormEl.querySelector('select[name="schedule-duration"]');
+    const visibilityInputEl = createScheduleFormEl.querySelector('select[name="is-public"]');
 
     var title = titleInputEl.value;
     if (title == '') {
         return;
     }
     var duration = durationInputEl.value;
+    var visibility = visibilityInputEl.value;
 
     const params = new URLSearchParams();
     params.append('schedule-name', title);
     params.append('schedule-cols', duration);
+    params.append('is-public', visibility);
 
     const xhr = new XMLHttpRequest();
     xhr.addEventListener('load', onCreateScheduleResponse);

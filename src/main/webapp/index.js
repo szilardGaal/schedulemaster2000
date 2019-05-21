@@ -101,7 +101,7 @@ function setUnauthorized() {
 }
 
 function onCancelButtonClicked() {
-    showContents(['profile-content', 'logout-content', 'schedule']);
+    location.reload();
 }
 
 function onLoad() {
