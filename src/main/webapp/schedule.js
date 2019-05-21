@@ -2,16 +2,32 @@ function deleteSchedule(id) {
     const params = new URLSearchParams();
     params.append('scheduleId', id);
 
-        debugger;
     const xhr = new XMLHttpRequest();
-    xhr.addEventListener('load', function () { window.reload;});
+    xhr.addEventListener('load', function () { location.reload();});
     xhr.addEventListener('error', onNetworkError);
     xhr.open('DELETE', 'protected/schedule?' + params.toString());
     xhr.send();
 }
 
-function modifySchedule(id) {
+function createModifyScheduleForm(scheduleDto) {
 
+}
+
+function ondModifyScheduleResponse() {
+    const text = this.responseText;
+    const scheduleDto = JSON.parse(text);
+    createModifyScheduleForm(scheduleDto);
+}
+
+function modifySchedule(id) {
+    const params = new URLSearchParams();
+    params.append('id', id);
+
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener('load', ondModifyScheduleResponse);
+    xhr.addEventListener('error', onNetworkError);
+    xhr.open('GET', 'protected/schedule-display');
+    xhr.send(params);
 }
 
 function onScheduleGetResponse() {
