@@ -126,7 +126,7 @@ function onLoad() {
     logoutButtonEl.addEventListener('click', onLogoutButtonClicked);
 
     const guestButtonEl = document.getElementById('login-as-guest');
-    guestButtonEl.addEventListener('click', onGuestButtonClicked);
+    guestButtonEl.addEventListener('click', loadGuestSchedule);
 
 
     if (hasAuthorization()) {

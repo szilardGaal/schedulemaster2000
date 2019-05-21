@@ -5,7 +5,7 @@ function onProfileLoad(user) {
 
     const userEmailSpanEl = document.getElementById('user-email');
 
-    userEmailSpanEl.textContent = user.userName;
+    userEmailSpanEl.textContent = ' ' + user.userName;
 
     showTasks();
     showSchedules();
