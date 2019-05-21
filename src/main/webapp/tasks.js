@@ -35,9 +35,9 @@ function createTasksTable(tasks) {
 
         const liEl = document.createElement('li');
         liEl.appendChild(taskButtonEl);
+        liEl.appendChild(createModifyAndDeleteButtons());
 
         ulEl.appendChild(liEl);
-        liEl.appendChild(createModifyAndDeleteButtons(liEl));
     }
 }
 
@@ -46,6 +46,36 @@ function onCreateNewTask() {
 }
 
 function onTaskClicked() {
+        const id = this.getAttribute('data-task-id');
+
+        const params = new URLSearchParams();
+        params.append('task-id', id);
+
+        const xhr = new XMLHttpRequest();
+        xhr.addEventListener('load', onTaskContentResponse);
+        xhr.addEventListener('error', onNetworkError);
+        xhr.open('GET', 'protected/taskContent?' + params.toString());
+        xhr.send();
+}
+
+function onTaskContentResponse() {
+    const text = this.responseText;
+    const task = JSON.parse(text);
+    onTaskContentReceived(task);
+}
+
+function onTaskContentReceived(task) {
+    showContents(['profile-content', 'task-content']);
+
+    const taskContentEl = document.getElementById('task-content');
+    removeAllChildren(taskContentEl);
+    const taskTitle = document.createElement('p');
+    taskTitle.textContent = 'Title: ' + task.title;
+    const taskContent = document.createElement('p');
+    taskContent.textContent = 'Description: ' + task.content;
+
+    taskContentEl.appendChild(taskTitle);
+    taskContentEl.appendChild(taskContent);
 }
 
 function onCreateTaskButton() {
