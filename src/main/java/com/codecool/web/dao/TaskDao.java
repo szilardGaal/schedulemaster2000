@@ -16,4 +16,5 @@ public interface TaskDao {
 
     void updateTask(int id, String title, String content) throws SQLException;
 
+    Task findTaskById(int task_id) throws SQLException;
 }
