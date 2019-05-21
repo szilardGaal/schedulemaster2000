@@ -66,7 +66,7 @@ public class ScheduleServlet extends AbstractServlet {
             DatabaseScheduleDao databaseScheduleDao = new DatabaseScheduleDao(connection);
             ScheduleService scheduleService = new ScheduleService(databaseScheduleDao);
 
-            int schedule_id = parseInt(req.getParameter("schedule-id"));
+            int schedule_id = Integer.parseInt(req.getParameter("scheduleId"));
 
             scheduleService.deleteSchedule(schedule_id);
 

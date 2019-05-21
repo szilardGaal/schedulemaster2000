@@ -1,13 +1,12 @@
 function deleteSchedule(id) {
     const params = new URLSearchParams();
-    params.append('schedule-id', id);
+    params.append('scheduleId', id);
 
-    debugger;
     const xhr = new XMLHttpRequest();
     xhr.addEventListener('load', function () { window.reload;});
     xhr.addEventListener('error', onNetworkError);
-    xhr.open('DELETE', 'protected/schedule');
-    xhr.send(params);
+    xhr.open('DELETE', 'protected/schedule?' + params.toString());
+    xhr.send();
 }
 
 function modifySchedule(id) {
@@ -35,7 +34,6 @@ function onDeleteButtonClicked() {
         id = parentEl.firstChild.getAttribute('data-task-id');
         deleteTask(id);
     }
-    alert(id);
 }
 
 function onModifyButtonClicked() {
@@ -159,7 +157,7 @@ function onCreateScheduleResponse() {
     var duration = durationInputEl.value;
 
     alert(title + ' created with ' + duration + ' colums!');
-    location.reload();
+    location.reload();alert('loading...')
 }
 
 function onCreateScheduleButton() {
