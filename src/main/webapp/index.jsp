@@ -6,7 +6,6 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="style.css">
-
         <script src="index.js"></script>
         <script src="register.js"></script>
         <script src="login.js"></script>
@@ -15,18 +14,21 @@
         <script src="logout.js"></script>
         <script src="schedule.js"></script>
         <script src="schedule-view.js"></script>
+        <script src="guest.js"></script>
         <script src="tasks.js" var="tasksScriptUrl"></script>
         <title>ScheduleMaster2000</title>
     </head>
 <body>
 <div class="container">
     <div id="login-content" class="content">
-        <h1>Login</h1>
+        <h1>Login</h1><br>
         <form id="login-form" onsubmit="return false;">
             <input type="text" name="username">
             <input type="password" name="password"><br>
             <button id="login-button">Login</button>
-            <button id="register-content-button">Register</button>
+            <button id="register-content-button">Register</button><br>
+            <p>Try ScheduleMaster2000 without registration!</p>
+            <button id="login-as-guest">Try now</button>
         </form>
     </div>
     <div id="register-content" class="hidden content">
@@ -51,7 +53,7 @@
     </div>
     <div id="profile-content" class="hidden content">
         <div id="profile-data">
-            <h3>Welcome <span id="user-email"></span>!</h3>
+            <h3>Welcome<span id="user-email"></span>!</h3>
             <div id="list-my-schedules">
             </div>
             <p><button id="create-schedule-button" onclick="onCreateNewSchedule()">New schedule</button></p>
@@ -74,18 +76,16 @@
             </div>
             <br>
             <p><button id="create-task-button" onclick="onCreateNewTask()">New task</button></p>
-            <div id="create-new-task" class="hidden content">
+            <div id="x" class="hidden content">
                 <form id="create-task" onsubmit="return false;">
                     <p>task name:</p>
                     <input type="text" name="task-name" placeholder="task name" required>
                     <p>task description:</p>
                     <input type="text" name="task-description" placeholder="task description" required>
                     <br>
-                    <button onclick="onCreateTaskButton()" type="submit">create</button>
+                    <button id="click-task-button-create" onclick="onCreateTaskButton()" type="submit">create</button>
                     <button onclick="onCancelButtonClicked()">cancel</button>
                 </form>
-            </div>
-            <div id="task-content" class="hidden content">
             </div>
             <br>
             <div id="list-public-schedules">
@@ -96,13 +96,68 @@
             </div>
         </div>
     </div>
-    <div id="schedule" class="hidden content">
+    <div id="sample-schedule" class="hidden content">
             <!--here table has to be created in js based on the datas stored in db, first td in each row contains time e.g.: 1:00 and has a class "line-highlight" for css-->
             <!--td max width and height has to be restricted accordingly in js, along with overflow-->
     </div>
     <div id="back-to-profile-content" class="hidden content">
         <button onclick="onBackToProfileClicked();">Back to profile</button>
     </div>
+    <div id="schedule_content" class="hidden content">
+        <h1 id="schedule-name"></h1>
+        <div class="left-navbar">
+            <div id="add-task" class="hidden content">
+                <form id="add-task-form" onsubmit="return false;">
+                    <!--get tasklist from db and list it in the dropdown menu below, format: <option value="sample1">sample1</option>-->
+                    <p>Select task:
+                        <select id="tasklist" name="tasks">
+                        </select>
+                    </p>
+                    <!-- javascript below displays the new task creator form-->
+                    <p>Select starting time:
+                        <select name="begins">
+                            <c:forEach var="i" begin="1" end="24" step="1" varStatus ="status">
+                                <option value="${i}">"${i}":00</option>
+                            </c:forEach>
+                        </select>
+                    </p>
+                    <!--displays the possible duration in hrs, consider creating it in js to avoid -->
+                    <p>Select duration:
+                        <select id="duration-select" name="duration">
+                            <c:forEach var="i" begin="1" end="24" step="1" varStatus ="status">
+                                <option value="${i}">"${i}"</option>
+                            </c:forEach>
+                        </select>
+                    </p>
+
+                    <p>Select days:</p>
+                    <div id="checkbox-for-days">
+                        <!-- displays the columns in the current schedule below, input fields has to be created in js according to the number of columns, format: <input type="checkbox" name="column1" value="1">Day 1<br> -->
+                    </div>
+                    <button onclick="onTaskAddClick();">Add task to schedule</button>
+                </form>
+                <!-- js to create publish/unpublish button according to current schedule state-->
+                <button id="change-schedule-state" class="hidden content" onclick="onPublushScheduleClick()"></button>
+            </div>
+            <div id="display-create-task" class="hidden content">
+                <p>Cannot find the task you are looking for?</p>
+                <button onclick="createNewTaskClick()">Create new task!</button>
+            </div>
+            <div id="create-task" class="hidden content">
+                <form id="create-task-form" onsubmit="return false;">
+                    <input type="text" name="title" placeholder="Add title here..."><br>
+                    <input type="text" name="content" placeholder="Add details here"><br>
+                    <!-- javascript below creates new task and adds it to the db-->
+                    <button onclick="onTaskCreateClick();">Add new task</button>
+                </form>
+            </div>
+        </div>
+        <div id="schedule" class="schedule">
+            <!--here table has to be created in js based on the datas stored in db, first td in each row contains time e.g.: 1:00 and has a class "line-highlight" for css-->
+            <!--td max width and height has to be restricted accordingly in js, along with overflow-->
+        </div>
+    </div>
+</div>
 </div>
 </body>
 </html>

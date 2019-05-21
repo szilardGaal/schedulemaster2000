@@ -76,7 +76,7 @@ body{
     float: left;
 }
 
-#profile-data{
+#profile-data, #guest-welcome{
     width: 35%;
     position: relative;
     float: left;
@@ -117,7 +117,7 @@ body{
 }
 
 #schedule{
-    width: 62%;
+    width: 60%;
     position: relative;
     float: right;
 }

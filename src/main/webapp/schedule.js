@@ -82,7 +82,6 @@ function addMySchedules(schedules) {
     myScheduleDivEl.appendChild(titleEl);
 
     const myScheduleUlEl = document.createElement("ul");
-    myScheduleUlEl.setAttribute('data-type', 'schedule');
     if (schedules.length === 0){
         const noSchedulesLiEl = document.createElement('li');
         noSchedulesLiEl.textContent = "You did not create any schedules yet.";
@@ -103,7 +102,6 @@ function addMySchedules(schedules) {
 
             scheduleLiEl.appendChild(scheduleLinkEl);
             myScheduleUlEl.appendChild(scheduleLiEl);
-            scheduleLiEl.appendChild(createModifyAndDeleteButtons(scheduleLiEl));
 
         }
     } myScheduleDivEl.appendChild(myScheduleUlEl);
@@ -141,7 +139,6 @@ function addPublicSchedules(schedules) {
 
             publicScheduleLiEl.appendChild(publicScheduleLinkEl);
             publicScheduleUlEl.appendChild(publicScheduleLiEl);
-            publicScheduleLiEl.ppendChild(createModifyAndDeleteButtons(publicScheduleLiEl));
 
         }
     } publicScheduleDivEl.appendChild(publicScheduleUlEl);
