@@ -10,6 +10,7 @@ let backToProfileContentDivEl;
 let logoutContentDivEl;
 let registerContentDivEl;
 let myScheduleListContentUlEl;
+let idToPass;
 
 function newInfo(targetEl, message) {
     newMessage(targetEl, 'info', message);

@@ -41,9 +41,13 @@ function createTasksTable(tasks) {
         taskButtonEl.setAttributeNode(dataTaskIdAttr);
         taskButtonEl.addEventListener('click', onTaskClicked);
 
+        const taskContentDiv = document.createElement('div');
+        taskContentDiv.id = 'task-content' + task.id;
+
         const liEl = document.createElement('li');
         liEl.appendChild(taskButtonEl);
         ulEl.appendChild(liEl);
+        ulEl.appendChild(taskContentDiv);
 
         liEl.appendChild(createModifyAndDeleteButtons(liEl));
     }
@@ -55,6 +59,12 @@ function onCreateNewTask() {
 
 function onTaskClicked() {
         const id = this.getAttribute('data-task-id');
+
+        if (idToPass != null) {
+            const divToClose = document.getElementById('task-content' + idToPass);
+            divToClose.style.display = 'none';
+        }
+        idToPass = id;
 
         const params = new URLSearchParams();
         params.append('task-id', id);
@@ -73,17 +83,17 @@ function onTaskContentResponse() {
 }
 
 function onTaskContentReceived(task) {
-    showContents(['profile-content', 'task-content']);
 
-    const taskContentEl = document.getElementById('task-content');
-    removeAllChildren(taskContentEl);
-    const taskTitle = document.createElement('p');
-    taskTitle.textContent = 'Title: ' + task.title;
-    const taskContent = document.createElement('p');
-    taskContent.textContent = 'Description: ' + task.content;
+    const divEl = document.getElementById('task-content' + idToPass);
+    divEl.style.display = 'block';
 
-    taskContentEl.appendChild(taskTitle);
-    taskContentEl.appendChild(taskContent);
+    const contentEl = document.createElement('p');
+    contentEl.textContent = task.content;
+
+    while (divEl.firstChild) {
+        divEl.removeChild(divEl.firstChild);
+    }
+    divEl.appendChild(contentEl);
 }
 
 function onCreateTaskButton() {
