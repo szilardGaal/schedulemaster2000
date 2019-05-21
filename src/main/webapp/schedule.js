@@ -1,3 +1,17 @@
+function deleteSchedule(id) {
+    const params = new URLSearchParams();
+    params.append('schedule-id', title);
+
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener('load', onDeleteScheduleResponse);
+    xhr.addEventListener('error', onNetworkError);
+    xhr.open('DELETE', 'protected/schedule');
+    xhr.send(params);
+}
+
+function modifySchedule(id) {
+
+}
 
 function onScheduleGetResponse() {
     const text = this.responseText;
@@ -11,20 +25,29 @@ function onScheduleGet(scheduleDto) {
 }
 
 function onDeleteButtonClicked() {
-    debugger;
     const parentEl = this.parentElement.parentElement;
     let id;
     if (this.getAttribute('data-type') === 'schedule') {
         id = parentEl.firstChild.getAttribute('data-schedule-id');
+        deleteSchedule(id);
     } else {
         id = parentEl.firstChild.getAttribute('data-task-id');
+        deleteTask(id);
     }
-    
     alert(id);
 }
 
 function onModifyButtonClicked() {
-
+    const parentEl = this.parentElement.parentElement;
+    let id;
+    if (this.getAttribute('data-type') === 'schedule') {
+        id = parentEl.firstChild.getAttribute('data-schedule-id');
+        modifySchedule(id);
+    } else {
+        id = parentEl.firstChild.getAttribute('data-task-id');
+        modifyTask(id);
+    }
+    alert(id);
 }
 
 function createModifyAndDeleteButtons(thisElement) {

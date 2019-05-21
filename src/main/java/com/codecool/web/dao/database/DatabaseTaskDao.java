@@ -18,6 +18,7 @@ public final class DatabaseTaskDao extends AbstractDao implements TaskDao {
         if (user_id == 0) {
             throw new IllegalArgumentException("User ID cannot be null or empty");
         }
+        
         String sql = "SELECT * FROM tasks WHERE user_id = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, user_id);
