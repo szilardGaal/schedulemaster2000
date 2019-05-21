@@ -84,7 +84,7 @@
                     <input type="text" name="task-description" placeholder="task description" required>
                     <br>
                     <button id="click-task-button-create" onclick="onCreateTaskButton()" type="submit">create</button>
-                    <button onclick="onCancelButtonClicked()">cancel</button>
+                    <button id="cancel-create-button" onclick="onCancelButtonClicked()">cancel</button>
                 </form>
             </div>
             <br>
