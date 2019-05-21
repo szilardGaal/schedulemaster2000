@@ -53,9 +53,9 @@ CREATE TABLE tasks_schedules(
     column_id int,
     begins int,
     duration int,
-    FOREIGN KEY (task_id) REFERENCES tasks(id),
-    FOREIGN KEY (schedule_id) REFERENCES schedules(id),
-    FOREIGN KEY (column_id) REFERENCES schedule_columns(id),
+    FOREIGN KEY (task_id) REFERENCES tasks(id) ON DELETE CASCADE,
+    FOREIGN KEY (schedule_id) REFERENCES schedules(id) ON DELETE CASCADE,
+    FOREIGN KEY (column_id) REFERENCES schedule_columns(id) ON DELETE CASCADE,
     CONSTRAINT limit_begins CHECK ( begins >= 1 AND begins <= 24 ),
     CONSTRAINT limit_ends CHECK ( duration >= 1 AND duration <= 24-begins )
 );
