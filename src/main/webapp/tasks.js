@@ -68,9 +68,9 @@ function onTaskClicked() {
         const id = this.getAttribute('data-task-id');
 
         if (idToPass == id) {
-                const divToClose = document.getElementById('task-content' + idToPass);
-                divToClose.style.display = 'none';
-                return;
+            const divToClose = document.getElementById('task-content' + idToPass);
+            divToClose.style.display = 'none';
+            return;
         }
 
         if (idToPass != null) {
