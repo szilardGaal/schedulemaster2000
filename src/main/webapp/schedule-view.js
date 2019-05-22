@@ -71,14 +71,8 @@ function onScheduleDisplayGet(scheduleDisplayDto) {
         scheduleTrEl.appendChild(timeColTdEl);
         for (let j = 1; j <= cols; j++){
             const slotTdEl = document.createElement('td');
+            slotTdEl.onclick = cellClicked;
             scheduleTrEl.appendChild(slotTdEl);
-            for (let k = 0; k < scheduleDisplayDto.allTaskForSchedule.length; k++){
-                const task = scheduleDisplayDto.allTaskForSchedule[k];
-                //console.log(task.columns);
-                if (task.columns.includes(j) && task.begins === time){
-                    slotTdEl.textContent = "test";
-                }
-            }
         } time++;
         scheduleTableEl.appendChild(scheduleTrEl);
     }
@@ -88,5 +82,11 @@ function onScheduleDisplayGet(scheduleDisplayDto) {
 }
 
 function createTasksToSelect() {
-    
+}
+
+function cellClicked() {
+    //showTasks();
+    //create dropdown list with the users tasks
+    //slot id - task id store task in slot
+    //if a task is already assigned to a slot either remove it from its previous position or remove it from the list
 }
