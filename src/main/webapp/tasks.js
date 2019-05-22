@@ -67,14 +67,13 @@ function onCreateNewTask() {
 function onTaskClicked() {
         const id = this.getAttribute('data-task-id');
 
-        if (idToPass == id) {
-            const divToClose = document.getElementById('task-content' + idToPass);
-            divToClose.style.display = 'none';
-            return;
-        }
-
         if (idToPass != null) {
             const divToClose = document.getElementById('task-content' + idToPass);
+            const property = divToClose.style.display;
+            if (idToPass == id && property == 'block') {
+                divToClose.style.display = 'none';
+                return;
+            }
             divToClose.style.display = 'none';
         }
         idToPass = id;
