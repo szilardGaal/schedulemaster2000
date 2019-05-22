@@ -1,14 +1,12 @@
 /*
     Database initialization script that runs on every web-application redeployment.
 */
-
 DROP TABLE IF EXISTS slots CASCADE;
 DROP TABLE IF EXISTS tasks CASCADE;
 DROP TABLE IF EXISTS tasks_schedules CASCADE;
 DROP TABLE IF EXISTS schedule_columns CASCADE;
 DROP TABLE IF EXISTS schedules CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
-
 
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
@@ -68,7 +66,6 @@ CREATE TABLE slots(
     FOREIGN KEY (task_id) REFERENCES tasks(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-
 /*Creates the given number of columns previously defined for the specific schedule by user*/
 
 CREATE OR REPLACE FUNCTION create_columns_on_schedule() RETURNS TRIGGER AS '
@@ -84,18 +81,14 @@ CREATE OR REPLACE FUNCTION create_columns_on_schedule() RETURNS TRIGGER AS '
     END; '
     LANGUAGE plpgsql;
 
-
 CREATE TRIGGER columns_on_schedule
     AFTER INSERT
     ON schedules
     FOR EACH ROW
 EXECUTE PROCEDURE create_columns_on_schedule();
 
-
-
 /*Update on slots only necessary once, called on the beginning date of the task added to the schedule, the following
   slots will be added automatically according to the previously defined duration*/
-
 
 CREATE OR REPLACE FUNCTION add_tasks_to_slots() RETURNS TRIGGER AS '
 BEGIN
@@ -118,7 +111,6 @@ CREATE TRIGGER task_on_slots_insert
     FOR EACH ROW
 EXECUTE PROCEDURE add_tasks_to_slots();
 
-
 /*When task added to a schedule, execute insert on tasks_schedules, this trigger automatically insert it to slots*/
 
 CREATE OR REPLACE FUNCTION create_slots_when_task_added() RETURNS TRIGGER AS '
@@ -133,8 +125,6 @@ CREATE TRIGGER create_first_slot
     ON tasks_schedules
     FOR EACH ROW
 EXECUTE PROCEDURE create_slots_when_task_added();
-
-
 
 INSERT INTO users(name, password) VALUES ('test', 'test');
 INSERT INTO users(name, password) VALUES ('test2', 'test2');
@@ -163,11 +153,3 @@ INSERT INTO tasks_schedules(task_id, schedule_id, column_id, begins, duration) V
 INSERT INTO tasks_schedules(task_id, schedule_id, column_id, begins, duration) VALUES (2, 1, 1, 17, 3);
 
 /*ADD before trigger to check if tasks already exists in column!*/
-
-
-
-
-
-
-
-
