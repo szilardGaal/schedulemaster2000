@@ -179,7 +179,7 @@
             </div>
         </div>
     </div>
-    <div id="schedule" class="schedule">
+    <div id="schedule" class="hidden content">
         <!--here table has to be created in js based on the datas stored in db, first td in each row contains time e.g.: 1:00 and has a class "line-highlight" for css-->
         <!--td max width and height has to be restricted accordingly in js, along with overflow-->
     </div>

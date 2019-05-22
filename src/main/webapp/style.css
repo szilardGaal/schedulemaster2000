@@ -234,6 +234,13 @@ li{
     padding: 5px 0 5px 10px;
 }
 
+/* This part is not working */
+li a{
+    max-width:200px;
+    word-wrap:break-word;
+}
+/*==========================*/
+
 li a:hover{
     cursor: pointer;
     color: #5d8cdd;
