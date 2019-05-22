@@ -18,17 +18,21 @@ time, mark, audio, video {
     font: inherit;
     vertical-align: baseline;
 }
+
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
     display: block;
 }
+
 body {
     line-height: 1;
 }
+
 ol, ul {
     list-style: none;
 }
+
 blockquote, q {
     quotes: none;
 }
@@ -46,7 +50,6 @@ table {
     box-sizing: border-box;
 }
 
-
 body{
     background: #ffffff;
     background-image: url('img/bg.jpg');
@@ -63,7 +66,7 @@ body{
     height: 100%;
     overflow:hidden;
     margin: 0 auto;
-    padding: 100px 0;
+    padding: 50px 0;
 }
 
 #login-content{
@@ -90,7 +93,7 @@ body{
     margin-top: 2%;
 }
 
-#myTasks h2, #list-my-schedules h2, #list-public-schedules h2{
+#myTasks h2, #list-my-schedules h2, #list-public-schedules h2, #modify-schedule-div h2, #modify-task h2{
     background: black;
     font-size: 1em;
 }
@@ -109,11 +112,12 @@ body{
     text-align: center;
 }
 
-#create-new-schedule, #create-new-task{
+#create-new-schedule, #create-new-task, #modify-schedule, #modify-task{
     text-align: left;
     float: left;
     background:rgba(95,158,160, 0.3);
     width: 70%;
+    padding-left: 2%;
 }
 
 #schedule{
@@ -121,7 +125,6 @@ body{
     position: relative;
     float: right;
 }
-
 
 table{
     width: 100%;
@@ -156,7 +159,7 @@ h1{
     font-weight: bold;
     text-decoration: underline;
     text-align: center;
-    padding-bottom: 50px;
+    padding-bottom: 10px;
 }
 
 p{
@@ -167,6 +170,7 @@ p{
 input[type="text"], input[type="password"], select{
     background: rgba(255, 255, 255, 0.75);
     margin: 5px 0;
+    color: #222222;
     font-family: inherit;
 }
 
@@ -174,8 +178,8 @@ button{
     background-color: black;
     color: white;
     margin: 20px auto;
-    font-size: 14px;
-    padding: 5px 10px;
+    font-size: 12px;
+    padding: 5px 5px;
     font-family: inherit;
 }
 
@@ -199,6 +203,11 @@ button{
 
 .button-wrapper button:hover {
     filter: invert(100%);
+}
+
+.task-content-div {
+    padding-left: 5%;
+    background: #5d8cdd;
 }
 
 #display-create-task{
@@ -229,6 +238,13 @@ button{
 li{
     padding: 5px 0 5px 10px;
 }
+
+/* This part is not working */
+li a{
+    max-width:200px;
+    word-wrap:break-word;
+}
+/*==========================*/
 
 li a:hover{
     cursor: pointer;

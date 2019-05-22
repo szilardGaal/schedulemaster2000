@@ -48,10 +48,13 @@ public class ScheduleServlet extends AbstractServlet {
             User user = (User) req.getSession().getAttribute("user");
             int userId = user.getId();
 
+
             String title = req.getParameter("schedule-name");
             int cols = parseInt(req.getParameter("schedule-cols"));
+            String isPublicString = req.getParameter("is-public");
+            boolean isPublic = Boolean.valueOf(isPublicString);
 
-            scheduleService.addNewSchedule(userId, title, cols);
+            scheduleService.addNewSchedule(userId, title, cols, isPublic);
 
             doGet(req, resp);
 
@@ -66,7 +69,7 @@ public class ScheduleServlet extends AbstractServlet {
             DatabaseScheduleDao databaseScheduleDao = new DatabaseScheduleDao(connection);
             ScheduleService scheduleService = new ScheduleService(databaseScheduleDao);
 
-            int schedule_id = parseInt(req.getParameter("schedule-id"));
+            int schedule_id = Integer.parseInt(req.getParameter("scheduleId"));
 
             scheduleService.deleteSchedule(schedule_id);
 
@@ -83,13 +86,13 @@ public class ScheduleServlet extends AbstractServlet {
             DatabaseScheduleDao databaseScheduleDao = new DatabaseScheduleDao(connection);
             ScheduleService scheduleService = new ScheduleService(databaseScheduleDao);
 
-            Schedule newSchedule = (Schedule) req.getAttribute("schedule");
+            String newTitle = req.getParameter("new-title");
+            int newColCount = Integer.parseInt(req.getParameter("new-cols"));
+            boolean newVisibility = Boolean.valueOf(req.getParameter("new-is-public"));
+            int id = Integer.parseInt(req.getParameter("id"));
 
-            newSchedule.setCols(parseInt(req.getParameter("new-cols")));
-            newSchedule.setPublic(Boolean.valueOf(req.getParameter("new-is-public")));
-
-            scheduleService.updateSchedule(newSchedule);
-
+            scheduleService.updateSchedule(newTitle, newColCount, newVisibility, id);
+            sendMessage(resp, HttpServletResponse.SC_OK, null);
             doGet(req, resp);
 
         } catch (SQLException ex){

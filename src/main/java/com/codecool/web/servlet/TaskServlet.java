@@ -73,11 +73,14 @@ public final class TaskServlet extends AbstractServlet {
             TaskDao taskDao = new DatabaseTaskDao(connection);
             TaskService taskService = new TaskService(taskDao);
 
-            String title = req.getParameter("title");
-            String content = req.getParameter("content");
+            String title = req.getParameter("new-title");
+            String content = req.getParameter("new-content");
+            int id = Integer.parseInt(req.getParameter("id"));
 
-            int id = Integer.parseInt(req.getParameter("taskId"));
             taskService.updateTask(id, title, content);
+            sendMessage(resp, HttpServletResponse.SC_OK, null);
+
+            doGet(req, resp);
 
         } catch (SQLException ex) {
             handleSqlError(resp, ex);

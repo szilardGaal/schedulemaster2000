@@ -138,13 +138,26 @@ EXECUTE PROCEDURE create_slots_when_task_added();
 
 INSERT INTO users(name, password) VALUES ('test', 'test');
 INSERT INTO users(name, password) VALUES ('test2', 'test2');
+INSERT INTO users(name, password, isAdmin) VALUES ('admin', 'admin', true);
 
-INSERT INTO schedules(user_id, title, numOfCol) VALUES (1, 'title', '2');
-INSERT INTO schedules(user_id, title, numOfCol) VALUES (1, 'title', '3');
+INSERT INTO schedules(user_id, title, numOfCol, isPublic) VALUES (1, 'chores', '2', true);
+INSERT INTO schedules(user_id, title, numOfCol) VALUES (1, 'training', '3');
+INSERT INTO schedules(user_id, title, numOfCol) VALUES (2, 'office', 5);
+INSERT INTO schedules(user_id, title, numOfCol, isPublic) VALUES (2, 'Jehovas'' harrassment', 6, true); 
+INSERT INTO schedules(user_id, title, numOfCol, isPublic) VALUES (3, 'DOOM-plan', 7, true);
 
-INSERT INTO tasks(user_id, title, content) VALUES (1, 'task title', 'task content');
-INSERT INTO tasks(user_id, title, content) VALUES (1, 'task title', 'task content');
-INSERT INTO tasks(user_id, title, content) VALUES (1, 'task title', 'task content');
+INSERT INTO tasks(user_id, title, content) VALUES (1, 'flex', 'looking good');
+INSERT INTO tasks(user_id, title, content) VALUES (1, 'running', 'like Forest');
+INSERT INTO tasks(user_id, title, content) VALUES (1, 'do the dishes', '''cause they''r dirty');
+INSERT INTO tasks(user_id, title, content) VALUES (1, 'hoovering', 'the cieling too!');
+INSERT INTO tasks(user_id, title, content) VALUES (1, 'watch TV', 'SpongeBob on full volume');
+INSERT INTO tasks(user_id, title, content) VALUES (2, 'phase #1', 'drink coffee');
+INSERT INTO tasks(user_id, title, content) VALUES (2, 'working hard', 'actually browsing reddit');
+INSERT INTO tasks(user_id, title, content) VALUES (2, 'house #1', 'do you have...');
+INSERT INTO tasks(user_id, title, content) VALUES (2, 'house #2', '...minute for...');
+INSERT INTO tasks(user_id, title, content) VALUES (2, 'house #3', '...our Lord and Saviour SpongeBob?');
+INSERT INTO tasks(user_id, title, content) VALUES (3, 'ni!', 'NI!');
+INSERT INTO tasks(user_id, title, content) VALUEs (3, 'thinking about your favourite color', 'either blue or yellow');
 
 INSERT INTO tasks_schedules(task_id, schedule_id, column_id, begins, duration) VALUES (1, 1, 1, 11, 3);
 INSERT INTO tasks_schedules(task_id, schedule_id, column_id, begins, duration) VALUES (2, 1, 1, 17, 3);
