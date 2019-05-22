@@ -90,7 +90,7 @@ body{
     margin-top: 2%;
 }
 
-#myTasks h2, #list-my-schedules h2, #list-public-schedules h2{
+#myTasks h2, #list-my-schedules h2, #list-public-schedules h2, #modify-schedule-div h2, #modify-task h2{
     background: black;
     font-size: 1em;
 }
@@ -176,8 +176,8 @@ button{
     background-color: black;
     color: white;
     margin: 20px auto;
-    font-size: 14px;
-    padding: 5px 10px;
+    font-size: 12px;
+    padding: 5px 5px;
     font-family: inherit;
 }
 

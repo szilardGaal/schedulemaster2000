@@ -67,7 +67,7 @@ function onModifyScheduleResponse() {
 }
 
 function modifySchedule(id) {
-    showContents(['profile-content', 'modify-schedule', 'schedule']);
+    showContents(['profile-content', 'modify-schedule-div', 'schedule']);
 
     const params = new URLSearchParams();
     params.append('id', id);

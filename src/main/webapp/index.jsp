@@ -78,7 +78,7 @@
                     <button onclick="onCancelButtonClicked()">cancel</button>
                 </form>
             </div>
-            <div id="modify-schedule" class="hidden content">
+            <div id="modify-schedule-div" class="hidden content">
                 <form id="modify-schedule" onsubmit="return false;">
                     <p>schedule name:</p>
                     <input type="text" name="schedule-name-update" required>
@@ -90,11 +90,11 @@
                     </select> days
                     <br>
                     <select name="is-public-update">
-                        <option value="ture">public</option>
+                        <option value="true">public</option>
                         <option value="false">private</option>
                     </select>
                     <br>
-                    <button onclick="onSubmitModifyScheduleButton()" type="submit">update</button>
+                    <button onclick="onSubmitModifyScheduleButton()" type="submit">update schedule</button>
                     <button onclick="onCancelButtonClicked()">cancel</button>
                 </form>
             </div>

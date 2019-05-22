@@ -91,7 +91,6 @@ public class ScheduleServlet extends AbstractServlet {
             boolean newVisibility = Boolean.valueOf(req.getParameter("new-is-public"));
             int id = Integer.parseInt(req.getParameter("id"));
 
-
             scheduleService.updateSchedule(newTitle, newColCount, newVisibility, id);
             sendMessage(resp, HttpServletResponse.SC_OK, null);
             doGet(req, resp);
