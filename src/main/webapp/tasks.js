@@ -113,6 +113,7 @@ function createTasksTable(tasks) {
 
         const taskContentDiv = document.createElement('div');
         taskContentDiv.id = 'task-content' + task.id;
+        taskContentDiv.className = "task-content-div";
 
         const liEl = document.createElement('li');
         liEl.appendChild(taskButtonEl);

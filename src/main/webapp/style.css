@@ -205,6 +205,11 @@ button{
     filter: invert(100%);
 }
 
+.task-content-div {
+    padding-left: 5%;
+    background: #5d8cdd;
+}
+
 #display-create-task{
     padding-bottom: 30px;
 }
