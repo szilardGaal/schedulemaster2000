@@ -201,7 +201,8 @@ button{
 }
 
 .button-wrapper button:hover {
-    filter: invert(100%);
+    filter: contrast(0) sepia(100%) hue-rotate(155deg) brightness(1) saturate(1.5);
+    cursor: pointer;
 }
 
 .task-content-div {
