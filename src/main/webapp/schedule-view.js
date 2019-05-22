@@ -85,6 +85,8 @@ function createTasksToSelect() {
 }
 
 function cellClicked() {
-    showTasks();
+    //showTasks();
     //create dropdown list with the users tasks
+    //slot id - task id store task in slot
+    //if a task is already assigned to a slot either remove it from its previous position or remove it from the list
 }
