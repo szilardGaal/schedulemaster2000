@@ -113,6 +113,17 @@
                     <button id="cancel-create-button" onclick="onCancelButtonClicked()">cancel</button>
                 </form>
             </div>
+            <div id="modify-task" class="hidden content">
+                <form id="modify-task-form" onsubmit="return false;">
+                    <p>task name:</p>
+                    <input type="text" name="task-name" required>
+                    <p>task description:</p>    
+                    <input type="text" name="task-description" required>
+                    <br>
+                    <button onclick="onModifyTaskButton()" type="submit">update task</button>
+                    <button onclick="onCancelButtonClicked()">cancel</button>
+                </form>
+            </div>
             <br>
             <div id="list-public-schedules">
             </div>

@@ -9,8 +9,71 @@ function deleteTask(id) {
     xhr.send();
 }
 
-function modifyTask(id) {
+function onUpdateTaskResponse() {
+    if (this.status === OK) {
+        alert('Task successfully updated!');
+        location.reload();
+    } else {
+        //this needs more work:
+        onOtherResponse(myScheduleListContentUlEl, this);
+    }
+}
 
+function onModifyTaskButton() {
+    const modifyTaskFormEl = document.forms['modify-task-form'];
+
+    const titleInputEl = modifyTaskFormEl.querySelector('input[name="task-name"]');
+    const contentInputEl = modifyTaskFormEl.querySelector('input[name="task-description"]');
+
+    debugger;
+    const title = titleInputEl.value;
+    const content = contentInputEl.value;
+    const id = modifyTaskFormEl.getAttribute('data-task-id');
+
+    if (title == '' || content == '') {
+        return;
+    }
+
+    const params = new URLSearchParams();
+    params.append('new-title', title);
+    params.append('new-content', content);
+    params.append('id', id);
+
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener('load', onUpdateTaskResponse);
+    xhr.addEventListener('error', onNetworkError);
+    xhr.open('PUT', 'protected/tasks?' + params.toString());
+    xhr.send();
+}
+
+function createModifyTaskForm(taskDto) {
+    const modifyTaskFormEl = document.forms['modify-task-form'];
+    modifyTaskFormEl.setAttribute('data-task-id', taskDto.id);
+
+    const titleInputEl = modifyTaskFormEl.querySelector('input[name="task-name"]');
+    const contentInputEl = modifyTaskFormEl.querySelector('input[name="task-description"]');
+
+    titleInputEl.value = taskDto.title;
+    contentInputEl.value = taskDto.content;
+}
+
+function onModifyTaskResponse() {
+    const text = this.responseText;
+    const taskDto = JSON.parse(text);
+    createModifyTaskForm(taskDto);
+}
+
+function modifyTask(id) {
+    showContents(['profile-content', 'modify-task', 'schedule']);
+
+    const params = new URLSearchParams();
+    params.append('task-id', id);
+
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener('load', onModifyTaskResponse);
+    xhr.addEventListener('error', onNetworkError);
+    xhr.open('GET', 'protected/taskContent?' + params.toString());
+    xhr.send();
 }
 
 function onTasksReceived() {
