@@ -17,13 +17,9 @@ public final class SimpleLoginService implements LoginService {
     }
 
     @Override
-    public User loginUser(String userName, String password) throws SQLException, ServiceException {
+    public User loginUser(String userName) throws SQLException, ServiceException {
         try {
-            User user = userDao.findByUserName(userName);
-            if (user == null || !user.getPassword().equals(password)) {
-                throw new ServiceException("Bad login");
-            }
-            return user;
+            return userDao.findByUserName(userName);
         } catch (IllegalArgumentException ex) {
             throw new ServiceException(ex.getMessage());
         }

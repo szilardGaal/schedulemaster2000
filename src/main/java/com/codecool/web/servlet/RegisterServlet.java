@@ -5,6 +5,7 @@ import com.codecool.web.dao.database.DatabaseUserDao;
 import com.codecool.web.model.User;
 import com.codecool.web.service.LoginService;
 import com.codecool.web.service.exception.ServiceException;
+import com.codecool.web.service.simple.PasswordHashService;
 import com.codecool.web.service.simple.SimpleLoginService;
 import com.codecool.web.service.simple.UserService;
 
@@ -12,6 +13,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -23,9 +26,10 @@ public final class RegisterServlet extends AbstractServlet {
         try (Connection connection = getConnection(req.getServletContext())) {
             UserDao userDao = new DatabaseUserDao(connection);
             UserService us = new UserService(userDao);
+            PasswordHashService pwh = new PasswordHashService();
 
             String userName = req.getParameter("username");
-            String password = req.getParameter("password");
+            String password;
             String role = req.getParameter("role");
             boolean isAdmin = false;
 
@@ -33,10 +37,19 @@ public final class RegisterServlet extends AbstractServlet {
                 isAdmin = true;
             }
 
-            us.registerUser(userName, password, isAdmin);
-            User user = userDao.findByUserName(userName);
-            req.getSession().setAttribute("user", user);
-            sendMessage(resp, HttpServletResponse.SC_OK, user);
+            try {
+                password = pwh.getHashedPassword(req.getParameter("password"));
+
+                us.registerUser(userName, password, isAdmin);
+                User user = userDao.findByUserName(userName);
+                req.getSession().setAttribute("user", user);
+                sendMessage(resp, HttpServletResponse.SC_OK, user);
+
+            } catch (NoSuchAlgorithmException ex) {
+                ex.getMessage();
+            } catch (InvalidKeySpecException ex) {
+                ex.getMessage();
+            }
 
         } catch (SQLException ex) {
             handleSqlError(resp, ex);
