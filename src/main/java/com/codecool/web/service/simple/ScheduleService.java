@@ -26,8 +26,8 @@ public class ScheduleService {
         schedulesDao.deleteSchedule(schedule_id);
     }
 
-    public void updateSchedule(Schedule schedule) throws SQLException{
-        schedulesDao.updateSchedule(schedule);
+    public void updateSchedule(String newTitle, int newColCount, boolean newVisibility, int id) throws SQLException{
+        schedulesDao.updateSchedule(newTitle, newColCount, newVisibility, id);
     }
 
     public List<Schedule> getAllPublicNotOwned(int user_id) throws SQLException{

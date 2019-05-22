@@ -9,12 +9,47 @@ function deleteSchedule(id) {
     xhr.send();
 }
 
-function onSubmitModifyScheduleButton() {
+function onUpdateScheduleResponse() {
+    if (this.status === OK) {
+        alert('Schedule successfully updated!');
+        location.reload();
+    } else {
+        onOtherResponse(myScheduleListContentUlEl, this);
+    }
+}
 
+function onSubmitModifyScheduleButton() {
+    const modifyScheduleFormEl = document.forms['modify-schedule'];
+
+    const titleInputEl = modifyScheduleFormEl.querySelector('input[name="schedule-name-update"]');
+    const durationInputEl = modifyScheduleFormEl.querySelector('select[name="schedule-duration-update"]');
+    const isPublicInputEl = modifyScheduleFormEl.querySelector('select[name="is-public-update"]');
+
+    const title = titleInputEl.value;
+    const duration = durationInputEl.value;
+    const visibility = isPublicInputEl.value;
+    const id = modifyScheduleFormEl.getAttribute('data-schedule-id');
+
+    if (title == '') {
+        return;
+    }
+
+    const params = new URLSearchParams();
+    params.append('new-title', title);
+    params.append('new-cols', duration);
+    params.append('new-is-public', visibility);
+    params.append('id', id);
+
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener('load', onUpdateScheduleResponse);
+    xhr.addEventListener('error', onNetworkError);
+    xhr.open('PUT', 'protected/schedule?' + params.toString());
+    xhr.send();
 }
 
 function createModifyScheduleForm(scheduleDto) {
     const modifyScheduleFormEl = document.forms['modify-schedule'];
+    modifyScheduleFormEl.setAttribute('data-schedule-id', scheduleDto.schedule.id);
 
     const titleInputEl = modifyScheduleFormEl.querySelector('input[name="schedule-name-update"]');
     const durationInputEl = modifyScheduleFormEl.querySelector('select[name="schedule-duration-update"]');
@@ -23,22 +58,6 @@ function createModifyScheduleForm(scheduleDto) {
     titleInputEl.value = scheduleDto.schedule.name;
     durationInputEl.value = scheduleDto.schedule.cols;
     isPublicInputEl.value = scheduleDto.schedule.public.toString();
-/*
-    var title = titleInputEl.value;
-    if (title == '') {
-        return;
-    }
-    var duration = durationInputEl.value;
-
-    const params = new URLSearchParams();
-    params.append('schedule-name', title);
-    params.append('schedule-cols', duration);
-
-    const xhr = new XMLHttpRequest();
-    xhr.addEventListener('load', onCreateScheduleResponse);
-    xhr.addEventListener('error', onNetworkError);
-    xhr.open('POST', 'protected/schedule');
-    xhr.send(params);*/
 }
 
 function onModifyScheduleResponse() {
@@ -159,8 +178,8 @@ function addMySchedules(schedules) {
             scheduleLiEl.appendChild(scheduleLinkEl);
             myScheduleUlEl.appendChild(scheduleLiEl);
             scheduleLiEl.appendChild(createModifyAndDeleteButtons(scheduleLiEl));
-
         }
+
     } myScheduleDivEl.appendChild(myScheduleUlEl);
     showFirstSchedule();
     return myScheduleDivEl;

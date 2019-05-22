@@ -13,7 +13,7 @@ public interface ScheduleDao {
 
     void deleteSchedule(int schedule_id) throws SQLException;
 
-    void updateSchedule(Schedule newSchedule) throws SQLException;
+    void updateSchedule(String newTitle, int newColCount, boolean newVisibility, int id) throws SQLException;
 
     List<Schedule> getAllPublic(int user_id) throws SQLException;
 }

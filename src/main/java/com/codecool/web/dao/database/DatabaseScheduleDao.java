@@ -55,13 +55,13 @@ public final class DatabaseScheduleDao extends AbstractDao implements ScheduleDa
     }
 
     @Override
-    public void updateSchedule(Schedule newSchedule) throws SQLException{
+    public void updateSchedule(String newTitle, int newColCount, boolean newVisibility, int id) throws SQLException{
         String sql = "UPDATE schedules SET title=?, numOfCol=?, isPublic=? WHERE id=?";
         try(PreparedStatement statement = connection.prepareStatement(sql)){
-            statement.setString(1, newSchedule.getName());
-            statement.setInt(2, newSchedule.getCols());
-            statement.setBoolean(3, newSchedule.isPublic());
-            statement.setInt(4, newSchedule.getId());
+            statement.setString(1, newTitle);
+            statement.setInt(2, newColCount);
+            statement.setBoolean(3, newVisibility);
+            statement.setInt(4, id);
             statement.execute();
         }
     }
@@ -88,9 +88,4 @@ public final class DatabaseScheduleDao extends AbstractDao implements ScheduleDa
         boolean isPublic = resultSet.getBoolean("ispublic");
         return new Schedule(id, user_id, name, cols, isPublic);
     }
-
-
-
-
-
 }
