@@ -71,6 +71,7 @@ function onScheduleDisplayGet(scheduleDisplayDto) {
         scheduleTrEl.appendChild(timeColTdEl);
         for (let j = 1; j <= cols; j++){
             const slotTdEl = document.createElement('td');
+            slotTdEl.id = j.toString() + time.toString();
             slotTdEl.onclick = cellClicked;
             scheduleTrEl.appendChild(slotTdEl);
         } time++;
@@ -89,4 +90,6 @@ function cellClicked() {
     //create dropdown list with the users tasks
     //slot id - task id store task in slot
     //if a task is already assigned to a slot either remove it from its previous position or remove it from the list
+
+    alert(this.id)
 }
