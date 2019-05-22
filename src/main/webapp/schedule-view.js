@@ -46,7 +46,6 @@ function onScheduleDisplayGet(scheduleDisplayDto) {
     const scheduleDivEl = document.getElementById('schedule');
     const titleEl = document.createElement('h2');
     titleEl.innerHTML = scheduleDisplayDto.schedule.name;
-    
 
     const scheduleTableEl = document.createElement('table');
     const cols = scheduleDisplayDto.schedule.cols;
