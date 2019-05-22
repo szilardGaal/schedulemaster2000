@@ -50,8 +50,10 @@ public class ScheduleServlet extends AbstractServlet {
 
             String title = req.getParameter("schedule-name");
             int cols = parseInt(req.getParameter("schedule-cols"));
+            String isPublicString = req.getParameter("is-public");
+            boolean isPublic = Boolean.valueOf(isPublicString);
 
-            scheduleService.addNewSchedule(userId, title, cols);
+            scheduleService.addNewSchedule(userId, title, cols, isPublic);
 
             doGet(req, resp);
 
@@ -66,7 +68,7 @@ public class ScheduleServlet extends AbstractServlet {
             DatabaseScheduleDao databaseScheduleDao = new DatabaseScheduleDao(connection);
             ScheduleService scheduleService = new ScheduleService(databaseScheduleDao);
 
-            int schedule_id = parseInt(req.getParameter("schedule-id"));
+            int schedule_id = Integer.parseInt(req.getParameter("scheduleId"));
 
             scheduleService.deleteSchedule(schedule_id);
 

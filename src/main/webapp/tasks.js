@@ -1,5 +1,12 @@
 function deleteTask(id) {
+    const params = new URLSearchParams();
+    params.append('taskId', id);
 
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener('load', function () { location.reload();});
+    xhr.addEventListener('error', onNetworkError);
+    xhr.open('DELETE', 'protected/tasks?' + params.toString());
+    xhr.send();
 }
 
 function modifyTask(id) {

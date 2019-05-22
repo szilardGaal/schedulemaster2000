@@ -109,11 +109,12 @@ body{
     text-align: center;
 }
 
-#create-new-schedule, #create-new-task{
+#create-new-schedule, #create-new-task, #modify-schedule, #modify-task{
     text-align: left;
     float: left;
     background:rgba(95,158,160, 0.3);
     width: 70%;
+    padding-left: 2%;
 }
 
 #schedule{
@@ -156,7 +157,7 @@ h1{
     font-weight: bold;
     text-decoration: underline;
     text-align: center;
-    padding-bottom: 50px;
+    padding-bottom: 10px;
 }
 
 p{
@@ -167,6 +168,7 @@ p{
 input[type="text"], input[type="password"], select{
     background: rgba(255, 255, 255, 0.75);
     margin: 5px 0;
+    color: #222222;
     font-family: inherit;
 }
 
