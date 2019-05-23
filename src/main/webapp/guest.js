@@ -8,7 +8,6 @@ function loadGuestSchedule(){
 }
 
 function createGuestSchedule() {
-
     const myScheduleDivEl = document.getElementById('list-my-schedules');
 
     removeAllChildren(myScheduleDivEl);

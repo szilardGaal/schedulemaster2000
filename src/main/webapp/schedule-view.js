@@ -1,5 +1,4 @@
 function showFirstSchedule() {
-
     var scheduleList = document.getElementById('list-my-schedules').getElementsByTagName('li');
     if (scheduleList.length < 1) {
         return;
@@ -17,11 +16,9 @@ function showFirstSchedule() {
 
 function onScheduleClicked() {
     const id = this.getAttribute('data-schedule-id');
-    //console.log(id);
 
     const params = new URLSearchParams();
     params.append('id', id);
-    //console.log(params.get('id'));
 
     const xhr = new XMLHttpRequest();
     xhr.addEventListener('load', onScheduleDisplayResponse);
@@ -33,12 +30,10 @@ function onScheduleClicked() {
 function onScheduleDisplayResponse(){
     const text = this.responseText;
     const scheduleDisplayDto = JSON.parse(text);
-    //console.log(scheduleDisplayDto);
     onScheduleDisplayGet(scheduleDisplayDto);
 }
 
 function onScheduleDisplayGet(scheduleDisplayDto) {
-    //console.log(scheduleDisplayDto);
     showContents(['schedule_content', 'profile-content', 'logout-content', 'schedule']);
 
     createTasksToSelect(scheduleDisplayDto.allTaskForUser);
@@ -58,9 +53,9 @@ function onScheduleDisplayGet(scheduleDisplayDto) {
     for (let i = 0; i < cols; i++){
         const columnHeaderTdEl = document.createElement('td');
         columnHeaderTdEl.textContent = 'Day ' + (i+1);
+
         headerRowTrEl.appendChild(columnHeaderTdEl);
     }
-    
     scheduleTableEl.appendChild(headerRowTrEl);
 
     let time = 1;
@@ -75,6 +70,7 @@ function onScheduleDisplayGet(scheduleDisplayDto) {
             const slotTdEl = document.createElement('td');
             slotTdEl.id = j.toString() + ',' + time.toString() + ':00';
             slotTdEl.onclick = cellClicked;
+
             scheduleTrEl.appendChild(slotTdEl);
         } time++;
         scheduleTableEl.appendChild(scheduleTrEl);
@@ -84,11 +80,29 @@ function onScheduleDisplayGet(scheduleDisplayDto) {
     scheduleDivEl.appendChild(scheduleTableEl);
 }
 
-function createTasksToSelect() {
+function createTasksToSelect(tasksInDropdown) {
+    alert('creating dropdown');
+    const dropdown = document.createElement('select');
+
+    for (let i = 0; i < tasksInDropdown.length; i++) {
+        const task = tasksInDropdown[i];
+
+        const taskOptionEl = document.createElement('option');
+        taskOptionEl.onclick = dropdownTaskClicked;
+        taskOptionEl.setAttribute = task.id;
+        taskOptionEl.textContent = task.title;
+
+        dropdown.appendChild(taskOptionEl);
+    }
+}
+
+function dropdownTaskClicked() {
 }
 
 function onCreateTaskResponseBla() {
-
+    const text = this.responseText;
+    const tasksInDropdown = JSON.parse(text);
+    createTasksToSelect(tasksInDropdown);
 }
 
 function cellClicked() {
@@ -102,6 +116,6 @@ function cellClicked() {
     const xhr = new XMLHttpRequest();
     xhr.addEventListener('load', onCreateTaskResponseBla);
     xhr.addEventListener('error', onNetworkError);
-    xhr.open('GET', 'protected/tasks?' + params.toString());
+    xhr.open('POST', 'protected/tasks?' + params.toString());
     xhr.send();
 }

@@ -115,7 +115,6 @@ function onModifyButtonClicked() {
 }
 
 function createModifyAndDeleteButtons(thisElement) {
-
     const buttonWrapper = document.createElement('div');
     buttonWrapper.setAttribute('class', 'button-wrapper');
 
@@ -224,7 +223,6 @@ function addPublicSchedules(schedules) {
 }
 
 function onCreateScheduleResponse() {
-
     const createScheduleFormEl = document.forms['create-schedule'];
     const titleInputEl = createScheduleFormEl.querySelector('input[name="schedule-name"]');
     const durationInputEl = createScheduleFormEl.querySelector('select[name="schedule-duration"]');

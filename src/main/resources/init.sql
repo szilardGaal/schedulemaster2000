@@ -136,7 +136,7 @@ INSERT INTO users(name, password, isAdmin) VALUES ('admin', '1000:ef57da2a955e1c
 INSERT INTO schedules(user_id, title, numOfCol, isPublic) VALUES (1, 'chores', '2', true);
 INSERT INTO schedules(user_id, title, numOfCol) VALUES (1, 'training', '3');
 INSERT INTO schedules(user_id, title, numOfCol) VALUES (2, 'office', 5);
-INSERT INTO schedules(user_id, title, numOfCol, isPublic) VALUES (2, 'Jehovas'' harrassment', 6, true); 
+INSERT INTO schedules(user_id, title, numOfCol, isPublic) VALUES (2, 'Jehovas'' harrassment', 6, true);
 INSERT INTO schedules(user_id, title, numOfCol, isPublic) VALUES (3, 'DOOM-plan', 7, true);
 
 INSERT INTO tasks(user_id, title, content) VALUES (1, 'flex', 'looking good');

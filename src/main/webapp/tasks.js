@@ -14,7 +14,6 @@ function onUpdateTaskResponse() {
         alert('Task successfully updated!');
         location.reload();
     } else {
-        //this needs more work:
         onOtherResponse(myScheduleListContentUlEl, this);
     }
 }
@@ -25,7 +24,6 @@ function onModifyTaskButton() {
     const titleInputEl = modifyTaskFormEl.querySelector('input[name="task-name"]');
     const contentInputEl = modifyTaskFormEl.querySelector('input[name="task-description"]');
 
-    debugger;
     const title = titleInputEl.value;
     const content = contentInputEl.value;
     const id = modifyTaskFormEl.getAttribute('data-task-id');
