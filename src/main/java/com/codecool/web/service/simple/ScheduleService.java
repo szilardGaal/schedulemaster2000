@@ -34,4 +34,8 @@ public class ScheduleService {
         return schedulesDao.getAllPublic(user_id);
     }
 
+    public void addTaskToSchedule(int scheduleId, int taskId, int columnId, String time) throws SQLException {
+        schedulesDao.addTaskToSchedule(scheduleId, taskId, columnId, time);
+    }
+
 }

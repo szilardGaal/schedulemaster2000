@@ -16,4 +16,6 @@ public interface ScheduleDao {
     void updateSchedule(String newTitle, int newColCount, boolean newVisibility, int id) throws SQLException;
 
     List<Schedule> getAllPublic(int user_id) throws SQLException;
+
+    void addTaskToSchedule(int scheduleId, int taskId, int columnId, String time) throws SQLException;
 }

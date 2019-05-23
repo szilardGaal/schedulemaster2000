@@ -80,6 +80,17 @@ public final class DatabaseScheduleDao extends AbstractDao implements ScheduleDa
         } return getAllPublic;
     }
 
+    @Override
+    public void addTaskToSchedule(int scheduleId, int taskId, int columnId, String time) throws SQLException {
+        String sql = "INSERT INTO slots (column_id, task_id, time) VALUES (?, ?, ?)";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, columnId);
+            statement.setInt(2, taskId);
+            statement.setString(3, time);
+            statement.execute();
+        }
+    }
+
     private Schedule fetchSchedule(ResultSet resultSet) throws SQLException {
         int id = resultSet.getInt("id");
         int user_id = resultSet.getInt("user_id");
