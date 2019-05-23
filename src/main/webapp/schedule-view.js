@@ -110,12 +110,12 @@ function cellClicked() {
     const params = new URLSearchParams();
     
     params.append('schedule-id', document.getElementById('schedule-display-table').getAttribute('data-schedule-id'));
-    params.append('columnId', ids[0]);
+    params.append('column-id', ids[0]);
     params.append('time', ids[1]);
 
     const xhr = new XMLHttpRequest();
     xhr.addEventListener('load', onCreateTaskResponseBla);
     xhr.addEventListener('error', onNetworkError);
-    xhr.open('POST', 'protected/tasks?' + params.toString());
+    xhr.open('POST', 'protected/taskContent?' + params.toString());
     xhr.send();
 }

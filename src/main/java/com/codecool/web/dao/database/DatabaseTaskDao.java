@@ -95,14 +95,13 @@ public final class DatabaseTaskDao extends AbstractDao implements TaskDao {
                      "left join schedule_columns on slots.column_id = schedule_columns.id " +
                      "left join schedules on schedule_columns.id = schedules.id " +
                      "where (schedules.id != ? or schedules.id is null) and tasks.user_id = ? and " +
-                     "column_id = ? and " +
-                     "time = ? or time = ?";
+                     "column_id = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, scheduleId);
             statement.setInt(2, userId);
             statement.setInt(3, columnId);
-            statement.setString(4, timePlusOne);
-            statement.setString(5, timeMinusOne);
+            //statement.setString(4, timePlusOne);
+            //statement.setString(5, timeMinusOne);
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     tasks.add(fetchTask(resultSet));
