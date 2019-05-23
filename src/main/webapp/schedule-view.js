@@ -80,13 +80,17 @@ function onScheduleDisplayGet(scheduleDisplayDto) {
 
 function createTasksInSelect(tasksInDropdown) {
     const dropdown = document.createElement('select');
+    dropdown.style.display = 'block';
 
     for (let i = 0; i < tasksInDropdown.length; i++) {
         const task = tasksInDropdown[i];
 
+        const taskIdAttr = document.createAttribute('task-id');
+        taskIdAttr.value = task.id;
+
         const taskOptionEl = document.createElement('option');
         taskOptionEl.onclick = dropdownTaskClicked;
-        taskOptionEl.setAttribute = task.id;
+        taskOptionEl.setAttributeNode = taskIdAttr;
         taskOptionEl.textContent = task.title;
 
         dropdown.appendChild(taskOptionEl);
@@ -96,6 +100,19 @@ function createTasksInSelect(tasksInDropdown) {
 }
 
 function dropdownTaskClicked() {
+    const ids = cellIdToPass.split(',');
+    const task_id = this.getAttribute;
+
+    params.append('schedule-id', document.getElementById('schedule-display-table').getAttribute('data-schedule-id'));
+    params.append('task-id', task_id);
+    params.append('column-id', ids[0]);
+    params.append('time', ids[1] + ":00");
+
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener('load', onCreateTaskResponseBla);
+    xhr.addEventListener('error', onNetworkError);
+    xhr.open('PUT', 'protected/schedule-display?' + params.toString());
+    xhr.send();
 }
 
 function onCreateTaskResponseBla() {
@@ -105,7 +122,27 @@ function onCreateTaskResponseBla() {
 }
 
 function cellClicked() {
+    const id = this.id;
+    if (cellIdToPass != null) {
+        console.log(cellIdToPass);
+        const ParentOfDivToClose = document.getElementById(cellIdToPass);
+        const divToClose = ParentOfDivToClose.firstChild;
+        const property = divToClose.style.display;
+        if (cellIdToPass == id && property == 'block') {
+            divToClose.style.display = 'none';
+            cellIdToPass = this.id;
+            return;
+        }
+        if (cellIdToPass == id && property == 'none') {
+            divToClose.style.display = 'block';
+            cellIdToPass = this.id;
+            return;
+        }
+        divToClose.style.display = 'none';
+    }
     cellIdToPass = this.id;
+    //console.log(cellIdToPass);
+
     const ids = this.id.split(',');
     const params = new URLSearchParams();
     
