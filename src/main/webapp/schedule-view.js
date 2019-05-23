@@ -48,6 +48,8 @@ function onScheduleDisplayGet(scheduleDisplayDto) {
     titleEl.innerHTML = scheduleDisplayDto.schedule.name;
 
     const scheduleTableEl = document.createElement('table');
+    scheduleTableEl.id = 'schedule-display-table';
+    scheduleTableEl.setAttribute('data-schedule-id', scheduleDisplayDto.schedule.id);
     const cols = scheduleDisplayDto.schedule.cols;
 
     const headerRowTrEl = document.createElement('tr');
@@ -71,7 +73,7 @@ function onScheduleDisplayGet(scheduleDisplayDto) {
         scheduleTrEl.appendChild(timeColTdEl);
         for (let j = 1; j <= cols; j++){
             const slotTdEl = document.createElement('td');
-            slotTdEl.id = j.toString() + time.toString();
+            slotTdEl.id = j.toString() + ',' + time.toString() + ':00';
             slotTdEl.onclick = cellClicked;
             scheduleTrEl.appendChild(slotTdEl);
         } time++;
@@ -85,11 +87,21 @@ function onScheduleDisplayGet(scheduleDisplayDto) {
 function createTasksToSelect() {
 }
 
-function cellClicked() {
-    //showTasks();
-    //create dropdown list with the users tasks
-    //slot id - task id store task in slot
-    //if a task is already assigned to a slot either remove it from its previous position or remove it from the list
+function onCreateTaskResponseBla() {
 
-    alert(this.id)
+}
+
+function cellClicked() {
+    const ids = this.id.split(',');
+    const params = new URLSearchParams();
+    
+    params.append('schedule-id', document.getElementById('schedule-display-table').getAttribute('data-schedule-id'));
+    params.append('columnId', ids[0]);
+    params.append('time', ids[1]);
+
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener('load', onCreateTaskResponseBla);
+    xhr.addEventListener('error', onNetworkError);
+    xhr.open('GET', 'protected/tasks?' + params.toString());
+    xhr.send();
 }

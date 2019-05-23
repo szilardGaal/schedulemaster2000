@@ -66,7 +66,7 @@ function onModifyTaskResponse() {
 function modifyTask(id) {
     showContents(['profile-content', 'modify-task', 'schedule']);
 
-    const params = new URLSearchParams();
+    const params = new URLSearchParams();   
     params.append('task-id', id);
 
     const xhr = new XMLHttpRequest();
