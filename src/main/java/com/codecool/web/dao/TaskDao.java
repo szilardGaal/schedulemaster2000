@@ -17,4 +17,6 @@ public interface TaskDao {
     void updateTask(int id, String title, String content) throws SQLException;
 
     Task findTaskById(int task_id) throws SQLException;
+
+    List<Task> getTasksForSlot(int scheduleId, int columnId, int userId, String time) throws SQLException;
 }

@@ -85,5 +85,30 @@ public final class DatabaseTaskDao extends AbstractDao implements TaskDao {
         }
     }
 
-
+    @Override
+    public List<Task> getTasksForSlot(int scheduleId, int columnId, int userId, String time) throws SQLException {
+        String timePlusOne = Integer.parseInt(time.split(":")[0])+1 + ":00";
+        String timeMinusOne = Integer.parseInt(time.split(":")[0])-1 + ":00";
+        List<Task> tasks = new ArrayList<>();
+        String sql = "select * from tasks " +
+                     "left join slots on tasks.id = slots.task_id " +
+                     "left join schedule_columns on slots.column_id = schedule_columns.id " +
+                     "left join schedules on schedule_columns.id = schedules.id " +
+                     "where (schedules.id != ? or schedules.id is null) and tasks.user_id = ? and " +
+                     "column_id = ? and " +
+                     "time = ? or time = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, scheduleId);
+            statement.setInt(2, userId);
+            statement.setInt(3, columnId);
+            statement.setString(4, timePlusOne);
+            statement.setString(5, timeMinusOne);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    tasks.add(fetchTask(resultSet));
+                }
+            }
+        }
+        return tasks;
+    }
 }
