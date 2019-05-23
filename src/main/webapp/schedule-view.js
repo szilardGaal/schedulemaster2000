@@ -35,8 +35,6 @@ function onScheduleDisplayResponse(){
 
 function onScheduleDisplayGet(scheduleDisplayDto) {
     showContents(['schedule_content', 'profile-content', 'logout-content', 'schedule']);
-
-    createTasksToSelect(scheduleDisplayDto.allTaskForUser);
     
     const scheduleDivEl = document.getElementById('schedule');
     const titleEl = document.createElement('h2');
@@ -80,8 +78,7 @@ function onScheduleDisplayGet(scheduleDisplayDto) {
     scheduleDivEl.appendChild(scheduleTableEl);
 }
 
-function createTasksToSelect(tasksInDropdown) {
-    alert('creating dropdown');
+function createTasksInSelect(tasksInDropdown) {
     const dropdown = document.createElement('select');
 
     for (let i = 0; i < tasksInDropdown.length; i++) {
@@ -94,6 +91,8 @@ function createTasksToSelect(tasksInDropdown) {
 
         dropdown.appendChild(taskOptionEl);
     }
+    const cellEl = document.getElementById(cellIdToPass);
+    cellEl.appendChild(dropdown);
 }
 
 function dropdownTaskClicked() {
@@ -102,10 +101,11 @@ function dropdownTaskClicked() {
 function onCreateTaskResponseBla() {
     const text = this.responseText;
     const tasksInDropdown = JSON.parse(text);
-    createTasksToSelect(tasksInDropdown);
+    createTasksInSelect(tasksInDropdown);
 }
 
 function cellClicked() {
+    cellIdToPass = this.id;
     const ids = this.id.split(',');
     const params = new URLSearchParams();
     

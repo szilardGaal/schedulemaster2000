@@ -11,6 +11,7 @@ let logoutContentDivEl;
 let registerContentDivEl;
 let myScheduleListContentUlEl;
 let idToPass;
+let cellIdToPass;
 
 function newInfo(targetEl, message) {
     newMessage(targetEl, 'info', message);
