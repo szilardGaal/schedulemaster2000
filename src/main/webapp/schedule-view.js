@@ -121,17 +121,19 @@ function checkIfSlotHasTask(id) {
     const params = new URLSearchParams();
     params.append('cellId', id);
 
+
     const xhr = new XMLHttpRequest();
-    xhr.addEventListener('load',  function(){ ifSlotHasTaskReceived(id);}, false);
+    xhr.addEventListener('load', ifSlotHasTaskReceived, false);
     xhr.addEventListener('error', onNetworkError);
+    xhr.myParam = id;
     xhr.open('GET', 'protected/slots?' + params.toString());
     xhr.send(params);
 }
 
-function ifSlotHasTaskReceived(id) {
-    debugger;
+function ifSlotHasTaskReceived(evt) {
     const text = this.responseText;
     const task = JSON.parse(text);
+    const id = evt.target.myParam;
     fillSlotIfItHasTask(task, id);
 }
 
