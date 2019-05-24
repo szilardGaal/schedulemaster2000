@@ -102,7 +102,7 @@ BEGIN
 END; '
     LANGUAGE plpgsql;
 */
-CREATE TRIGGER task_on_slots
+/*CREATE TRIGGER task_on_slots
     AFTER UPDATE
     ON slots
     FOR EACH ROW
@@ -113,6 +113,7 @@ CREATE TRIGGER task_on_slots_insert
     ON slots
     FOR EACH ROW
 EXECUTE PROCEDURE add_tasks_to_slots();
+*/
 
 /*When task added to a schedule, execute insert on tasks_schedules, this trigger automatically insert it to slots*/
 
