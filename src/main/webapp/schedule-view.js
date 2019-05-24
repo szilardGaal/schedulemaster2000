@@ -162,14 +162,14 @@ function removeTaskFromCell() {
 
 function createTasksInSelect(tasksInDropdown) {
     const dropdown = document.createElement('select');
+    dropdown.onchange = dropdownTaskClicked;
     dropdown.style.display = 'block';
 
     for (let i = 0; i < tasksInDropdown.length; i++) {
         const task = tasksInDropdown[i];
 
         const taskOptionEl = document.createElement('option');
-        taskOptionEl.click = dropdownTaskClicked;
-        taskOptionEl.setAttribute('task-id', task.id);
+        taskOptionEl.value = task.id;
         taskOptionEl.textContent = task.title;
 
         dropdown.appendChild(taskOptionEl);
@@ -179,13 +179,10 @@ function createTasksInSelect(tasksInDropdown) {
 }
 
 function dropdownTaskClicked() {
-    const thisElement = this;
-
-    const cellToEmpty = document.getElementById(cellIdToPass);
-    removeAllChildren(cellToEmpty);
+    debugger;
 
     const ids = cellIdToPass.split(',');
-    const task_id = this.getAttribute('task-id');
+    const task_id = this.value;
 
     const params = new URLSearchParams();
     params.append('schedule-id', document.getElementById('schedule-display-table').getAttribute('data-schedule-id'));
@@ -194,10 +191,18 @@ function dropdownTaskClicked() {
     params.append('time', ids[1]);
 
     const xhr = new XMLHttpRequest();
-    xhr.addEventListener('load', function() {location.reload(0);});
+    xhr.addEventListener('load', onDropdownTaskClickedResponse);
     xhr.addEventListener('error', onNetworkError);
     xhr.open('PUT', 'protected/schedule-display?' + params.toString());
     xhr.send();
+}
+
+function onDropdownTaskClickedResponse() {
+    if (this.status === OK) {
+        showSchedules();
+    } else {
+        onOtherResponse(scheduleDisplayDiv, this);
+    }
 }
 
 function onCreateTaskResponseBla() {
@@ -209,24 +214,6 @@ function onCreateTaskResponseBla() {
 function cellClicked() {
     const id = this.id;
     const divToEmpty = document.getElementById(id);
-    removeAllChildren(divToEmpty);
-    if (cellIdToPass != null) {
-        console.log(cellIdToPass);
-        const ParentOfDivToClose = document.getElementById(cellIdToPass);
-        const divToClose = ParentOfDivToClose.firstChild;
-        const property = divToClose.style.display;
-        if (cellIdToPass == id && property == 'block') {
-            divToClose.style.display = 'none';
-            cellIdToPass = this.id;
-            return;
-        }
-        if (cellIdToPass == id && property == 'none') {
-            divToClose.style.display = 'block';
-            cellIdToPass = this.id;
-            return;
-        }
-        divToClose.style.display = 'none';
-    }
     cellIdToPass = this.id;
 
     const ids = this.id.split(',');

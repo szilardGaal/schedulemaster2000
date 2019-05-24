@@ -9,6 +9,7 @@ let profileContentDivEl;
 let logoutContentDivEl;
 let registerContentDivEl;
 let myScheduleListContentUlEl;
+let scheduleDisplayDiv;
 let idToPass;
 let cellIdToPass;
 
@@ -109,6 +110,7 @@ function onLoad() {
     registerContentDivEl = document.getElementById('register-content');
     profileContentDivEl = document.getElementById('profile-content');
     logoutContentDivEl = document.getElementById('logout-content');
+    scheduleDisplayDiv = document.getElementById('schedule');
 
     const registerPageButtonEl = document.getElementById('register-content-button');
     registerPageButtonEl.addEventListener('click', loadRegisterPage);
@@ -127,7 +129,6 @@ function onLoad() {
 
     const guestButtonEl = document.getElementById('login-as-guest');
     guestButtonEl.addEventListener('click', loadGuestSchedule);
-
 
     if (hasAuthorization()) {
         onProfileLoad(getAuthorization());
