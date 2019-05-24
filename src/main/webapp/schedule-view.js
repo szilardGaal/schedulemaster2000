@@ -121,7 +121,6 @@ function checkIfSlotHasTask(id) {
     const params = new URLSearchParams();
     params.append('cellId', id);
 
-
     const xhr = new XMLHttpRequest();
     xhr.addEventListener('load', ifSlotHasTaskReceived, false);
     xhr.addEventListener('error', onNetworkError);
@@ -131,6 +130,7 @@ function checkIfSlotHasTask(id) {
 }
 
 function ifSlotHasTaskReceived(evt) {
+    debugger;
     const text = this.responseText;
     const task = JSON.parse(text);
     const id = evt.target.myParam;
@@ -138,9 +138,6 @@ function ifSlotHasTaskReceived(evt) {
 }
 
 function fillSlotIfItHasTask(task, id) {
-    if (task.message == null) {
-        return;
-    }
     const cellEl = document.getElementById(id);
     cellEl.textContent = task.title;
 
@@ -184,7 +181,6 @@ function createTasksInSelect(tasksInDropdown) {
 }
 
 function removeDropDown() {
-
 }
 
 function dropdownTaskClicked() {
