@@ -188,7 +188,7 @@ function removeDropDown() {
 function dropdownTaskClicked() {
     const thisElement = this;
     const ids = cellIdToPass.split(',');
-    const task_id = this.getAttribute;
+    const task_id = this.getAttribute('task-id');
 
     const params = new URLSearchParams();
     params.append('schedule-id', document.getElementById('schedule-display-table').getAttribute('data-schedule-id'));
