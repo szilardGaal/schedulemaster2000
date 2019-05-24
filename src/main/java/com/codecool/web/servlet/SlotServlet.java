@@ -28,7 +28,7 @@ public class SlotServlet extends AbstractServlet {
             Task task = slotTaskService.getTaskFromSlot(columnId, time);
 
             if (task == null) {
-                sendMessage(resp, HttpServletResponse.SC_OK, "null");
+                sendMessage(resp, HttpServletResponse.SC_OK, null);
             } else {
                 sendMessage(resp, HttpServletResponse.SC_OK, task);
             }

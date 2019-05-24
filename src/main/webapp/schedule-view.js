@@ -60,7 +60,7 @@ function makeRequest (method, url) {
 function getColumnForSchedule(id) {
     const params = new URLSearchParams();
     params.append('schedule-id', id);
-    
+
     const columns = makeRequest('GET', 'protected/columns?' + params.toString());
     return columns;
 }
@@ -79,7 +79,7 @@ function onScheduleDisplayGet(scheduleDisplayDto) {
 
     const headerRowTrEl = document.createElement('tr');
     const emptyColTdEl = document.createElement('td');
-   
+
     headerRowTrEl.appendChild(emptyColTdEl);
 
     getColumnForSchedule(scheduleDisplayDto.schedule.id).then((columns)=> {
@@ -104,6 +104,7 @@ function onScheduleDisplayGet(scheduleDisplayDto) {
             for (let j = 1; j <= cols; j++){
                 const slotTdEl = document.createElement('td');
                 slotTdEl.id = colIds[j-1].toString() + ',' + time.toString() + ':00';
+                checkIfSlotHasTask(slotTdEl.id);
                 slotTdEl.onclick = cellClicked;
 
                 scheduleTrEl.appendChild(slotTdEl);
@@ -114,6 +115,49 @@ function onScheduleDisplayGet(scheduleDisplayDto) {
         scheduleDivEl.appendChild(titleEl);
         scheduleDivEl.appendChild(scheduleTableEl);
     });
+}
+
+function checkIfSlotHasTask(id) {
+    const params = new URLSearchParams();
+    params.append('cellId', id);
+
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener('load',  function(){ ifSlotHasTaskReceived(id);}, false);
+    xhr.addEventListener('error', onNetworkError);
+    xhr.open('GET', 'protected/slots?' + params.toString());
+    xhr.send(params);
+}
+
+function ifSlotHasTaskReceived(id) {
+    debugger;
+    const text = this.responseText;
+    const task = JSON.parse(text);
+    fillSlotIfItHasTask(task, id);
+}
+
+function fillSlotIfItHasTask(task, id) {
+    if (task.message == null) {
+        return;
+    }
+    const cellEl = document.getElementById(id);
+    cellEl.textContent = task.title;
+
+    const cellIdAttr = document.createAttributeNode('cell-id');
+    cellIdAttr = id;
+
+    const removeButtonEl = document.createElement('button');
+    removeButtonEl.setAttributeNode(cellIdAttr);
+    removeButtonEl.onclick = removeTaskFromCell();
+    removeButtonEl.textContent = 'X';
+
+    cellEl.appendChild(removeButtonEl);
+}
+
+function removeTaskFromCell() {
+    const cellId = this.getAttribute('cell-id');
+
+    const slotToEmpty = document.getElementById(cellId);
+    slotToEmpty.removeAllChildren;
 }
 
 function createTasksInSelect(tasksInDropdown) {
@@ -144,7 +188,7 @@ function removeDropDown() {
 function dropdownTaskClicked() {
     const thisElement = this;
     const ids = cellIdToPass.split(',');
-    const task_id = thisElement.getAttribute('task-id');
+    const task_id = this.getAttribute;
 
     const params = new URLSearchParams();
     params.append('schedule-id', document.getElementById('schedule-display-table').getAttribute('data-schedule-id'));
@@ -185,7 +229,6 @@ function cellClicked() {
         divToClose.style.display = 'none';
     }
     cellIdToPass = this.id;
-    //console.log(cellIdToPass);
 
     const ids = this.id.split(',');
     const params = new URLSearchParams();
