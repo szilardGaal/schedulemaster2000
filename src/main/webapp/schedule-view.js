@@ -105,8 +105,13 @@ function onScheduleDisplayGet(scheduleDisplayDto) {
                 const slotTdEl = document.createElement('td');
                 slotTdEl.id = colIds[j-1].toString() + ',' + time.toString() + ':00';
                 checkIfSlotHasTask(slotTdEl.id);
-                slotTdEl.onclick = cellClicked;
 
+                const addButtonEl = document.createElement('button');
+                addButtonEl.id = slotTdEl.id;
+                addButtonEl.onclick = cellClicked;
+                addButtonEl.textContent = '+';
+
+                slotTdEl.appendChild(addButtonEl);
                 scheduleTrEl.appendChild(slotTdEl);
             } time++;
             scheduleTableEl.appendChild(scheduleTrEl);
@@ -152,10 +157,7 @@ function fillSlotIfItHasTask(task, id) {
 }
 
 function removeTaskFromCell() {
-    const cellId = this.getAttribute('cell-id');
-
-    const slotToEmpty = document.getElementById(cellId);
-    slotToEmpty.removeAllChildren;
+    //DELETE REQ. to SLOT SERVLET
 }
 
 function createTasksInSelect(tasksInDropdown) {
@@ -166,7 +168,7 @@ function createTasksInSelect(tasksInDropdown) {
         const task = tasksInDropdown[i];
 
         const taskOptionEl = document.createElement('option');
-        taskOptionEl.onclick = dropdownTaskClicked;
+        taskOptionEl.click = dropdownTaskClicked;
         taskOptionEl.setAttribute('task-id', task.id);
         taskOptionEl.textContent = task.title;
 
@@ -176,11 +178,12 @@ function createTasksInSelect(tasksInDropdown) {
     cellEl.appendChild(dropdown);
 }
 
-function removeDropDown() {
-}
-
 function dropdownTaskClicked() {
     const thisElement = this;
+
+    const cellToEmpty = document.getElementById(cellIdToPass);
+    removeAllChildren(cellToEmpty);
+
     const ids = cellIdToPass.split(',');
     const task_id = this.getAttribute('task-id');
 
@@ -191,7 +194,7 @@ function dropdownTaskClicked() {
     params.append('time', ids[1]);
 
     const xhr = new XMLHttpRequest();
-    xhr.addEventListener('load', removeDropDown);
+    xhr.addEventListener('load', function() {location.reload(0);});
     xhr.addEventListener('error', onNetworkError);
     xhr.open('PUT', 'protected/schedule-display?' + params.toString());
     xhr.send();
@@ -205,6 +208,8 @@ function onCreateTaskResponseBla() {
 
 function cellClicked() {
     const id = this.id;
+    const divToEmpty = document.getElementById(id);
+    removeAllChildren(divToEmpty);
     if (cellIdToPass != null) {
         console.log(cellIdToPass);
         const ParentOfDivToClose = document.getElementById(cellIdToPass);
