@@ -87,7 +87,7 @@ function onScheduleDisplayGet(scheduleDisplayDto) {
         const colIds = [];
         for (let i = 0; i < cols; i++){
             const columnHeaderTdEl = document.createElement('td');
-            columnHeaderTdEl.textContent = 'Day ' + (i+1);
+            columnHeaderTdEl.textContent = columns[i].title;
             colIds[i] = (columns[i].id);
             headerRowTrEl.appendChild(columnHeaderTdEl);
         }

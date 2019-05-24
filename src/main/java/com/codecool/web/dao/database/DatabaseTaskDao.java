@@ -90,19 +90,28 @@ public final class DatabaseTaskDao extends AbstractDao implements TaskDao {
         String timePlusOne = Integer.parseInt(time.split(":")[0])+1 + ":00";
         String timeMinusOne = Integer.parseInt(time.split(":")[0])-1 + ":00";
         List<Task> tasks = new ArrayList<>();
-        String sql = "select * from tasks " +
-                     "left join slots on tasks.id = slots.task_id " +
-                     "left join schedule_columns on slots.column_id = schedule_columns.id " +
-                     "left join schedules on schedule_columns.id = schedules.id " +
-                     "where (schedules.id != ? or schedules.id is null) and tasks.user_id = ? and " +
-                     "(column_id != ? or column_id is null) and " +
-                     "(time is null or time = ? or time = ?)";
+        String sql = "select * from tasks\n" +
+            "left join slots on tasks.id = slots.task_id\n" +
+            "left join schedule_columns on slots.column_id = schedule_columns.id\n" +
+            "left join schedules on schedule_columns.id = schedules.id\n" +
+            "where ((schedules.id != ? or schedules.id is null) and tasks.user_id = ? and\n" +
+            "(column_id != ? or column_id is null) and \n" +
+            "(time is null or time = ? or time = ?))\n" +
+            "or\n" +
+            "(schedules.id = ? and column_id = ? and tasks.user_id = ? and\n" +
+            "(time = ? or time = ? or time = ?))";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, scheduleId);
             statement.setInt(2, userId);
             statement.setInt(3, columnId);
             statement.setString(4, timePlusOne);
             statement.setString(5, timeMinusOne);
+            statement.setInt(6, scheduleId);
+            statement.setInt(7, columnId);
+            statement.setInt(8, userId);
+            statement.setString(9, timeMinusOne);
+            statement.setString(10, time);
+            statement.setString(11, timePlusOne);
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     tasks.add(fetchTask(resultSet));
