@@ -22,7 +22,7 @@ public class ScheduleServlet extends AbstractServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        try(Connection connection = getConnection(req.getServletContext())){
+        try (Connection connection = getConnection(req.getServletContext())) {
             DatabaseScheduleDao databaseScheduleDao = new DatabaseScheduleDao(connection);
             ScheduleService scheduleService = new ScheduleService(databaseScheduleDao);
 
@@ -34,14 +34,14 @@ public class ScheduleServlet extends AbstractServlet {
             ScheduleDto scheduleDto = new ScheduleDto(mySchedules, publicSchedules);
 
             sendMessage(resp, HttpServletResponse.SC_OK, scheduleDto);
-        }catch (SQLException ex){
+        } catch (SQLException ex) {
             handleSqlError(resp, ex);
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        try(Connection connection = getConnection(req.getServletContext())){
+        try (Connection connection = getConnection(req.getServletContext())) {
             DatabaseScheduleDao databaseScheduleDao = new DatabaseScheduleDao(connection);
             ScheduleService scheduleService = new ScheduleService(databaseScheduleDao);
 
@@ -57,15 +57,14 @@ public class ScheduleServlet extends AbstractServlet {
             scheduleService.addNewSchedule(userId, title, cols, isPublic);
 
             doGet(req, resp);
-
-        } catch (SQLException ex){
+        } catch (SQLException ex) {
             handleSqlError(resp, ex);
         }
     }
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        try(Connection connection = getConnection(req.getServletContext())){
+        try (Connection connection = getConnection(req.getServletContext())) {
             DatabaseScheduleDao databaseScheduleDao = new DatabaseScheduleDao(connection);
             ScheduleService scheduleService = new ScheduleService(databaseScheduleDao);
 
@@ -74,15 +73,14 @@ public class ScheduleServlet extends AbstractServlet {
             scheduleService.deleteSchedule(schedule_id);
 
             doGet(req, resp);
-
-        } catch (SQLException ex){
+        } catch (SQLException ex) {
             handleSqlError(resp, ex);
         }
     }
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        try(Connection connection = getConnection(req.getServletContext())){
+        try (Connection connection = getConnection(req.getServletContext())) {
             DatabaseScheduleDao databaseScheduleDao = new DatabaseScheduleDao(connection);
             ScheduleService scheduleService = new ScheduleService(databaseScheduleDao);
 
@@ -95,7 +93,7 @@ public class ScheduleServlet extends AbstractServlet {
             sendMessage(resp, HttpServletResponse.SC_OK, null);
             doGet(req, resp);
 
-        } catch (SQLException ex){
+        } catch (SQLException ex) {
             handleSqlError(resp, ex);
         }
     }

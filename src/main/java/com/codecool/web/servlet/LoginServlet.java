@@ -12,7 +12,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.sql.Connection;
@@ -27,7 +26,6 @@ public final class LoginServlet extends AbstractServlet {
             UserDao userDao = new DatabaseUserDao(connection);
             LoginService loginService = new SimpleLoginService(userDao);
             PasswordHashService pwh = new PasswordHashService();
-
 
             String userName = req.getParameter("username");
             String password = req.getParameter("password");

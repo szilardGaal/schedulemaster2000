@@ -1,4 +1,4 @@
-function sendRegiserData() {
+function sendRegisterData() {
     const registerFormEl = document.forms['register-form'];
 
     const userNameInputEl = registerFormEl.querySelector('input[name="username"]');
@@ -25,24 +25,24 @@ function validatePassword() {
     const registerFormEl = document.forms['register-form'];
     var password1 = registerFormEl.querySelector('input[name="password"]').value;
     var password2 = registerFormEl.querySelector('input[name="confirm_password"]').value;
-    var validaetStatusEl = document.getElementById('validate_status');
+    var validateStatusEl = document.getElementById('validate_status');
 
     if(password1 == "" && password2 == "") {
-        validaetStatusEl.innerHTML = "<br>";
+        validateStatusEl.innerHTML = "<br>";
     } else if (password1 == password2) {
-        validaetStatusEl.innerHTML = "valid";
-        validaetStatusEl.style.color = "green";
+        validateStatusEl.innerHTML = "valid";
+        validateStatusEl.style.color = "green";
     } else {
-        validaetStatusEl.innerHTML = "passwords don't match!";
-        validaetStatusEl.style.color = "red";  
+        validateStatusEl.innerHTML = "passwords don't match!";
+        validateStatusEl.style.color = "red";
     }  
 }
 
 function onRegisterButtonClicked() {
-    var validaetStatusEl = document.getElementById('validate_status');
+    var validateStatusEl = document.getElementById('validate_status');
 
-    if (validaetStatusEl.innerHTML = "valid") {
-        sendRegiserData();
+    if (validateStatusEl.innerHTML = "valid") {
+        sendRegisterData();
     }
 }
 

@@ -7,5 +7,4 @@ import java.sql.SQLException;
 public interface SlotTaskDao {
 
     Task getTaskFromSlot(int columnId, String time) throws SQLException;
-
 }

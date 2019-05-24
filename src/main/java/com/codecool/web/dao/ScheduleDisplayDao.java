@@ -7,7 +7,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface ScheduleDisplayDao {
+
     List<Task> getAllTaskForSchedule(int schedule_id) throws SQLException;
 
-    public Schedule findByScheduleId(int schedule_id) throws SQLException;
+    Schedule findByScheduleId(int schedule_id) throws SQLException;
 }

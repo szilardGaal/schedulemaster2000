@@ -138,18 +138,17 @@ function ifSlotHasTaskReceived(evt) {
 }
 
 function fillSlotIfItHasTask(task, id) {
-    const cellEl = document.getElementById(id);
-    cellEl.textContent = task.title;
+    if (task.title != null) {
+        const cellEl = document.getElementById(id);
+        cellEl.textContent = task.title;
 
-    const cellIdAttr = document.createAttributeNode('cell-id');
-    cellIdAttr = id;
+        const removeButtonEl = document.createElement('button');
+        removeButtonEl.setAttribute('cell-id', id);
+        removeButtonEl.onclick = removeTaskFromCell;
+        removeButtonEl.textContent = 'X';
 
-    const removeButtonEl = document.createElement('button');
-    removeButtonEl.setAttributeNode(cellIdAttr);
-    removeButtonEl.onclick = removeTaskFromCell();
-    removeButtonEl.textContent = 'X';
-
-    cellEl.appendChild(removeButtonEl);
+        cellEl.appendChild(removeButtonEl);
+    }
 }
 
 function removeTaskFromCell() {
@@ -166,12 +165,9 @@ function createTasksInSelect(tasksInDropdown) {
     for (let i = 0; i < tasksInDropdown.length; i++) {
         const task = tasksInDropdown[i];
 
-        const taskIdAttr = document.createAttribute('task-id');
-        taskIdAttr.value = task.id;
-
         const taskOptionEl = document.createElement('option');
         taskOptionEl.onclick = dropdownTaskClicked;
-        taskOptionEl.setAttributeNode(taskIdAttr);
+        taskOptionEl.setAttribute('task-id', task.id);
         taskOptionEl.textContent = task.title;
 
         dropdown.appendChild(taskOptionEl);

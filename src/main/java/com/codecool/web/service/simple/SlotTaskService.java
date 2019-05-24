@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 public class SlotTaskService {
 
-    SlotTaskDao dao;
+    private SlotTaskDao dao;
 
     public SlotTaskService(SlotTaskDao dao) {
         this.dao = dao;

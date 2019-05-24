@@ -31,7 +31,6 @@ function createTempTask(){
     document.getElementById('click-task-button-create').onclick = addTaskToTempList();
 }
 
-
 function createSampleTable() {
     const scheduleDivEl = document.getElementById('schedule');
     const scheduleTableEl = document.createElement('table');
@@ -65,6 +64,5 @@ function createSampleTable() {
 }
 
 function addTaskToTempList() {
-    
 }
 

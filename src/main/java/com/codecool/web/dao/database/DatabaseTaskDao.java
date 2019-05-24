@@ -3,7 +3,10 @@ package com.codecool.web.dao.database;
 import com.codecool.web.dao.TaskDao;
 import com.codecool.web.model.Task;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +21,7 @@ public final class DatabaseTaskDao extends AbstractDao implements TaskDao {
         if (user_id == 0) {
             throw new IllegalArgumentException("User ID cannot be null or empty");
         }
-        
+
         String sql = "SELECT * FROM tasks WHERE user_id = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, user_id);
@@ -72,7 +75,7 @@ public final class DatabaseTaskDao extends AbstractDao implements TaskDao {
     }
 
     @Override
-    public Task findTaskById(int task_id) throws SQLException{
+    public Task findTaskById(int task_id) throws SQLException {
         String sql = "SELECT * FROM tasks WHERE id = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, task_id);
@@ -87,8 +90,8 @@ public final class DatabaseTaskDao extends AbstractDao implements TaskDao {
 
     @Override
     public List<Task> getTasksForSlot(int scheduleId, int columnId, int userId, String time) throws SQLException {
-        String timePlusOne = Integer.parseInt(time.split(":")[0])+1 + ":00";
-        String timeMinusOne = Integer.parseInt(time.split(":")[0])-1 + ":00";
+        String timePlusOne = Integer.parseInt(time.split(":")[0]) + 1 + ":00";
+        String timeMinusOne = Integer.parseInt(time.split(":")[0]) - 1 + ":00";
         List<Task> tasks = new ArrayList<>();
         String sql = "select * from tasks\n" +
             "left join slots on tasks.id = slots.task_id\n" +
