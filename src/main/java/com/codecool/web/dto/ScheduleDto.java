@@ -9,7 +9,7 @@ public class ScheduleDto {
     private List<Schedule> myList;
     private List<Schedule> publicList;
 
-    public ScheduleDto(List<Schedule> myList, List<Schedule> publicList){
+    public ScheduleDto(List<Schedule> myList, List<Schedule> publicList) {
         this.myList = myList;
         this.publicList = publicList;
     }

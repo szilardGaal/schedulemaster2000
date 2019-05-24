@@ -156,11 +156,8 @@ function addMySchedules(schedules) {
         for (let i = 0; i < schedules.length; i++){
             const scheduleLiEl = document.createElement("li");
 
-            const scheduleIdAttr = document.createAttribute('data-schedule-id');
-            scheduleIdAttr.value = schedules[i].id;
-
             const scheduleLinkEl = document.createElement('a');
-            scheduleLinkEl.setAttributeNode(scheduleIdAttr);
+            scheduleLinkEl.setAttribute('data-schedule-id', schedules[i].id);
             scheduleLinkEl.textContent = schedules[i].name;
         
             if (schedules[i].public) {
@@ -204,11 +201,8 @@ function addPublicSchedules(schedules) {
         for (let i = 0; i < schedules.length; i++){
             const publicScheduleLiEl = document.createElement("li");
 
-            const scheduleIdAttr = document.createAttribute('data-schedule-id');
-            scheduleIdAttr.value = schedules[i].id;
-
             const publicScheduleLinkEl = document.createElement('a');
-            publicScheduleLinkEl.setAttributeNode(scheduleIdAttr);
+            publicScheduleLinkEl.setAttribute('data-schedule-id', schedules[i].id);
             publicScheduleLinkEl.textContent = schedules[i].name;
 
             publicScheduleLinkEl.addEventListener('click', onScheduleClicked);

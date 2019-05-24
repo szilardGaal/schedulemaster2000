@@ -11,7 +11,7 @@ public class ScheduleDisplayDto {
     private List<Task> allTaskForSchedule;
     private List<Task> allTaskForUser;
 
-    public ScheduleDisplayDto(Schedule schedule, List<Task> allTaskForSchedule, List<Task> allTaskForUser){
+    public ScheduleDisplayDto(Schedule schedule, List<Task> allTaskForSchedule, List<Task> allTaskForUser) {
         this.schedule = schedule;
         this.allTaskForSchedule = allTaskForSchedule;
         this.allTaskForUser = allTaskForUser;

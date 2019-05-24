@@ -41,8 +41,8 @@ public final class TaskContentServlet extends AbstractServlet {
             TaskDao taskDao = new DatabaseTaskDao(connection);
             TaskService taskService = new TaskService(taskDao);
 
-            int userId = ((User)req.getSession().getAttribute("user")).getId();
-            
+            int userId = ((User) req.getSession().getAttribute("user")).getId();
+
             int scheduleId = Integer.parseInt(req.getParameter("schedule-id"));
             int columnId = Integer.parseInt(req.getParameter("column-id"));
             String time = req.getParameter("time");
@@ -50,7 +50,6 @@ public final class TaskContentServlet extends AbstractServlet {
             List<Task> tasks = taskService.getTasksForSlot(scheduleId, columnId, userId, time);
 
             sendMessage(resp, HttpServletResponse.SC_OK, tasks);
-
         } catch (SQLException ex) {
             handleSqlError(resp, ex);
         }

@@ -35,5 +35,4 @@ public final class Schedule extends AbstractModel {
     public void setPublic(boolean isPublic) {
         isPublic = isPublic;
     }
-
 }

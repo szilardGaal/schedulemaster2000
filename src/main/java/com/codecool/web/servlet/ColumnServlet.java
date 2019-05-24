@@ -31,6 +31,5 @@ public class ColumnServlet extends AbstractServlet {
         } catch (SQLException ex) {
             handleSqlError(resp, ex);
         }
-
     }
 }

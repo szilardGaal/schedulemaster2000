@@ -17,9 +17,9 @@ public class DatabaseSlotTaskDao extends AbstractDao implements SlotTaskDao {
     @Override
     public Task getTaskFromSlot(int columnId, String time) throws SQLException {
         String sql = "select tasks.id, tasks.content, tasks.title from slots\n" +
-                     "join tasks on task_id = tasks.id\n" +
-                     "where column_id = ? and\n" +
-                     "time = ?";
+            "join tasks on task_id = tasks.id\n" +
+            "where column_id = ? and\n" +
+            "time = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, columnId);
             statement.setString(2, time);

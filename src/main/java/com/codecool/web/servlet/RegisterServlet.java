@@ -3,10 +3,7 @@ package com.codecool.web.servlet;
 import com.codecool.web.dao.UserDao;
 import com.codecool.web.dao.database.DatabaseUserDao;
 import com.codecool.web.model.User;
-import com.codecool.web.service.LoginService;
-import com.codecool.web.service.exception.ServiceException;
 import com.codecool.web.service.simple.PasswordHashService;
-import com.codecool.web.service.simple.SimpleLoginService;
 import com.codecool.web.service.simple.UserService;
 
 import javax.servlet.annotation.WebServlet;
@@ -47,8 +44,8 @@ public final class RegisterServlet extends AbstractServlet {
 
             } catch (NoSuchAlgorithmException ex) {
                 ex.getMessage();
-            } catch (InvalidKeySpecException ex) {
-                ex.getMessage();
+            } catch (InvalidKeySpecException e) {
+                e.printStackTrace();
             }
 
         } catch (SQLException ex) {

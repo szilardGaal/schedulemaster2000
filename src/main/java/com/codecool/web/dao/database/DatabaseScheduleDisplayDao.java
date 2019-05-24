@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DatabaseScheduleDisplayDao  extends AbstractDao implements ScheduleDisplayDao {
+public class DatabaseScheduleDisplayDao extends AbstractDao implements ScheduleDisplayDao {
 
     public DatabaseScheduleDisplayDao(Connection connection) {
         super(connection);
@@ -45,24 +45,22 @@ public class DatabaseScheduleDisplayDao  extends AbstractDao implements Schedule
                     return new Schedule(resultSet.getInt("id"), resultSet.getInt("user_id"), resultSet.getString("title"), resultSet.getInt("numofcol"), resultSet.getBoolean("ispublic"));
                 }
             }
-        } return null;
+        }
+        return null;
     }
 
-
-    private List<Integer> getAllColumnsToTask(int schedule_id, int task_id) throws SQLException{
+    private List<Integer> getAllColumnsToTask(int schedule_id, int task_id) throws SQLException {
         List<Integer> getAllColumnsToTask = new ArrayList<>();
         String sql = "SELECT column_id FROM tasks RIGHT JOIN (SELECT * FROM tasks_schedules RIGHT JOIN schedules ON schedules.id=tasks_schedules.schedule_id) schedule ON tasks.id = schedule.task_id WHERE schedule_id =? AND task_id=?";
-        try (PreparedStatement statement = connection.prepareStatement(sql)){
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, schedule_id);
             statement.setInt(2, task_id);
-            try(ResultSet resultSet = statement.executeQuery()){
-                while (resultSet.next()){
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
                     getAllColumnsToTask.add(resultSet.getInt("column_id"));
                 }
             }
-        } return getAllColumnsToTask;
+        }
+        return getAllColumnsToTask;
     }
-
-
-
 }

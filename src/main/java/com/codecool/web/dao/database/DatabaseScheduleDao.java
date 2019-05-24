@@ -1,11 +1,12 @@
 package com.codecool.web.dao.database;
 
 import com.codecool.web.dao.ScheduleDao;
-import com.codecool.web.dto.ScheduleDisplayDto;
 import com.codecool.web.model.Schedule;
-import com.codecool.web.model.Task;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,18 +47,18 @@ public final class DatabaseScheduleDao extends AbstractDao implements ScheduleDa
     }
 
     @Override
-    public void deleteSchedule(int schedule_id) throws SQLException{
+    public void deleteSchedule(int schedule_id) throws SQLException {
         String sql = "DELETE FROM schedules WHERE id=?";
-        try (PreparedStatement  statement = connection.prepareStatement(sql)){
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, schedule_id);
             statement.execute();
         }
     }
 
     @Override
-    public void updateSchedule(String newTitle, int newColCount, boolean newVisibility, int id) throws SQLException{
+    public void updateSchedule(String newTitle, int newColCount, boolean newVisibility, int id) throws SQLException {
         String sql = "UPDATE schedules SET title=?, numOfCol=?, isPublic=? WHERE id=?";
-        try(PreparedStatement statement = connection.prepareStatement(sql)){
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, newTitle);
             statement.setInt(2, newColCount);
             statement.setBoolean(3, newVisibility);
@@ -70,14 +71,15 @@ public final class DatabaseScheduleDao extends AbstractDao implements ScheduleDa
     public List<Schedule> getAllPublic(int user_id) throws SQLException {
         List<Schedule> getAllPublic = new ArrayList<>();
         String sql = "SELECT * FROM schedules WHERE isPublic='true' AND user_id!=?";
-        try(PreparedStatement statement = connection.prepareStatement(sql)){
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, user_id);
-            try(ResultSet resultSet = statement.executeQuery()){
-                while(resultSet.next()){
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
                     getAllPublic.add(fetchSchedule(resultSet));
                 }
             }
-        } return getAllPublic;
+        }
+        return getAllPublic;
     }
 
     @Override

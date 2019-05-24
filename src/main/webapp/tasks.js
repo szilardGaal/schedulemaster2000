@@ -86,9 +86,7 @@ function createTasksTable(tasks) {
 
     removeAllChildren(tasksDivEl);
 
-    const idAttribute = document.createAttribute('id');
-    idAttribute.value = 'myTasks'
-    tasksDivEl.setAttributeNode(idAttribute);
+    tasksDivEl.setAttribute('id', 'myTasks');
 
     const ulEl = document.createElement('ul');
 
@@ -101,12 +99,9 @@ function createTasksTable(tasks) {
     for (let i = 0; i < tasks.length; i++) {
         const task = tasks[i];
 
-        const dataTaskIdAttr = document.createAttribute('data-task-id');
-        dataTaskIdAttr.value = task.id;
-
         const taskButtonEl = document.createElement('a');
         taskButtonEl.textContent = task.title;
-        taskButtonEl.setAttributeNode(dataTaskIdAttr);
+        taskButtonEl.setAttribute('data-task-id', task.id);
         taskButtonEl.addEventListener('click', onTaskClicked);
 
         const taskContentDiv = document.createElement('div');
