@@ -18,7 +18,7 @@ public final class DatabaseTaskDao extends AbstractDao implements TaskDao {
         if (user_id == 0) {
             throw new IllegalArgumentException("User ID cannot be null or empty");
         }
-        
+
         String sql = "SELECT * FROM tasks WHERE user_id = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, user_id);
@@ -72,7 +72,7 @@ public final class DatabaseTaskDao extends AbstractDao implements TaskDao {
     }
 
     @Override
-    public Task findTaskById(int task_id) throws SQLException{
+    public Task findTaskById(int task_id) throws SQLException {
         String sql = "SELECT * FROM tasks WHERE id = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, task_id);
@@ -87,31 +87,30 @@ public final class DatabaseTaskDao extends AbstractDao implements TaskDao {
 
     @Override
     public List<Task> getTasksForSlot(int scheduleId, int columnId, int userId, String time) throws SQLException {
-        String timePlusOne = Integer.parseInt(time.split(":")[0])+1 + ":00";
-        String timeMinusOne = Integer.parseInt(time.split(":")[0])-1 + ":00";
+        String timePlusOne = Integer.parseInt(time.split(":")[0]) + 1 + ":00";
+        String timeMinusOne = Integer.parseInt(time.split(":")[0]) - 1 + ":00";
         List<Task> tasks = new ArrayList<>();
-        String sql = "select * from tasks\n" +
+        String sql = "select distinct tasks.id, tasks.title, tasks.content from tasks\n" +
             "left join slots on tasks.id = slots.task_id\n" +
             "left join schedule_columns on slots.column_id = schedule_columns.id\n" +
             "left join schedules on schedule_columns.id = schedules.id\n" +
-            "where ((schedules.id != ? or schedules.id is null) and tasks.user_id = ? and\n" +
-            "(column_id != ? or column_id is null) and \n" +
-            "(time is null or time = ? or time = ?))\n" +
-            "or\n" +
-            "(schedules.id = ? and column_id = ? and tasks.user_id = ? and\n" +
-            "(time = ? or time = ? or time = ?))";
+            "where\n" +
+            "   case when (schedules.id is null or schedules.id != ?) then\n" +
+            "   tasks.user_id = ?\n" +
+            "   when schedules.id = ? then\n" +
+            "   tasks.user_id = ? and\n" +
+            "   (slots.column_id = ?) and\n" +
+            "   (slots.time = ? or slots.time = ? or slots.time = ?)\n" +
+            "   end";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, scheduleId);
             statement.setInt(2, userId);
-            statement.setInt(3, columnId);
-            statement.setString(4, timePlusOne);
-            statement.setString(5, timeMinusOne);
-            statement.setInt(6, scheduleId);
-            statement.setInt(7, columnId);
-            statement.setInt(8, userId);
-            statement.setString(9, timeMinusOne);
-            statement.setString(10, time);
-            statement.setString(11, timePlusOne);
+            statement.setInt(3, scheduleId);
+            statement.setInt(4, userId);
+            statement.setInt(5, columnId);
+            statement.setString(6, timeMinusOne);
+            statement.setString(7, time);
+            statement.setString(8, timePlusOne);
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     tasks.add(fetchTask(resultSet));
