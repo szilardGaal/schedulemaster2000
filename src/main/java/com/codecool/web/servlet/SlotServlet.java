@@ -38,4 +38,22 @@ public class SlotServlet extends AbstractServlet {
         }
     }
 
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        try (Connection connection = getConnection(req.getServletContext())) {
+            SlotTaskDao slotTaskDao = new DatabaseSlotTaskDao(connection);
+            SlotTaskService slotTaskService = new SlotTaskService(slotTaskDao);
+
+            String idString = req.getParameter("cellId");
+            int columnId = Integer.parseInt(idString.split(",")[0]);
+            String time = idString.split(",")[1];
+
+            slotTaskService.removeTaskFromSlot(columnId, time);
+
+            sendMessage(resp, HttpServletResponse.SC_OK, null);
+        } catch (SQLException ex) {
+            handleSqlError(resp, ex);
+        }
+    }
+
 }

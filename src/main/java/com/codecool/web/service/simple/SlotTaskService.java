@@ -16,4 +16,8 @@ public class SlotTaskService {
     public Task getTaskFromSlot(int columnId, String time) throws SQLException {
         return dao.getTaskFromSlot(columnId, time);
     }
+
+    public void removeTaskFromSlot(int columnId, String time) throws SQLException {
+        dao.removeTaskFromSlot(columnId, time);
+    }
 }
