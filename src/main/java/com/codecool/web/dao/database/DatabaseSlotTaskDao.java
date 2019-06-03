@@ -32,6 +32,16 @@ public class DatabaseSlotTaskDao extends AbstractDao implements SlotTaskDao {
         return null;
     }
 
+    @Override
+    public void removeTaskFromSlot(int columnId, String time) throws SQLException {
+        String sql = "DELETE FROM slots WHERE column_id = ? and time = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, columnId);
+            statement.setString(2, time);
+            statement.executeUpdate();
+        }
+    }
+
     private Task fetchTask(ResultSet resultSet) throws SQLException {
         int id = resultSet.getInt("id");
         String title = resultSet.getString("title");
