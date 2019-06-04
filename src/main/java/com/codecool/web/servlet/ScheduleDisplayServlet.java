@@ -7,6 +7,8 @@ import com.codecool.web.dto.ScheduleDisplayDto;
 import com.codecool.web.model.User;
 import com.codecool.web.service.simple.ScheduleService;
 import com.codecool.web.service.simple.SimpleScheduleDisplayService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,6 +23,8 @@ import static java.lang.Integer.parseInt;
 
 @WebServlet("/protected/schedule-display")
 public class ScheduleDisplayServlet extends AbstractServlet {
+
+    private static final Logger logger = LoggerFactory.getLogger(ScheduleDisplayServlet.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -39,6 +43,7 @@ public class ScheduleDisplayServlet extends AbstractServlet {
         } catch (SQLException ex) {
             ex.getMessage();
             ex.printStackTrace();
+            logger.error("Exception occurred.", ex);
         }
     }
 
@@ -52,12 +57,15 @@ public class ScheduleDisplayServlet extends AbstractServlet {
             int taskId = Integer.parseInt(req.getParameter("task-id"));
             int columnId = Integer.parseInt(req.getParameter("column-id"));
             String time = req.getParameter("time");
+            logger.info("Task addition to schedule requested. Task id:" + taskId + " Schedule id: " + scheduleId);
 
             scheduleService.addTaskToSchedule(scheduleId, taskId, columnId, time);
+            logger.info("Task addition successful");
 
             sendMessage(resp, HttpServletResponse.SC_OK, null);
         } catch (SQLException ex) {
             handleSqlError(resp, ex);
+            logger.error("Exception occurred.", ex);
         }
     }
 }

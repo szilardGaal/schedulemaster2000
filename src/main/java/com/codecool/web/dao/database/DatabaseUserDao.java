@@ -3,7 +3,10 @@ package com.codecool.web.dao.database;
 import com.codecool.web.dao.UserDao;
 import com.codecool.web.model.User;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public final class DatabaseUserDao extends AbstractDao implements UserDao {
 
@@ -29,11 +32,11 @@ public final class DatabaseUserDao extends AbstractDao implements UserDao {
     }
 
     @Override
-    public void addUser(String userName, String email, boolean isAdmin) throws SQLException {
+    public void addUser(String userName, String password, boolean isAdmin) throws SQLException {
         String sql = "INSERT INTO users(name, password, isAdmin) VALUES (?, ?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, userName);
-            statement.setString(2, email);
+            statement.setString(2, password);
             statement.setBoolean(3, isAdmin);
             executeInsert(statement);
         }

@@ -5,6 +5,8 @@ import com.codecool.web.dao.database.DatabaseTaskDao;
 import com.codecool.web.model.Task;
 import com.codecool.web.model.User;
 import com.codecool.web.service.simple.TaskService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +21,8 @@ import static java.lang.Integer.parseInt;
 @WebServlet("/protected/taskContent")
 public final class TaskContentServlet extends AbstractServlet {
 
+    private static final Logger logger = LoggerFactory.getLogger(TaskContentServlet.class);
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         try (Connection connection = getConnection(req.getServletContext())) {
@@ -26,12 +30,15 @@ public final class TaskContentServlet extends AbstractServlet {
             TaskService taskService = new TaskService(taskDao);
 
             int task_id = parseInt(req.getParameter("task-id"));
+            logger.info("Task search requested:" + task_id);
 
             Task task = taskService.findTaskById(task_id);
+            logger.info("Task search successful.");
 
             sendMessage(resp, HttpServletResponse.SC_OK, task);
         } catch (SQLException ex) {
             handleSqlError(resp, ex);
+            logger.error("Exception occurred.", ex);
         }
     }
 
@@ -52,6 +59,7 @@ public final class TaskContentServlet extends AbstractServlet {
             sendMessage(resp, HttpServletResponse.SC_OK, tasks);
         } catch (SQLException ex) {
             handleSqlError(resp, ex);
+            logger.error("Exception occurred.", ex);
         }
     }
 }
