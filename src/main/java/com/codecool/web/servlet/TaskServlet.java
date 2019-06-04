@@ -5,6 +5,8 @@ import com.codecool.web.dao.database.DatabaseTaskDao;
 import com.codecool.web.model.Task;
 import com.codecool.web.model.User;
 import com.codecool.web.service.simple.TaskService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +18,8 @@ import java.util.List;
 
 @WebServlet("/protected/tasks")
 public final class TaskServlet extends AbstractServlet {
+
+    private static final Logger logger = LoggerFactory.getLogger(TaskServlet.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -30,6 +34,7 @@ public final class TaskServlet extends AbstractServlet {
             sendMessage(resp, HttpServletResponse.SC_OK, tasks);
         } catch (SQLException ex) {
             handleSqlError(resp, ex);
+            logger.error("Exception occurred.", ex);
         }
     }
 
@@ -50,6 +55,7 @@ public final class TaskServlet extends AbstractServlet {
             doGet(req, resp);
         } catch (SQLException ex) {
             handleSqlError(resp, ex);
+            logger.error("Exception occurred.", ex);
         }
     }
 
@@ -60,10 +66,14 @@ public final class TaskServlet extends AbstractServlet {
             TaskService taskService = new TaskService(taskDao);
 
             int id = Integer.parseInt(req.getParameter("taskId"));
+            logger.info("Task deletion requested:" + id);
+
             taskService.removeTask(id);
+            logger.info("Task deletion successful.");
 
         } catch (SQLException ex) {
             handleSqlError(resp, ex);
+            logger.error("Exception occurred.", ex);
         }
     }
 
@@ -78,12 +88,14 @@ public final class TaskServlet extends AbstractServlet {
             int id = Integer.parseInt(req.getParameter("id"));
 
             taskService.updateTask(id, title, content);
+            logger.info("Task updated:" + title + " - " + content);
             sendMessage(resp, HttpServletResponse.SC_OK, null);
 
             doGet(req, resp);
 
         } catch (SQLException ex) {
             handleSqlError(resp, ex);
+            logger.error("Exception occurred.", ex);
         }
     }
 }

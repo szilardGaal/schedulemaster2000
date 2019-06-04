@@ -4,6 +4,8 @@ import com.codecool.web.dao.ColumnDao;
 import com.codecool.web.dao.database.DatabaseColumnDao;
 import com.codecool.web.model.Column;
 import com.codecool.web.service.simple.ColumnService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +18,8 @@ import java.util.List;
 @WebServlet("/protected/columns")
 public class ColumnServlet extends AbstractServlet {
 
+    private static final Logger logger = LoggerFactory.getLogger(ColumnServlet.class);
+
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         try (Connection connection = getConnection(req.getServletContext())) {
@@ -23,6 +27,7 @@ public class ColumnServlet extends AbstractServlet {
             ColumnService service = new ColumnService(dao);
 
             int scheduleId = Integer.parseInt(req.getParameter("schedule-id"));
+            logger.info("Schedule id saved:" + scheduleId);
 
             List<Column> columns = service.getScheduleColumns(scheduleId);
 
@@ -30,6 +35,7 @@ public class ColumnServlet extends AbstractServlet {
 
         } catch (SQLException ex) {
             handleSqlError(resp, ex);
+            logger.error("Exception occurred.", ex);
         }
     }
 }

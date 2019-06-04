@@ -5,6 +5,8 @@ import com.codecool.web.dao.database.DatabaseUserDao;
 import com.codecool.web.model.User;
 import com.codecool.web.service.simple.PasswordHashService;
 import com.codecool.web.service.simple.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +19,8 @@ import java.sql.SQLException;
 
 @WebServlet("/register")
 public final class RegisterServlet extends AbstractServlet {
+
+    private static final Logger logger = LoggerFactory.getLogger(RegisterServlet.class);
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -36,20 +40,28 @@ public final class RegisterServlet extends AbstractServlet {
 
             try {
                 password = pwh.getHashedPassword(req.getParameter("password"));
+                logger.info("User registration initiated. " + userName);
 
                 us.registerUser(userName, password, isAdmin);
+                logger.info("Registration successful.");
+
                 User user = userDao.findByUserName(userName);
                 req.getSession().setAttribute("user", user);
+                logger.info("User assigned to session.");
+
                 sendMessage(resp, HttpServletResponse.SC_OK, user);
 
             } catch (NoSuchAlgorithmException ex) {
                 ex.getMessage();
-            } catch (InvalidKeySpecException e) {
-                e.printStackTrace();
+                logger.error("Exception occurred.", ex);
+            } catch (InvalidKeySpecException ex) {
+                ex.printStackTrace();
+                logger.error("Exception occurred.", ex);
             }
 
         } catch (SQLException ex) {
             handleSqlError(resp, ex);
+            logger.error("Exception occurred.", ex);
         }
     }
 }
