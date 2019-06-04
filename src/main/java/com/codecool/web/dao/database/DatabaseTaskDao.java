@@ -93,27 +93,28 @@ public final class DatabaseTaskDao extends AbstractDao implements TaskDao {
         String timePlusOne = Integer.parseInt(time.split(":")[0]) + 1 + ":00";
         String timeMinusOne = Integer.parseInt(time.split(":")[0]) - 1 + ":00";
         List<Task> tasks = new ArrayList<>();
-        String sql = "select distinct tasks.id, tasks.title, tasks.content from tasks\n" +
-            "left join slots on tasks.id = slots.task_id\n" +
-            "left join schedule_columns on slots.column_id = schedule_columns.id\n" +
-            "left join schedules on schedule_columns.id = schedules.id\n" +
-            "where\n" +
-            "   case when (schedules.id is null or schedules.id != ?) then\n" +
-            "   tasks.user_id = ?\n" +
-            "   when schedules.id = ? then\n" +
-            "   tasks.user_id = ? and\n" +
-            "   (slots.column_id = ?) and\n" +
-            "   (slots.time = ? or slots.time = ? or slots.time = ?)\n" +
-            "   end";
+        String sql = "select * from tasks " +
+        "where user_id = ? and (tasks.title not in " +
+            "(select tasks.title from slots " +
+            "left join schedule_columns on schedule_columns.id = slots.column_id " +
+            "left join tasks on slots.task_id = tasks.id " +
+            "where schedule_columns.schedule_id = ? )" +
+            "or tasks.title in " +
+            "(select tasks.title from slots " +
+            "left join schedule_columns on schedule_columns.id = slots.column_id " +
+            "left join tasks on slots.task_id = tasks.id " +
+            "where schedule_columns.schedule_id = ? " +
+            "and " +
+            "(slots.time = ? or slots.time = ? or slots.time = ?) " +
+            "and schedule_columns.id = ?)) ";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, scheduleId);
-            statement.setInt(2, userId);
+            statement.setInt(1, userId);
+            statement.setInt(2, scheduleId);
             statement.setInt(3, scheduleId);
-            statement.setInt(4, userId);
-            statement.setInt(5, columnId);
-            statement.setString(6, timeMinusOne);
-            statement.setString(7, time);
-            statement.setString(8, timePlusOne);
+            statement.setString(4, timeMinusOne);
+            statement.setString(5, time);
+            statement.setString(6, timePlusOne);
+            statement.setInt(7, columnId);
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     tasks.add(fetchTask(resultSet));
