@@ -4,8 +4,12 @@ function showFirstSchedule() {
         return;
     }
     const firstId = scheduleList[0].firstChild.getAttribute('data-schedule-id');
+    showScheduleById(firstId);
+}
+
+function showScheduleById(scheduleId) {
     const params = new URLSearchParams();
-    params.append('id', firstId);
+    params.append('id', scheduleId);
 
     const xhr = new XMLHttpRequest();
     xhr.addEventListener('load', onScheduleDisplayResponse);
@@ -19,6 +23,19 @@ function onScheduleClicked() {
 
     const params = new URLSearchParams();
     params.append('id', id);
+
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener('load', onScheduleDisplayResponse);
+    xhr.addEventListener('error', onNetworkError);
+    xhr.open('GET', 'protected/schedule-display?' + params.toString());
+    xhr.send();
+}
+
+function reloadSchedule(scheduleId) {
+    
+
+    const params = new URLSearchParams();
+    params.append('id', scheduleId);
 
     const xhr = new XMLHttpRequest();
     xhr.addEventListener('load', onScheduleDisplayResponse);
@@ -136,7 +153,6 @@ function checkIfSlotHasTask(id) {
 }
 
 function ifSlotHasTaskReceived(evt) {
-    debugger;
     const text = this.responseText;
     const task = JSON.parse(text);
     const id = evt.target.myParam;
@@ -172,7 +188,7 @@ function removeTaskFromCell() {
 
 function onRemoveTaskFromCellResponse() {
     if (this.status === OK) {
-        showSchedules();
+        reloadSchedule(document.getElementById('schedule-display-table').getAttribute('data-schedule-id'));
     } else {
         onOtherResponse(scheduleDisplayDiv, this);
     }
@@ -224,7 +240,8 @@ function dropdownTaskClicked() {
 
 function onDropdownTaskClickedResponse() {
     if (this.status === OK) {
-        showSchedules();
+        debugger;
+        reloadSchedule(document.getElementById('schedule-display-table').getAttribute('data-schedule-id'));
     } else {
         onOtherResponse(scheduleDisplayDiv, this);
     }
