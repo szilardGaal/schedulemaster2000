@@ -15,6 +15,8 @@
         <script src="schedule-view.js"></script>
         <script src="guest.js"></script>
         <script src="tasks.js" var="tasksScriptUrl"></script>
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
+        <meta name="google-signin-client_id" content="694554318660-0papjgbnrrrqu1pq4lml387i39tg0mal.apps.googleusercontent.com">
         <title>ScheduleMaster2000</title>
     </head>
 <body>
@@ -28,6 +30,7 @@
             <button id="register-content-button">Register</button><br>
             <p>Try ScheduleMaster2000 without registration!</p>
             <button id="login-as-guest">Try now</button>
+            <div class="g-signin2" data-onsuccess="onSignIn"></div>
         </form>
     </div>
     <div id="register-content" class="hidden content">
@@ -130,6 +133,19 @@
             <div id="logout-content" class="hidden content">
                     <button id="logout-button">Logout</button>
             </div>
+            <a href="#" onclick="signOut();">Sign out</a>
+            <script>
+              function signOut() {
+                var auth2 = gapi.auth2.getAuthInstance();
+                auth2.signOut().then(function () {
+                      const xhr = new XMLHttpRequest();
+                      xhr.addEventListener('load', onLogoutResponse);
+                      xhr.addEventListener('error', onNetworkError);
+                      xhr.open('POST', 'protected/logout');
+                      xhr.send();;
+                });
+              }
+            </script>
         </div>
     </div>
     <div id="schedule_content" class="hidden content">
